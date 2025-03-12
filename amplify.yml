@@ -1,12 +1,21 @@
 version: 1
-frontend:
+backend:
   phases:
     build:
       commands:
-        - echo "No build commands required for static site"
+        - amplifyPush --simple
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        - npm run build
   artifacts:
     baseDirectory: /
     files:
       - '**/*'
   cache:
-    paths: [] 
+    paths:
+      - node_modules/**/* 

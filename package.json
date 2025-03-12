@@ -1,0 +1,32 @@
+{
+  "name": "comercial-mva",
+  "version": "1.0.0",
+  "description": "Commercial Motor Vehicle Accident Claims Landing Page",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve",
+    "build": "echo 'No build step required for static site'"
+  },
+  "dependencies": {
+    "aws-amplify": "^5.3.10",
+    "serve": "^14.2.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contentkingpins/comercial-mva.git"
+  },
+  "keywords": [
+    "mva",
+    "accident",
+    "claims",
+    "commercial",
+    "vehicle"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/contentkingpins/comercial-mva/issues"
+  },
+  "homepage": "https://github.com/contentkingpins/comercial-mva#readme"
+} 
