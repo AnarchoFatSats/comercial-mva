@@ -30,18 +30,18 @@ A landing page for commercial motor vehicle accident claims. This website helps 
 
 ### Current Image Implementation
 
-The site currently uses online placeholder images for faster development:
+The site uses reliable image hosting services for all images:
 
-1. **Hero Background**: Unsplash image
-   - URL: `https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7`
+1. **Hero Background**: Pexels image
+   - URL: `https://images.pexels.com/photos/163016/crash-test-collision-60-km-h-distraction-163016.jpeg`
    - Defined in: `css/styles.css`
 
-2. **Testimonial Photos**: Random User API
-   - URLs: `https://randomuser.me/api/portraits/...`
+2. **Testimonial Photos**: XSGames Random User API
+   - URLs: `https://xsgames.co/randomusers/assets/avatars/...`
    - Defined in: `index.html`
 
-3. **Partner Logos**: Placeholder.co
-   - URLs: `https://placehold.co/200x60/...`
+3. **Partner Logos**: Via Placeholder
+   - URLs: `https://via.placeholder.com/200x60/...`
    - Defined in: `index.html`
 
 ### Replacing with Your Own Images
@@ -57,7 +57,7 @@ When you're ready to use your own images:
 
 3. Update the image paths in the HTML and CSS files:
    - For hero: Update `background-image` in `css/styles.css`
-   - For testimonials and logos: Update `data-src` attributes in `index.html`
+   - For testimonials and logos: Update `src` attributes in `index.html`
 
 ### AWS Amplify Setup
 
