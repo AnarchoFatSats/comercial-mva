@@ -30,23 +30,30 @@ A landing page for commercial motor vehicle accident claims. This website helps 
 
 ### Current Image Implementation
 
-The site uses reliable image hosting services for all images:
+The site now uses local images stored in the assets/images directory:
 
-1. **Hero Background**: Pexels image
-   - URL: `https://images.pexels.com/photos/163016/crash-test-collision-60-km-h-distraction-163016.jpeg`
+1. **Hero Background**: Commercial vehicle accident image
+   - Path: `assets/images/truck-accident-aerial.jpg`
    - Defined in: `css/styles.css`
-   - **To replace with new aerial truck accident image**:
-     1. Save the aerial truck accident image to `assets/images/truck-accident-aerial.jpg`
-     2. In `css/styles.css`, find the `.hero-background` class
-     3. Replace the current `background-image` URL with `url('../assets/images/truck-accident-aerial.jpg')`
 
-2. **Testimonial Photos**: XSGames Random User API
-   - URLs: `https://xsgames.co/randomusers/assets/avatars/...`
+2. **Testimonial Photos**: Local testimonial images
+   - Paths: `assets/images/testimonials/male-testimonial.jpg` and `assets/images/testimonials/female-testimonial.jpg`
    - Defined in: `index.html`
 
-3. **Partner Logos**: Via Placeholder
-   - URLs: `https://via.placeholder.com/200x60/...`
+3. **Partner Logos**: Local partner logo images
+   - Paths: `assets/images/partner-logos/*.png`
    - Defined in: `index.html`
+
+### Customizing Images
+
+To replace with your own images:
+
+1. Simply replace the files in the respective directories:
+   - For hero: Replace `assets/images/truck-accident-aerial.jpg`
+   - For testimonials: Replace files in `assets/images/testimonials/`
+   - For logos: Replace files in `assets/images/partner-logos/`
+
+2. Make sure to maintain the same filenames or update the references in the HTML and CSS files.
 
 ### Replacing with Your Own Images
 
