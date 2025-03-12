@@ -11,6 +11,8 @@ async function submitFormToAPI(formData) {
             return response;
         } else {
             // Fallback to fetch API
+            // TODO: Replace with your actual API endpoint
+            // Example: https://api.example.com/submit or https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/submit
             const response = await fetch('https://REPLACE_WITH_YOUR_API_ENDPOINT/submit', {
                 method: 'POST',
                 headers: {
