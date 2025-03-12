@@ -329,11 +329,52 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Form data submitted:', formData);
         
         // Here you would typically send the data to your server
-        // For now, we'll just show a success message
-        alert('Thank you! Your case information has been submitted. We will contact you shortly.');
         
-        // Reset the form
-        restartForm();
+        // Show success message with click-to-call CTA
+        showSuccessWithCallCTA(phone);
+    }
+    
+    // Show success message with click-to-call CTA
+    function showSuccessWithCallCTA(phone) {
+        // Hide all steps
+        steps.forEach(step => {
+            step.style.display = 'none';
+        });
+        
+        // Create success message container if it doesn't exist
+        let successContainer = document.getElementById('success-container');
+        if (!successContainer) {
+            successContainer = document.createElement('div');
+            successContainer.id = 'success-container';
+            successContainer.className = 'form-step success-container';
+            form.appendChild(successContainer);
+        }
+        
+        // Format phone number for display
+        const formattedPhone = phone.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+        
+        // Set success content with click-to-call button
+        successContainer.innerHTML = `
+            <div class="success-icon">✓</div>
+            <h3>Your Case Has Been Submitted!</h3>
+            <p>Thank you for providing your information. One of our specialists will review your case details shortly.</p>
+            <p class="success-message">For immediate assistance, call us now:</p>
+            <a href="tel:+1${phone}" class="call-cta-button">
+                <span class="phone-icon">📞</span>
+                <span>Call (${phone.substring(0,3)}) ${phone.substring(3,6)}-${phone.substring(6)}</span>
+            </a>
+            <p class="success-note">Our team is standing by to discuss your case and answer any questions.</p>
+            <button type="button" class="restart-button">Submit Another Case</button>
+        `;
+        
+        // Show success container
+        successContainer.style.display = 'block';
+        
+        // Update progress bar to complete
+        updateProgressBar(totalSteps, totalSteps);
+        
+        // Add event listener to restart button
+        successContainer.querySelector('.restart-button').addEventListener('click', restartForm);
     }
     
     // Remove error class when input changes

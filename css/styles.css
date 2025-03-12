@@ -1279,4 +1279,79 @@ footer {
     .simple-header nav ul li {
         margin-left: 15px;
     }
+}
+
+/* Success Container Styles */
+.success-container {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.success-icon {
+    font-size: 60px;
+    color: #4CAF50;
+    margin-bottom: 20px;
+    height: 80px;
+    width: 80px;
+    line-height: 80px;
+    border-radius: 50%;
+    background-color: rgba(76, 175, 80, 0.1);
+    margin: 0 auto 20px;
+}
+
+.success-container h3 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.success-container p {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.success-message {
+    font-weight: 600;
+    font-size: 18px !important;
+    color: #333 !important;
+    margin-top: 30px !important;
+}
+
+.call-cta-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FF5722;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 15px 30px;
+    border-radius: 50px;
+    margin: 20px auto;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
+    max-width: 300px;
+}
+
+.call-cta-button:hover {
+    background-color: #E64A19;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 87, 34, 0.4);
+}
+
+.phone-icon {
+    font-size: 22px;
+    margin-right: 10px;
+}
+
+.success-note {
+    font-size: 14px !important;
+    color: #777 !important;
+    font-style: italic;
 } 
