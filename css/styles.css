@@ -169,23 +169,40 @@ button {
     padding: 80px 0;
     background-color: #fff;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    background-image: linear-gradient(135deg, #f5f7fa 0%, #e4ecfb 100%);
 }
 
 .form-section h2 {
     text-align: center;
     margin-bottom: 40px;
     color: var(--primary-color);
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     font-weight: 700;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.form-section h2:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--secondary-color);
+    border-radius: 2px;
 }
 
 .progress-container {
     margin-bottom: 30px;
+    max-width: 600px;
+    margin: 0 auto 30px;
 }
 
 .progress-bar {
     height: 10px;
-    background-color: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     border-radius: 5px;
     width: 0;
     transition: width 0.5s ease;
@@ -199,8 +216,8 @@ button {
 }
 
 .step-indicator {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background-color: var(--border-color);
     transition: var(--transition);
@@ -208,24 +225,26 @@ button {
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .step-indicator.active {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), #0077e6);
     transform: scale(1.2);
-    box-shadow: 0 2px 5px rgba(0, 86, 179, 0.3);
+    box-shadow: 0 3px 8px rgba(0, 86, 179, 0.4);
 }
 
 .form-step {
     display: none;
     max-width: 600px;
     margin: 0 auto;
-    padding: 35px;
+    padding: 40px;
     background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 86, 179, 0.1);
 }
 
 .form-step.active {
@@ -242,7 +261,7 @@ button {
     text-align: center;
     margin-bottom: 30px;
     color: var(--primary-color);
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: 700;
 }
 
@@ -257,30 +276,30 @@ button {
 .option-button {
     flex: 1;
     min-width: 130px;
-    padding: 18px 20px;
+    padding: 20px;
     background-color: #f5f7fa;
     border: 2px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-color);
-    transition: var(--transition);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
 .option-button:hover {
     background-color: #e9ecf1;
     border-color: #c5c9d1;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .option-button.selected {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), #0077e6);
     border-color: var(--primary-color);
     color: var(--light-text);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 86, 179, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
 }
 
 .input-group {
@@ -297,18 +316,19 @@ button {
 
 .input-group input {
     width: 100%;
-    padding: 15px 18px;
+    padding: 16px 20px;
     border: 2px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 1.1rem;
-    transition: var(--transition);
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .input-group input:focus {
     border-color: var(--primary-color);
     outline: none;
     box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.2);
+    transform: translateY(-2px);
 }
 
 .input-group input.error {
@@ -317,18 +337,18 @@ button {
 }
 
 .date-picker-container {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .date-hint, .input-hint {
     font-size: 0.9rem;
     color: #666;
-    margin-top: 5px;
+    margin-top: 8px;
     font-style: italic;
 }
 
 .input-hint {
-    margin-top: 5px;
+    margin-top: 8px;
     font-size: 0.85rem;
 }
 
@@ -336,31 +356,63 @@ button {
     display: block;
     width: 100%;
     padding: 18px;
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), #0077e6);
     color: var(--light-text);
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 1.2rem;
     font-weight: 700;
-    margin-top: 25px;
-    transition: var(--transition);
-    box-shadow: 0 4px 10px rgba(0, 86, 179, 0.3);
+    margin-top: 30px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
+    position: relative;
+    overflow: hidden;
 }
 
 .next-button:hover, .submit-button:hover, .restart-button:hover {
-    background-color: #0046a1;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 86, 179, 0.4);
+    background: linear-gradient(135deg, #0056b3, #0068cc);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 86, 179, 0.4);
+}
+
+.next-button:active, .submit-button:active, .restart-button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0, 86, 179, 0.3);
 }
 
 .submit-button {
-    background-color: var(--secondary-color);
-    box-shadow: 0 4px 10px rgba(255, 107, 0, 0.3);
+    background: linear-gradient(135deg, var(--secondary-color), #ff8124);
+    box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
 }
 
 .submit-button:hover {
-    background-color: #ff8124;
-    box-shadow: 0 6px 15px rgba(255, 107, 0, 0.4);
+    background: linear-gradient(135deg, #ff7b1a, #ff9142);
+    box-shadow: 0 8px 20px rgba(255, 107, 0, 0.4);
+}
+
+.submit-button:active {
+    box-shadow: 0 3px 10px rgba(255, 107, 0, 0.3);
+}
+
+/* Add ripple effect to buttons */
+.next-button:after, .submit-button:after, .restart-button:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+.next-button:active:after, .submit-button:active:after, .restart-button:active:after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    transition: 0s;
 }
 
 .disqualification {
@@ -542,8 +594,8 @@ button {
     margin: 0 auto;
     padding: 40px;
     background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
 .faq-section h3 {
@@ -552,22 +604,37 @@ button {
     color: var(--primary-color);
     font-size: 1.8rem;
     font-weight: 700;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.faq-section h3:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    border-radius: 2px;
 }
 
 .faq-item {
     margin-bottom: 20px;
     border: 1px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
-    transition: box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .faq-item:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
 }
 
 .faq-question {
-    padding: 18px 20px;
+    padding: 20px;
     background-color: #f9f9f9;
     font-weight: 700;
     cursor: pointer;
@@ -592,19 +659,24 @@ button {
     transition: transform 0.3s ease;
 }
 
+.faq-item.active .faq-question {
+    background-color: #f0f5ff;
+}
+
 .faq-item.active .faq-question:after {
     content: '-';
-    transform: translateY(-50%) rotate(180deg);
+    transform: translateY(-50%);
 }
 
 .faq-answer {
-    padding: 0 20px;
+    padding: 0;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease, padding 0.5s ease;
+    transition: all 0.5s ease;
     font-size: 1.05rem;
     line-height: 1.6;
     color: #555;
+    background-color: #fff;
 }
 
 .faq-item.active .faq-answer {
