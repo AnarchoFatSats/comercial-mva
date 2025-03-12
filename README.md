@@ -28,18 +28,36 @@ A landing page for commercial motor vehicle accident claims. This website helps 
    ./setup.sh
    ```
 
-3. Replace placeholder images with actual content in the `assets/images` directory.
+### Current Image Implementation
 
-### Hero Image Setup
+The site currently uses online placeholder images for faster development:
 
-The hero section requires a background image:
+1. **Hero Background**: Unsplash image
+   - URL: `https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7`
+   - Defined in: `css/styles.css`
 
-1. Add your image file as `assets/images/hero-background.jpg`
-2. For best results, use an image that:
-   - Has a resolution of at least 1920x1080 pixels
-   - Is optimized for web (under 300KB)
-   - Shows a commercial vehicle accident scene (without injuries)
-   - Has good contrast for text overlay
+2. **Testimonial Photos**: Random User API
+   - URLs: `https://randomuser.me/api/portraits/...`
+   - Defined in: `index.html`
+
+3. **Partner Logos**: Placeholder.co
+   - URLs: `https://placehold.co/200x60/...`
+   - Defined in: `index.html`
+
+### Replacing with Your Own Images
+
+When you're ready to use your own images:
+
+1. Create the appropriate directories:
+   ```
+   mkdir -p assets/images/testimonials assets/images/partner-logos
+   ```
+
+2. Add your images to these directories
+
+3. Update the image paths in the HTML and CSS files:
+   - For hero: Update `background-image` in `css/styles.css`
+   - For testimonials and logos: Update `data-src` attributes in `index.html`
 
 ### AWS Amplify Setup
 

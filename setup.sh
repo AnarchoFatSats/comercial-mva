@@ -1,37 +1,39 @@
 #!/bin/bash
 
 # Create directory structure
-mkdir -p css js assets/images/partner-logos assets/images/testimonials
+mkdir -p css js assets/images
 
 # Create empty files
 touch favicon.ico
-touch assets/images/hero-background.jpg
-touch assets/images/logo.png
-touch assets/images/partner-logos/law-firm-1.png
-touch assets/images/partner-logos/law-firm-2.png
-touch assets/images/partner-logos/law-firm-3.png
-touch assets/images/testimonials/testimonial-1.jpg
-touch assets/images/testimonials/testimonial-2.jpg
 
 # Copy README to assets folder
 cp README.md assets/
 
 echo "Project structure created successfully!"
-echo "Don't forget to replace placeholder files with actual content."
 
 # Instructions for hero image
 echo ""
-echo "=== INSTRUCTIONS FOR HERO IMAGE ==="
-echo "1. Replace the placeholder hero image with your actual image:"
-echo "   assets/images/hero-background.jpg"
+echo "=== INSTRUCTIONS FOR IMAGES ==="
+echo "The site is currently using online placeholder images:"
 echo ""
-echo "2. Recommended hero image specifications:"
-echo "   - Resolution: 1920x1080 pixels (minimum)"
-echo "   - Format: JPG or WebP (for better compression)"
-echo "   - Size: Keep under 300KB for fast loading"
-echo "   - Content: Commercial vehicle accident scene (no injuries shown)"
+echo "1. Hero background: Unsplash image"
+echo "   - When ready to replace, add your image to assets/images/hero-background.jpg"
+echo "   - Then update css/styles.css to use the local path"
 echo ""
-echo "3. Image optimization tools:"
+echo "2. Testimonial photos: Random user API"
+echo "   - When ready to replace, add your images to assets/images/testimonials/"
+echo "   - Then update the img src attributes in index.html"
+echo ""
+echo "3. Partner logos: Placeholder.co"
+echo "   - When ready to replace, add your logos to assets/images/partner-logos/"
+echo "   - Then update the img src attributes in index.html"
+echo ""
+echo "4. Recommended image specifications:"
+echo "   - Hero: 1920x1080 pixels, JPG or WebP format, under 300KB"
+echo "   - Testimonials: 80x80 pixels, square aspect ratio"
+echo "   - Logos: 200x60 pixels, transparent PNG background"
+echo ""
+echo "5. Image optimization tools:"
 echo "   - TinyPNG (https://tinypng.com)"
 echo "   - Squoosh (https://squoosh.app)"
 echo "   - ImageOptim (https://imageoptim.com)"
