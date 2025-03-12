@@ -34,19 +34,41 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-background">
-            <!-- Static background image only -->
+            <!-- Static background image of commercial vehicle accident -->
         </div>
         <div class="hero-content">
-            <h1>Injured in a Commercial Vehicle Accident?</h1>
-            <h2>You Could Be Owed Compensation!</h2>
-            <p class="subheading">Check if you qualify in 30 seconds—FREE case review!</p>
-            <button class="cta-button" id="hero-cta">Start My Free Case Review</button>
+            <h1>Injured in a Commercial Vehicle Accident? You May Be Owed Compensation!</h1>
+            <h2>Claim up to $1M in accident coverage</h2>
+            <p class="subheading">Find out if you qualify in 30 seconds—FREE case review!</p>
+            <button class="cta-button" id="hero-cta">Time is running out—Check Your Eligibility Now!</button>
         </div>
     </section>
 
     <!-- Dynamic Form Section -->
     <section class="form-section" id="form-section">
         <div class="container">
+            <div class="countdown-container">
+                <p class="countdown-label">Time Remaining to File Your Claim:</p>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="countdown-days">2</span>
+                        <span class="countdown-unit">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="countdown-hours">14</span>
+                        <span class="countdown-unit">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="countdown-minutes">23</span>
+                        <span class="countdown-unit">Mins</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="countdown-seconds">45</span>
+                        <span class="countdown-unit">Secs</span>
+                    </div>
+                </div>
+            </div>
+            
             <h2>Free Case Evaluation</h2>
             <div class="progress-container">
                 <div class="progress-bar" id="progress-bar"></div>
@@ -139,17 +161,18 @@
                     <h3>Complete Your Free Case Review</h3>
                     <div class="input-group">
                         <label for="full-name">Full Name</label>
-                        <input type="text" id="full-name" name="full-name" required>
+                        <input type="text" id="full-name" name="full-name" required placeholder="Your full name">
                     </div>
                     <div class="input-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" required>
+                        <input type="tel" id="phone" name="phone" required placeholder="(555) 123-4567">
                     </div>
                     <div class="input-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
                     </div>
                     <button type="submit" class="submit-button">Check My Eligibility</button>
+                    <p class="form-disclaimer">By submitting, you agree to our <a href="#">Privacy Policy</a> and consent to receive calls and texts at the number provided. Message/data rates apply. You can unsubscribe at any time.</p>
                 </div>
 
                 <!-- Disqualification Message -->
@@ -172,11 +195,13 @@
             <div class="testimonials">
                 <div class="testimonial">
                     <img data-src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client Testimonial" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3C/svg%3E">
+                    <div class="rating">★★★★★</div>
                     <blockquote>"Claim Connectors helped me get my case approved fast! I received the compensation I deserved within months."</blockquote>
                     <cite>- Michael R., Truck Accident Victim</cite>
                 </div>
                 <div class="testimonial">
                     <img data-src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client Testimonial" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3C/svg%3E">
+                    <div class="rating">★★★★★</div>
                     <blockquote>"I was hesitant at first, but their team made the process so easy. They handled everything while I focused on recovery."</blockquote>
                     <cite>- Sarah T., Commercial Vehicle Accident Survivor</cite>
                 </div>
@@ -217,7 +242,17 @@
 
     <!-- Mobile Sticky CTA -->
     <div class="mobile-sticky-cta">
-        <button id="mobile-cta">Start My Free Case Review</button>
+        <button id="mobile-cta">Check Eligibility Now!</button>
+    </div>
+
+    <!-- Exit Intent Popup -->
+    <div class="exit-popup" id="exit-popup">
+        <div class="exit-popup-content">
+            <button class="exit-popup-close" id="exit-popup-close">&times;</button>
+            <h3>Don't Miss Out!</h3>
+            <p>Find Out If You Qualify for Compensation in Seconds!</p>
+            <button class="exit-popup-cta" id="exit-popup-cta">Check Eligibility Now</button>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -235,5 +270,7 @@
     <script src="js/form.js"></script>
     <script src="js/tracking.js"></script>
     <script src="js/lazy-loading.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/exit-popup.js"></script>
 </body>
 </html> 
