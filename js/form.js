@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Validate phone format
-        const phonePattern = /^\(\d{3}\) \d{3}-\d{4}$/;
+        const phonePattern = /^[0-9]{10}$/;
         if (!phonePattern.test(phone)) {
             document.getElementById('phone').classList.add('error');
             return;
