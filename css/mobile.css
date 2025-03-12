@@ -7,7 +7,7 @@
     }
     
     .hero h1 {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
     }
     
     .hero h2 {
@@ -19,13 +19,21 @@
     }
     
     .cta-button {
-        padding: 12px 25px;
-        font-size: 1rem;
+        padding: 15px 25px;
+        font-size: 1.1rem;
     }
     
     /* Form Section */
     .form-section {
         padding: 50px 0;
+    }
+    
+    .form-step {
+        padding: 25px 20px;
+    }
+    
+    .form-step h3 {
+        font-size: 1.4rem;
     }
     
     .option-buttons {
@@ -37,9 +45,41 @@
         margin-bottom: 10px;
     }
     
+    /* Testimonials */
+    .testimonial {
+        min-width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    /* Partner Logos */
+    .logos {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .logos img {
+        height: 40px;
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+        padding: 30px 20px;
+    }
+    
+    .faq-question {
+        font-size: 1rem;
+        padding: 15px;
+    }
+    
     /* Mobile Sticky CTA */
     .mobile-sticky-cta {
         display: block;
+        padding: 10px;
+    }
+    
+    .mobile-sticky-cta button {
+        padding: 12px;
+        font-size: 1rem;
     }
     
     /* Trust Building Section */
@@ -51,19 +91,6 @@
         flex-direction: column;
     }
     
-    .testimonial {
-        margin-bottom: 20px;
-    }
-    
-    .logos {
-        gap: 20px;
-    }
-    
-    .logos img {
-        height: 40px;
-    }
-    
-    /* Thank You Page */
     .thank-you-content {
         padding: 20px;
     }
@@ -86,7 +113,7 @@
 /* Small Mobile Devices */
 @media (max-width: 480px) {
     .hero h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
     
     .hero h2 {
@@ -97,11 +124,26 @@
         font-size: 1rem;
     }
     
-    .form-step {
-        padding: 20px 15px;
+    .form-step h3 {
+        font-size: 1.2rem;
+    }
+    
+    .input-group label {
+        font-size: 1rem;
     }
     
     .input-group input {
-        padding: 10px;
+        padding: 12px 15px;
+        font-size: 1rem;
+    }
+    
+    .next-button, .submit-button, .restart-button {
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
     }
 } 

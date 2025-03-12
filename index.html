@@ -151,12 +151,16 @@
                 <div class="form-step" id="step-7">
                     <h3>Complete Your Free Case Review</h3>
                     <div class="input-group">
-                        <label for="full-name">Full Name</label>
-                        <input type="text" id="full-name" name="full-name" required placeholder="Your full name">
+                        <label for="first-name">First Name</label>
+                        <input type="text" id="first-name" name="first-name" required placeholder="Your first name">
+                    </div>
+                    <div class="input-group">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" id="last-name" name="last-name" required placeholder="Your last name">
                     </div>
                     <div class="input-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="(555) 123-4567">
+                        <input type="tel" id="phone" name="phone" required placeholder="(555) 123-4567" pattern="^\(\d{3}\) \d{3}-\d{4}$">
                     </div>
                     <div class="input-group">
                         <label for="email">Email Address</label>
@@ -170,7 +174,14 @@
                 <div class="form-step disqualification" id="disqualification">
                     <h3>Thank you for your interest</h3>
                     <p>Based on the information provided, your case may not qualify for our specific services at this time.</p>
-                    <p>However, we recommend consulting with a general personal injury attorney who may be able to assist you with your situation.</p>
+                    <p>Some common reasons include:</p>
+                    <ul class="disqualification-reasons">
+                        <li>The accident occurred more than 2 years ago</li>
+                        <li>You were determined to be at fault</li>
+                        <li>Medical attention was not received within 14 days</li>
+                        <li>The accident did not involve a work vehicle</li>
+                    </ul>
+                    <p>We recommend consulting with a general personal injury attorney who may be able to assist you with your situation.</p>
                     <button type="button" class="restart-button">Start Over</button>
                 </div>
             </form>
@@ -240,16 +251,6 @@
         <button id="mobile-cta">Start Free Case Review</button>
     </div>
 
-    <!-- Exit Intent Popup -->
-    <div class="exit-popup" id="exit-popup">
-        <div class="exit-popup-content">
-            <button class="exit-popup-close" id="exit-popup-close">&times;</button>
-            <h3>Still Unsure?</h3>
-            <p>Work vehicle accidents often qualify for BOTH workers' comp AND third-party claims. Find out if you're eligible for additional compensation!</p>
-            <button class="exit-popup-cta" id="exit-popup-cta">Start My Free Case Review</button>
-        </div>
-    </div>
-
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -265,6 +266,5 @@
     <script src="js/form.js"></script>
     <script src="js/tracking.js"></script>
     <script src="js/lazy-loading.js"></script>
-    <script src="js/exit-popup.js"></script>
 </body>
 </html> 

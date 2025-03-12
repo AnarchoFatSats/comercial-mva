@@ -1,175 +1,80 @@
+/**
+ * Multi-step Form Implementation
+ * Handles the logic for the multi-step lead capture form
+ */
 document.addEventListener('DOMContentLoaded', function() {
     // Form elements
     const form = document.getElementById('claim-form');
-    const steps = document.querySelectorAll('.form-step');
     const progressBar = document.getElementById('progress-bar');
     const stepIndicators = document.getElementById('step-indicators');
     const heroCta = document.getElementById('hero-cta');
     const mobileCta = document.getElementById('mobile-cta');
     
-    // Form data storage
-    let formData = {};
+    // Form steps
+    const steps = document.querySelectorAll('.form-step');
+    const totalSteps = 7; // Main steps (not counting conditional steps)
     
     // Current step tracking
     let currentStep = 0;
-    let totalSteps = 0;
-    let visibleSteps = [];
+    let formData = {};
+    
+    // Initialize the form
+    initForm();
     
     // Initialize the form
     function initForm() {
         // Create step indicators
         createStepIndicators();
         
-        // Set up event listeners
-        setupEventListeners();
-        
         // Show first step
         showStep(0);
         
-        // Update progress bar
-        updateProgress();
+        // Add event listeners to option buttons
+        document.querySelectorAll('.option-button').forEach(button => {
+            button.addEventListener('click', handleOptionSelection);
+        });
+        
+        // Add event listeners to next buttons
+        document.querySelectorAll('.next-button').forEach(button => {
+            button.addEventListener('click', () => {
+                validateAndProceed();
+            });
+        });
+        
+        // Add event listener to restart button
+        document.querySelector('.restart-button').addEventListener('click', restartForm);
+        
+        // Add event listener to form submission
+        form.addEventListener('submit', handleSubmit);
+        
+        // Add event listeners to hero and mobile CTAs
+        heroCta.addEventListener('click', () => {
+            document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        mobileCta.addEventListener('click', () => {
+            document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Set max date for accident date (2 years ago)
+        const datePicker = document.getElementById('accident-date');
+        const today = new Date();
+        const twoYearsAgo = new Date(today.getFullYear() - 2, today.getMonth(), today.getDate());
+        const maxDate = today.toISOString().split('T')[0];
+        const minDate = twoYearsAgo.toISOString().split('T')[0];
+        
+        datePicker.setAttribute('max', maxDate);
+        datePicker.setAttribute('min', minDate);
     }
     
-    // Create step indicators based on the number of steps
+    // Create step indicators
     function createStepIndicators() {
-        // Get all potential steps (excluding conditional steps)
-        const mainSteps = [
-            document.getElementById('step-1'),
-            document.getElementById('step-2'),
-            document.getElementById('step-3'),
-            document.getElementById('step-4'),
-            document.getElementById('step-5'),
-            document.getElementById('step-6'),
-            document.getElementById('step-7')
-        ];
-        
-        totalSteps = mainSteps.length;
-        visibleSteps = mainSteps;
-        
-        // Create indicators
         for (let i = 0; i < totalSteps; i++) {
             const indicator = document.createElement('div');
             indicator.classList.add('step-indicator');
-            if (i === 0) indicator.classList.add('active');
+            indicator.textContent = i + 1;
             stepIndicators.appendChild(indicator);
         }
-    }
-    
-    // Set up event listeners
-    function setupEventListeners() {
-        // Hero CTA button
-        if (heroCta) {
-            heroCta.addEventListener('click', function() {
-                document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
-            });
-        }
-        
-        // Mobile CTA button
-        if (mobileCta) {
-            mobileCta.addEventListener('click', function() {
-                document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
-            });
-        }
-        
-        // Option buttons
-        const optionButtons = document.querySelectorAll('.option-button');
-        optionButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const step = this.closest('.form-step');
-                const stepId = step.id;
-                const value = this.getAttribute('data-value');
-                
-                // Store the selected value
-                formData[stepId] = value;
-                
-                // Highlight selected button
-                step.querySelectorAll('.option-button').forEach(btn => {
-                    btn.classList.remove('selected');
-                });
-                this.classList.add('selected');
-                
-                // Handle conditional logic
-                handleConditionalLogic(stepId, value);
-                
-                // Move to next step after a short delay
-                setTimeout(() => {
-                    nextStep();
-                }, 300);
-            });
-        });
-        
-        // Next buttons
-        const nextButtons = document.querySelectorAll('.next-button');
-        nextButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const step = this.closest('.form-step');
-                const inputs = step.querySelectorAll('input[required]');
-                let isValid = true;
-                
-                // Validate required inputs
-                inputs.forEach(input => {
-                    if (!input.value) {
-                        isValid = false;
-                        input.classList.add('error');
-                    } else {
-                        input.classList.remove('error');
-                        // Store input value
-                        formData[input.id] = input.value;
-                    }
-                });
-                
-                if (isValid) {
-                    // Handle date validation for step-3
-                    if (step.id === 'step-3') {
-                        const dateInput = document.getElementById('accident-date');
-                        const selectedDate = new Date(dateInput.value);
-                        const twoYearsAgo = new Date();
-                        twoYearsAgo.setFullYear(twoYearsAgo.getFullYear() - 2);
-                        
-                        if (selectedDate < twoYearsAgo) {
-                            // Disqualify if accident is older than 2 years
-                            showDisqualification();
-                            return;
-                        }
-                    }
-                    
-                    nextStep();
-                }
-            });
-        });
-        
-        // Restart button
-        const restartButton = document.querySelector('.restart-button');
-        if (restartButton) {
-            restartButton.addEventListener('click', function() {
-                resetForm();
-            });
-        }
-        
-        // Form submission
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Collect final form data
-                const finalInputs = document.querySelectorAll('#step-7 input');
-                finalInputs.forEach(input => {
-                    formData[input.id] = input.value;
-                });
-                
-                // Submit the form data
-                submitForm();
-            });
-        }
-        
-        // FAQ toggles
-        const faqQuestions = document.querySelectorAll('.faq-question');
-        faqQuestions.forEach(question => {
-            question.addEventListener('click', function() {
-                const faqItem = this.parentElement;
-                faqItem.classList.toggle('active');
-            });
-        });
     }
     
     // Show a specific step
@@ -180,174 +85,257 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Show the current step
-        if (visibleSteps[stepIndex]) {
-            visibleSteps[stepIndex].classList.add('active');
-            currentStep = stepIndex;
-            
-            // Update step indicators
-            updateStepIndicators();
-            
-            // Update progress bar
-            updateProgress();
-        }
-    }
-    
-    // Move to the next step
-    function nextStep() {
-        if (currentStep < visibleSteps.length - 1) {
-            showStep(currentStep + 1);
-        }
-    }
-    
-    // Update progress bar
-    function updateProgress() {
-        const progress = ((currentStep + 1) / visibleSteps.length) * 100;
+        steps[stepIndex].classList.add('active');
+        
+        // Update progress bar
+        const progress = (stepIndex / (totalSteps - 1)) * 100;
         progressBar.style.width = `${progress}%`;
-    }
-    
-    // Update step indicators
-    function updateStepIndicators() {
+        
+        // Update step indicators
         const indicators = document.querySelectorAll('.step-indicator');
         indicators.forEach((indicator, index) => {
-            if (index <= currentStep) {
+            if (index <= stepIndex) {
                 indicator.classList.add('active');
             } else {
                 indicator.classList.remove('active');
             }
         });
+        
+        // Update current step
+        currentStep = stepIndex;
     }
     
-    // Handle conditional logic based on user responses
-    function handleConditionalLogic(stepId, value) {
+    // Handle option selection
+    function handleOptionSelection(e) {
+        const button = e.target;
+        const stepElement = button.closest('.form-step');
+        const stepButtons = stepElement.querySelectorAll('.option-button');
+        
+        // Remove selected class from all buttons in this step
+        stepButtons.forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        
+        // Add selected class to clicked button
+        button.classList.add('selected');
+        
+        // Store the selection
+        const stepId = stepElement.id;
+        const value = button.getAttribute('data-value');
+        formData[stepId] = value;
+        
+        // Process conditional logic
+        setTimeout(() => {
+            processConditionalLogic(stepId, value);
+        }, 300);
+    }
+    
+    // Process conditional logic based on user selection
+    function processConditionalLogic(stepId, value) {
         switch (stepId) {
-            case 'step-2': // Who was at fault?
+            case 'step-1':
+                if (value === 'personal') {
+                    // If personal vehicle, ask if other vehicle was a work vehicle
+                    showStep(1); // Show step-1b
+                } else {
+                    // Otherwise, proceed to step 2
+                    showStep(2);
+                }
+                break;
+                
+            case 'step-1b':
+                if (value === 'no') {
+                    // If other vehicle was not a work vehicle, disqualify
+                    showDisqualification();
+                } else {
+                    // Otherwise, proceed to step 2
+                    showStep(2);
+                }
+                break;
+                
+            case 'step-2':
                 if (value === 'me') {
-                    // Disqualify if user was at fault
+                    // If user was at fault, disqualify
                     showDisqualification();
+                } else {
+                    // Otherwise, proceed to step 3
+                    showStep(3);
                 }
                 break;
                 
-            case 'step-4': // Commercial vehicle involved?
+            case 'step-3':
+                // Date validation is handled in validateAndProceed
+                break;
+                
+            case 'step-4':
                 if (value === 'no') {
-                    // Ask if another driver was involved
-                    insertConditionalStep('step-4b', 4);
+                    // If not on the clock, ask if other driver was in work vehicle
+                    showStep(5); // Show step-4b
+                } else {
+                    // Otherwise, proceed to step 5
+                    showStep(6);
                 }
                 break;
                 
-            case 'step-4b': // Another driver involved?
+            case 'step-4b':
                 if (value === 'no') {
-                    // Disqualify if no commercial vehicle and no other driver
+                    // If other driver was not in work vehicle, disqualify
                     showDisqualification();
+                } else {
+                    // Otherwise, proceed to step 5
+                    showStep(6);
                 }
                 break;
                 
-            case 'step-5': // Medical attention within 7 days?
+            case 'step-5':
                 if (value === 'no') {
-                    // Ask if medical attention within 14 days
-                    insertConditionalStep('step-5b', 5);
+                    // If no medical attention within 7 days, ask if within 14 days
+                    showStep(7); // Show step-5b
+                } else {
+                    // Otherwise, proceed to step 6
+                    showStep(8);
                 }
                 break;
                 
-            case 'step-5b': // Medical attention within 14 days?
+            case 'step-5b':
                 if (value === 'no') {
-                    // Disqualify if no medical attention within 14 days
+                    // If no medical attention within 14 days, disqualify
                     showDisqualification();
+                } else {
+                    // Otherwise, proceed to step 6
+                    showStep(8);
                 }
                 break;
                 
-            case 'step-6': // Police report filed?
+            case 'step-6':
                 if (value === 'yes') {
-                    // Ask if they have a copy of the report
-                    insertConditionalStep('step-6b', 6);
+                    // If police report was filed, ask if they have a copy
+                    showStep(9); // Show step-6b
+                } else {
+                    // Otherwise, proceed to final step
+                    showStep(10);
                 }
+                break;
+                
+            case 'step-6b':
+                // Regardless of answer, proceed to final step
+                showStep(10);
+                break;
+                
+            default:
+                // For any other step, just go to the next one
+                showStep(currentStep + 1);
                 break;
         }
     }
     
-    // Insert a conditional step
-    function insertConditionalStep(stepId, afterIndex) {
-        const conditionalStep = document.getElementById(stepId);
-        if (conditionalStep) {
-            // Update visible steps array
-            visibleSteps.splice(afterIndex + 1, 0, conditionalStep);
+    // Validate current step and proceed
+    function validateAndProceed() {
+        if (currentStep === 3) { // Date picker step
+            const datePicker = document.getElementById('accident-date');
+            if (!datePicker.value) {
+                // Show error if date is not selected
+                datePicker.classList.add('error');
+                return;
+            }
             
-            // Update total steps
-            totalSteps = visibleSteps.length;
+            // Check if date is more than 2 years ago
+            const selectedDate = new Date(datePicker.value);
+            const today = new Date();
+            const twoYearsAgo = new Date(today.getFullYear() - 2, today.getMonth(), today.getDate());
             
-            // Show the conditional step next
-            currentStep = afterIndex;
-            nextStep();
+            if (selectedDate < twoYearsAgo) {
+                // If date is more than 2 years ago, disqualify
+                showDisqualification();
+                return;
+            }
+            
+            // Store the date and proceed
+            formData['accident-date'] = datePicker.value;
+            showStep(4);
         }
     }
     
     // Show disqualification message
     function showDisqualification() {
-        // Hide all steps
+        document.getElementById('disqualification').classList.add('active');
+        
+        // Hide all other steps
         steps.forEach(step => {
-            step.classList.remove('active');
-        });
-        
-        // Show disqualification message
-        const disqualification = document.getElementById('disqualification');
-        if (disqualification) {
-            disqualification.classList.add('active');
-        }
-        
-        // Reset progress
-        progressBar.style.width = '0%';
-        
-        // Reset step indicators
-        const indicators = document.querySelectorAll('.step-indicator');
-        indicators.forEach(indicator => {
-            indicator.classList.remove('active');
+            if (step.id !== 'disqualification') {
+                step.classList.remove('active');
+            }
         });
     }
     
-    // Reset the form
-    function resetForm() {
+    // Restart the form
+    function restartForm() {
         // Clear form data
         formData = {};
         
-        // Reset visible steps
-        visibleSteps = [
-            document.getElementById('step-1'),
-            document.getElementById('step-2'),
-            document.getElementById('step-3'),
-            document.getElementById('step-4'),
-            document.getElementById('step-5'),
-            document.getElementById('step-6'),
-            document.getElementById('step-7')
-        ];
-        
-        // Reset total steps
-        totalSteps = visibleSteps.length;
-        
-        // Show first step
-        showStep(0);
-        
-        // Clear selected options
-        const optionButtons = document.querySelectorAll('.option-button');
-        optionButtons.forEach(button => {
+        // Reset all selected buttons
+        document.querySelectorAll('.option-button').forEach(button => {
             button.classList.remove('selected');
         });
         
-        // Clear inputs
-        const inputs = document.querySelectorAll('input');
-        inputs.forEach(input => {
-            input.value = '';
-            input.classList.remove('error');
-        });
+        // Show first step
+        showStep(0);
     }
     
-    // Submit the form
-    function submitForm() {
-        // Here you would typically send the data to your server
+    // Handle form submission
+    function handleSubmit(e) {
+        e.preventDefault();
+        
+        // Validate final step
+        const firstName = document.getElementById('first-name').value;
+        const lastName = document.getElementById('last-name').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+        
+        if (!firstName || !lastName || !phone || !email) {
+            // Show error if any field is empty
+            if (!firstName) document.getElementById('first-name').classList.add('error');
+            if (!lastName) document.getElementById('last-name').classList.add('error');
+            if (!phone) document.getElementById('phone').classList.add('error');
+            if (!email) document.getElementById('email').classList.add('error');
+            return;
+        }
+        
+        // Validate phone format
+        const phonePattern = /^\(\d{3}\) \d{3}-\d{4}$/;
+        if (!phonePattern.test(phone)) {
+            document.getElementById('phone').classList.add('error');
+            return;
+        }
+        
+        // Validate email format
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            document.getElementById('email').classList.add('error');
+            return;
+        }
+        
+        // Store contact info
+        formData['first-name'] = firstName;
+        formData['last-name'] = lastName;
+        formData['phone'] = phone;
+        formData['email'] = email;
+        
+        // Submit the form data
         console.log('Form data submitted:', formData);
         
-        // For demo purposes, redirect to thank you page
-        window.location.href = 'thank-you.html';
+        // Here you would typically send the data to your server
+        // For now, we'll just show a success message
+        alert('Thank you! Your case information has been submitted. We will contact you shortly.');
+        
+        // Reset the form
+        restartForm();
     }
     
-    // Initialize the form
-    initForm();
+    // Remove error class when input changes
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', function() {
+            this.classList.remove('error');
+        });
+    });
 }); 
