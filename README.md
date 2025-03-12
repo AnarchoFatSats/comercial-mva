@@ -35,6 +35,10 @@ The site uses reliable image hosting services for all images:
 1. **Hero Background**: Pexels image
    - URL: `https://images.pexels.com/photos/163016/crash-test-collision-60-km-h-distraction-163016.jpeg`
    - Defined in: `css/styles.css`
+   - **To replace with new aerial truck accident image**:
+     1. Save the aerial truck accident image to `assets/images/truck-accident-aerial.jpg`
+     2. In `css/styles.css`, find the `.hero-background` class
+     3. Replace the current `background-image` URL with `url('../assets/images/truck-accident-aerial.jpg')`
 
 2. **Testimonial Photos**: XSGames Random User API
    - URLs: `https://xsgames.co/randomusers/assets/avatars/...`

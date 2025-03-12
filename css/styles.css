@@ -71,6 +71,10 @@ button {
     width: 100%;
     height: 100%;
     background-image: url('https://images.pexels.com/photos/163016/crash-test-collision-60-km-h-distraction-163016.jpeg?auto=compress&cs=tinysrgb&w=1600');
+    /* To use the new aerial truck accident image:
+       1. Save the image to assets/images/truck-accident-aerial.jpg
+       2. Uncomment the line below and comment out the line above
+       background-image: url('../assets/images/truck-accident-aerial.jpg'); */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
