@@ -30,13 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
     });
     
-    // Show popup after 30 seconds if user hasn't triggered it yet
+    // Show popup after 60 seconds if user hasn't triggered it yet
     setTimeout(function() {
         if (!mouseLeft && !showOnce) {
             exitPopup.classList.add('show');
             showOnce = true;
         }
-    }, 30000);
+    }, 60000);
     
     // Close popup when clicking outside the content
     exitPopup.addEventListener('click', function(e) {
