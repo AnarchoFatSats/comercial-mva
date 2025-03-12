@@ -181,6 +181,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (value === 'no') {
                     // If not a work vehicle, disqualify
                     showDisqualification();
+                } else if (value === 'unsure') {
+                    // If unsure, still proceed but note this in the form data
+                    formData['vehicle_confirmation'] = 'unsure';
+                    showStep(6);
                 } else {
                     // Otherwise, proceed to step 5
                     showStep(6);
