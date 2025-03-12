@@ -1,0 +1,107 @@
+/* Mobile Styles */
+@media (max-width: 768px) {
+    /* Hero Section */
+    .hero {
+        height: 90vh;
+        min-height: 500px;
+    }
+    
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.8rem;
+    }
+    
+    .subheading {
+        font-size: 1.2rem;
+    }
+    
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+    
+    /* Form Section */
+    .form-section {
+        padding: 50px 0;
+    }
+    
+    .option-buttons {
+        flex-direction: column;
+    }
+    
+    .option-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    /* Mobile Sticky CTA */
+    .mobile-sticky-cta {
+        display: block;
+    }
+    
+    /* Trust Building Section */
+    .trust-section {
+        padding: 50px 0;
+    }
+    
+    .testimonials {
+        flex-direction: column;
+    }
+    
+    .testimonial {
+        margin-bottom: 20px;
+    }
+    
+    .logos {
+        gap: 20px;
+    }
+    
+    .logos img {
+        height: 40px;
+    }
+    
+    /* Thank You Page */
+    .thank-you-content {
+        padding: 20px;
+    }
+    
+    .thank-you-content h1 {
+        font-size: 2rem;
+    }
+    
+    /* Footer */
+    footer {
+        text-align: center;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+    
+    .subheading {
+        font-size: 1rem;
+    }
+    
+    .form-step {
+        padding: 20px 15px;
+    }
+    
+    .input-group input {
+        padding: 10px;
+    }
+} 

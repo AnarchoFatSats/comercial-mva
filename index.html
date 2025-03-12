@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commercial Vehicle Accident Claims | Get Compensation</title>
+    <meta name="description" content="Were you injured in a commercial vehicle accident? You may be entitled to compensation. Free case review in just 30 seconds.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    <!-- Facebook Pixel -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'PIXEL_ID');
+        fbq('track', 'PageView');
+    </script>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="video-container">
+            <video autoplay muted loop playsinline>
+                <source src="assets/videos/hero-background.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="hero-content">
+            <h1>Injured in a Commercial Vehicle Accident?</h1>
+            <h2>You Could Be Owed Compensation!</h2>
+            <p class="subheading">Check if you qualify in 30 seconds—FREE case review!</p>
+            <button class="cta-button" id="hero-cta">Start My Free Case Review</button>
+        </div>
+    </section>
+
+    <!-- Dynamic Form Section -->
+    <section class="form-section" id="form-section">
+        <div class="container">
+            <h2>Free Case Evaluation</h2>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+                <div class="step-indicators" id="step-indicators"></div>
+            </div>
+            
+            <form id="claim-form">
+                <!-- Step 1 -->
+                <div class="form-step" id="step-1">
+                    <h3>Were you the driver or passenger?</h3>
+                    <div class="option-buttons">
+                        <button type="button" class="option-button" data-value="driver">Driver</button>
+                        <button type="button" class="option-button" data-value="passenger">Passenger</button>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="form-step" id="step-2">
+                    <h3>Who was at fault?</h3>
+                    <div class="option-buttons">
+                        <button type="button" class="option-button" data-value="me">Me</button>
+                        <button type="button" class="option-button" data-value="other">Other Driver</button>
+                        <button type="button" class="option-button" data-value="unsure">Unsure</button>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="form-step" id="step-3">
+                    <h3>When did the accident occur?</h3>
+                    <input type="date" id="accident-date" name="accident-date" required>
+                    <button type="button" class="next-button">Next</button>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="form-step" id="step-4">
+                    <h3>Did the accident involve a commercial vehicle?</h3>
+                    <div class="option-buttons">
+                        <button type="button" class="option-button" data-value="yes">Yes</button>
+                        <button type="button" class="option-button" data-value="no">No</button>
+                    </div>
+                </div>
+
+                <!-- Step 4b (conditional) -->
+                <div class="form-step" id="step-4b">
+                    <h3>Was another driver involved?</h3>
+                    <div class="option-buttons">
+                        <button type="button" class="option-button" data-value="yes">Yes</button>
+                        <button type="button" class="option-button" data-value="no">No</button>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="form-step" id="step-5">
+                    <h3>Did you receive medical attention within 7 days?</h3>
+                    <div class="option-buttons">
+                        <button type="button" class="option-button" data-value="yes">Yes</button>
+                        <button type="button" class="option-button" data-value="no">No</button>
+                    </div>
+                </div>
+
+                <!-- Step 5b (conditional) -->
+                <div class="form-step" id="step-5b">
+                    <h3>Did you receive medical attention within 14 days?</h3>
+                    <div class="option-buttons">
+                        <button type="button" class="option-button" data-value="yes">Yes</button>
+                        <button type="button" class="option-button" data-value="no">No</button>
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="form-step" id="step-6">
+                    <h3>Did you file a police report?</h3>
+                    <div class="option-buttons">
+                        <button type="button" class="option-button" data-value="yes">Yes</button>
+                        <button type="button" class="option-button" data-value="no">No</button>
+                    </div>
+                </div>
+
+                <!-- Step 6b (conditional) -->
+                <div class="form-step" id="step-6b">
+                    <h3>Do you have a copy of the report?</h3>
+                    <div class="option-buttons">
+                        <button type="button" class="option-button" data-value="yes">Yes</button>
+                        <button type="button" class="option-button" data-value="no">No</button>
+                    </div>
+                </div>
+
+                <!-- Step 7 (Final) -->
+                <div class="form-step" id="step-7">
+                    <h3>Complete Your Free Case Review</h3>
+                    <div class="input-group">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" id="full-name" name="full-name" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <button type="submit" class="submit-button">Check My Eligibility</button>
+                </div>
+
+                <!-- Disqualification Message -->
+                <div class="form-step disqualification" id="disqualification">
+                    <h3>Thank you for your interest</h3>
+                    <p>Based on the information provided, your case may not qualify for our specific services at this time.</p>
+                    <p>However, we recommend consulting with a general personal injury attorney who may be able to assist you with your situation.</p>
+                    <button type="button" class="restart-button">Start Over</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Trust Building Section -->
+    <section class="trust-section">
+        <div class="container">
+            <h2>Why Choose Us</h2>
+            
+            <!-- Testimonials -->
+            <div class="testimonials">
+                <div class="testimonial">
+                    <img src="assets/images/testimonials/testimonial-1.jpg" alt="Client Testimonial">
+                    <blockquote>"Claim Connectors helped me get my case approved fast! I received the compensation I deserved within months."</blockquote>
+                    <cite>- Michael R., Truck Accident Victim</cite>
+                </div>
+                <div class="testimonial">
+                    <img src="assets/images/testimonials/testimonial-2.jpg" alt="Client Testimonial">
+                    <blockquote>"I was hesitant at first, but their team made the process so easy. They handled everything while I focused on recovery."</blockquote>
+                    <cite>- Sarah T., Commercial Vehicle Accident Survivor</cite>
+                </div>
+            </div>
+            
+            <!-- Partner Logos -->
+            <div class="partner-logos">
+                <h3>Our Trusted Partners</h3>
+                <div class="logos">
+                    <img src="assets/images/partner-logos/law-firm-1.png" alt="Partner Law Firm">
+                    <img src="assets/images/partner-logos/law-firm-2.png" alt="Partner Law Firm">
+                    <img src="assets/images/partner-logos/law-firm-3.png" alt="Partner Law Firm">
+                </div>
+            </div>
+            
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h3>Frequently Asked Questions</h3>
+                <div class="faq-item">
+                    <div class="faq-question">How long does a commercial vehicle accident claim take?</div>
+                    <div class="faq-answer">Most commercial vehicle accident claims are resolved within 6-18 months, depending on the complexity of the case and the parties involved.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What compensation can I receive?</div>
+                    <div class="faq-answer">You may be eligible for compensation covering medical expenses, lost wages, pain and suffering, property damage, and in some cases, punitive damages.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to pay anything upfront?</div>
+                    <div class="faq-answer">No. Our partner attorneys work on a contingency fee basis, meaning you pay nothing unless they win your case.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What if the accident was partially my fault?</div>
+                    <div class="faq-answer">Depending on your state's laws, you may still be eligible for compensation even if you were partially at fault. This is known as comparative negligence.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile Sticky CTA -->
+    <div class="mobile-sticky-cta">
+        <button id="mobile-cta">Start My Free Case Review</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Claim Connectors. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/form.js"></script>
+    <script src="js/tracking.js"></script>
+</body>
+</html> 
