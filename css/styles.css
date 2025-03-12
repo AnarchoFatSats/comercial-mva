@@ -64,16 +64,22 @@ button {
     overflow: hidden;
 }
 
-.video-container {
+.hero-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    background-image: url('../assets/images/hero-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     z-index: -1;
+    image-rendering: optimizeQuality;
+    will-change: transform;
 }
 
-.video-container:after {
+.hero-background:after {
     content: '';
     position: absolute;
     top: 0;
@@ -83,22 +89,11 @@ button {
     background: rgba(0, 0, 0, 0.6);
 }
 
-.video-container video {
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-}
-
 .hero-content {
     max-width: 800px;
     padding: 30px;
-    z-index: 1;
+    position: relative;
+    z-index: 2; /* Ensure content is above the overlay */
 }
 
 .hero h1 {

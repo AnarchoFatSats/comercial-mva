@@ -5,6 +5,7 @@ mkdir -p css js assets/images/partner-logos assets/images/testimonials
 
 # Create empty files
 touch favicon.ico
+touch assets/images/hero-background.jpg
 touch assets/images/logo.png
 touch assets/images/partner-logos/law-firm-1.png
 touch assets/images/partner-logos/law-firm-2.png
@@ -18,24 +19,20 @@ cp README.md assets/
 echo "Project structure created successfully!"
 echo "Don't forget to replace placeholder files with actual content."
 
-# Instructions for uploading video to S3
+# Instructions for hero image
 echo ""
-echo "=== INSTRUCTIONS FOR UPLOADING HERO VIDEO TO AWS S3 ==="
-echo "1. Install AWS CLI if not already installed:"
-echo "   brew install awscli  # For macOS"
-echo "   aws configure        # Set up your AWS credentials"
+echo "=== INSTRUCTIONS FOR HERO IMAGE ==="
+echo "1. Replace the placeholder hero image with your actual image:"
+echo "   assets/images/hero-background.jpg"
 echo ""
-echo "2. Create an S3 bucket (if not already created):"
-echo "   aws s3 mb s3://YOUR-BUCKET-NAME"
+echo "2. Recommended hero image specifications:"
+echo "   - Resolution: 1920x1080 pixels (minimum)"
+echo "   - Format: JPG or WebP (for better compression)"
+echo "   - Size: Keep under 300KB for fast loading"
+echo "   - Content: Commercial vehicle accident scene (no injuries shown)"
 echo ""
-echo "3. Upload your hero video to S3:"
-echo "   aws s3 cp path/to/your/hero-video.mp4 s3://YOUR-BUCKET-NAME/videos/hero-background.mp4"
-echo ""
-echo "4. Make the video publicly accessible:"
-echo "   aws s3api put-object-acl --bucket YOUR-BUCKET-NAME --key videos/hero-background.mp4 --acl public-read"
-echo ""
-echo "5. Update the video source in index.html to point to your S3 URL:"
-echo "   https://YOUR-BUCKET-NAME.s3.amazonaws.com/videos/hero-background.mp4"
-echo ""
-echo "Note: For production, consider using CloudFront for better performance."
+echo "3. Image optimization tools:"
+echo "   - TinyPNG (https://tinypng.com)"
+echo "   - Squoosh (https://squoosh.app)"
+echo "   - ImageOptim (https://imageoptim.com)"
 echo "===================================================" 

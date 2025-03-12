@@ -30,34 +30,16 @@ A landing page for commercial motor vehicle accident claims. This website helps 
 
 3. Replace placeholder images with actual content in the `assets/images` directory.
 
-### Hero Video Setup
+### Hero Image Setup
 
-The hero section requires a background video. You have two options:
+The hero section requires a background image:
 
-#### Option 1: Local Storage (Development Only)
-1. Create a videos directory:
-   ```
-   mkdir -p assets/videos
-   ```
-2. Add your video file as `assets/videos/hero-background.mp4`
-3. Update the video source in `index.html` to point to the local file:
-   ```html
-   <source src="assets/videos/hero-background.mp4" type="video/mp4">
-   ```
-
-#### Option 2: AWS S3 (Recommended for Production)
-1. Upload your video to an S3 bucket:
-   ```
-   aws s3 cp path/to/your/video.mp4 s3://YOUR-BUCKET-NAME/videos/hero-background.mp4
-   ```
-2. Make the video publicly accessible:
-   ```
-   aws s3api put-object-acl --bucket YOUR-BUCKET-NAME --key videos/hero-background.mp4 --acl public-read
-   ```
-3. Update the video source in `index.html`:
-   ```html
-   <source src="https://YOUR-BUCKET-NAME.s3.amazonaws.com/videos/hero-background.mp4" type="video/mp4">
-   ```
+1. Add your image file as `assets/images/hero-background.jpg`
+2. For best results, use an image that:
+   - Has a resolution of at least 1920x1080 pixels
+   - Is optimized for web (under 300KB)
+   - Shows a commercial vehicle accident scene (without injuries)
+   - Has good contrast for text overlay
 
 ### AWS Amplify Setup
 
@@ -68,19 +50,24 @@ The hero section requires a background video. You have two options:
    amplify publish
    ```
 
-## Video Requirements
+## Image Optimization
 
-- Format: MP4
-- Resolution: 1920x1080 (minimum)
-- Duration: 10-30 seconds (will loop)
-- Size: Keep under 5MB for fast loading
-- Content: Commercial vehicle accident footage (no injuries shown)
+For the best performance, optimize all images before adding them to the project:
 
-## Best Practices for Video
+1. **Compression**: Use tools like TinyPNG, Squoosh, or ImageOptim
+2. **Format**: Consider using WebP format for better compression (with JPG fallback)
+3. **Dimensions**: Resize images to the exact dimensions needed
+4. **Lazy Loading**: The site uses lazy loading for images below the fold
 
-1. **Compression**: Use a tool like HandBrake to compress your video while maintaining quality
-2. **Format**: Provide multiple formats (MP4, WebM) for better browser compatibility
-3. **Fallback**: Ensure a static image fallback is available for browsers that don't support video
+### Performance Benefits of Static Hero Image
+
+Using a static image for the hero section instead of a video provides several performance advantages:
+
+1. **Faster Page Load**: Static images load much faster than videos
+2. **Lower Bandwidth Usage**: Images typically use 10-20x less bandwidth than videos
+3. **Better Mobile Experience**: Less battery drain and data usage on mobile devices
+4. **Improved Core Web Vitals**: Better Largest Contentful Paint (LCP) scores
+5. **Universal Compatibility**: Works on all browsers and devices without fallback concerns
 
 ## Deployment
 
