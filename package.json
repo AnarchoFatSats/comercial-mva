@@ -4,14 +4,9 @@
   "description": "Commercial Motor Vehicle Accident Claims Landing Page",
   "main": "index.html",
   "scripts": {
-    "start": "serve",
+    "start": "echo 'Static site, no start command needed'",
     "build": "echo 'No build step required for static site'"
   },
-  "dependencies": {
-    "aws-amplify": "^5.3.10",
-    "serve": "^14.2.1"
-  },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/contentkingpins/comercial-mva.git"

@@ -3,30 +3,20 @@
 
 async function submitFormToAPI(formData) {
     try {
-        // If using AWS Amplify API
-        if (typeof API !== 'undefined' && typeof API.post === 'function') {
-            const response = await API.post('formAPI', '/submit', {
-                body: formData
-            });
-            return response;
-        } else {
-            // Fallback to fetch API
-            // TODO: Replace with your actual API endpoint
-            // Example: https://api.example.com/submit or https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/submit
-            const response = await fetch('https://REPLACE_WITH_YOUR_API_ENDPOINT/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-            
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            
-            return await response.json();
+        // Using fetch API for form submission
+        const response = await fetch('https://REPLACE_WITH_YOUR_API_ENDPOINT/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
+        
+        return await response.json();
     } catch (error) {
         console.error('Error submitting form:', error);
         // Still redirect to thank you page even if API fails
