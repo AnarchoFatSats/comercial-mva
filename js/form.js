@@ -134,8 +134,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function processConditionalLogic(stepId, value) {
         switch (stepId) {
             case 'step-1':
-                if (value === 'personal') {
-                    // If personal vehicle, ask if other vehicle was a work vehicle
+                if (value === 'unsure') {
+                    // If unsure about the type of work vehicle, ask for confirmation
                     showStep(1); // Show step-1b
                 } else {
                     // Otherwise, proceed to step 2
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
             case 'step-1b':
                 if (value === 'no') {
-                    // If other vehicle was not a work vehicle, disqualify
+                    // If not a work vehicle, disqualify
                     showDisqualification();
                 } else {
                     // Otherwise, proceed to step 2
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
             case 'step-4b':
                 if (value === 'no') {
-                    // If other driver was not in work vehicle, disqualify
+                    // If not a work vehicle, disqualify
                     showDisqualification();
                 } else {
                     // Otherwise, proceed to step 5
