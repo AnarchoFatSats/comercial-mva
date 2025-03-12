@@ -316,6 +316,22 @@ button {
     box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
 }
 
+.date-picker-container {
+    margin-bottom: 20px;
+}
+
+.date-hint, .input-hint {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+.input-hint {
+    margin-top: 5px;
+    font-size: 0.85rem;
+}
+
 .next-button, .submit-button, .restart-button {
     display: block;
     width: 100%;
