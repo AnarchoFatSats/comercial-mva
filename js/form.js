@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         utm_medium: getUrlParameter('utm_medium') || '',
         utm_campaign: getUrlParameter('utm_campaign') || '',
         landing_page: window.location.href,
-        submission_date: new Date().toISOString(),
+        timestamp: new Date().toISOString(),
         user_agent: navigator.userAgent
     };
     
@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         formData = sourceData;
-        formData.submission_date = new Date().toISOString();
+        formData.timestamp = new Date().toISOString();
         
         // Reset all selected buttons
         document.querySelectorAll('.option-button').forEach(button => {
@@ -457,11 +457,27 @@ document.addEventListener('DOMContentLoaded', function() {
             // Log the data being sent (for development purposes)
             console.log('Submitting to DynamoDB:', data);
             
+            // Ensure lead_id is properly set as the partition key
+            if (!data.lead_id) {
+                data.lead_id = generateLeadId(data.first_name || '', data.last_name || '', data.phone || '');
+            }
+            
+            // Update timestamp in ISO format
+            data.timestamp = new Date().toISOString();
+            
+            // Add TTL for data retention (90 days)
+            const ttl = Math.floor(Date.now() / 1000) + (90 * 24 * 60 * 60);
+            data.ttl = ttl;
+            
+            // Add website identifier
+            data.website = window.location.hostname;
+            
             // Call the API Gateway endpoint
-            const response = await fetch('https://REPLACE_WITH_YOUR_API_ENDPOINT/leads', {
+            const response = await fetch('https://qqvw1jnwx3.execute-api.us-east-1.amazonaws.com/prod/leads', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'dHKgV9XLco5zYlq1EOft48ZcAEcJBMaO3MuZVLl9'
                 },
                 body: JSON.stringify(data)
             });
