@@ -519,15 +519,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set success content with click-to-call button
         successContainer.innerHTML = `
             <div class="success-icon">✓</div>
-            <h3>Your Case Has Been Submitted!</h3>
-            <p>Thank you for providing your information. One of our specialists will review your case details shortly.</p>
-            <p class="success-message">For immediate assistance, call us now:</p>
+            <h3>Your Claim Has Been Successfully Submitted!</h3>
+            <p>Thank you for providing your information. Based on your claim details, you're now eligible to proceed.</p>
+            <p class="success-message">Call now to finalize your claim:</p>
             <a href="tel:+1${phone}" class="call-cta-button">
                 <span class="phone-icon">📞</span>
-                <span>Call (${phone.substring(0,3)}) ${phone.substring(3,6)}-${phone.substring(6)}</span>
+                <span>Call (${phone.substring(0,3)}) ${phone.substring(3,6)}-${phone.substring(6)} Now</span>
             </a>
-            <p class="success-note">Our team is standing by to discuss your case and answer any questions.</p>
-            <button type="button" class="restart-button">Submit Another Case</button>
+            <p class="success-note">Our claim specialists are standing by to finalize your case and explain your compensation options.</p>
+            <button type="button" class="restart-button">Submit Another Claim</button>
         `;
         
         // Show success container
