@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set success content with click-to-call button
         successContainer.innerHTML = `
             <div class="success-icon">✓</div>
-            <h3>Your Claim is Approved! Call Now to Start Your Settlement Process!</h3>
+            <h3>Your Claim is Approved! Call Now to Start Your Settlement!</h3>
             <p>Congratulations! Based on the information you've provided, your claim has been pre-approved for our settlement assistance program.</p>
             <p class="success-message">One call starts your compensation process:</p>
             <a href="tel:+1${phone}" class="call-cta-button">
