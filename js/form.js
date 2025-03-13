@@ -41,9 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize the form
     function initForm() {
-        // Create step indicators
-        createStepIndicators();
-        
         // Show first step
         showStep(0);
         
@@ -82,16 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
         datePicker.setAttribute('min', minDate);
     }
     
-    // Create step indicators
-    function createStepIndicators() {
-        for (let i = 0; i < totalSteps; i++) {
-            const indicator = document.createElement('div');
-            indicator.classList.add('step-indicator');
-            indicator.textContent = i + 1;
-            stepIndicators.appendChild(indicator);
-        }
-    }
-    
     // Show a specific step
     function showStep(stepIndex) {
         // Hide all steps
@@ -113,16 +100,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateProgressBar(current, total) {
         const progress = (current / total) * 100;
         progressBar.style.width = `${progress}%`;
-        
-        // Update step indicators
-        const indicators = document.querySelectorAll('.step-indicator');
-        indicators.forEach((indicator, index) => {
-            if (index <= current) {
-                indicator.classList.add('active');
-            } else {
-                indicator.classList.remove('active');
-            }
-        });
     }
     
     // Handle option selection
@@ -383,17 +360,117 @@ document.addEventListener('DOMContentLoaded', function() {
         // Generate a unique lead ID
         formData['lead_id'] = generateLeadId(firstName, lastName, phone);
         
-        // Submit the form data to DynamoDB
-        submitToDynamoDB(formData)
-            .then(() => {
-                // Show success message with click-to-call CTA
-                showSuccessWithCallCTA(phone);
-            })
-            .catch(error => {
-                console.error('Error submitting to DynamoDB:', error);
-                // Still show success to user even if there's an error
-                showSuccessWithCallCTA(phone);
-            });
+        // Show calculation animation before submitting
+        showCalculationAnimation(phone);
+        
+        // Submit the form data to DynamoDB after animation
+        setTimeout(() => {
+            submitToDynamoDB(formData)
+                .then(() => {
+                    // Show success message with click-to-call CTA
+                    showSuccessWithCallCTA(phone);
+                })
+                .catch(error => {
+                    console.error('Error submitting to DynamoDB:', error);
+                    // Still show success to user even if there's an error
+                    showSuccessWithCallCTA(phone);
+                });
+        }, 3000); // Wait for 3 seconds to show the calculation animation
+    }
+    
+    // Show calculation animation
+    function showCalculationAnimation(phone) {
+        // Hide all steps
+        steps.forEach(step => {
+            step.style.display = 'none';
+        });
+        
+        // Create calculation container if it doesn't exist
+        let calculationContainer = document.getElementById('calculation-container');
+        if (!calculationContainer) {
+            calculationContainer = document.createElement('div');
+            calculationContainer.id = 'calculation-container';
+            calculationContainer.className = 'form-step calculation-container';
+            form.appendChild(calculationContainer);
+        }
+        
+        // Set calculation content with animation
+        calculationContainer.innerHTML = `
+            <div class="calculation-animation">
+                <div class="calculation-progress">
+                    <div class="calculation-bar"></div>
+                </div>
+                <h3>Calculating Claim Eligibility...</h3>
+                <p>Please wait while our system analyzes your case details.</p>
+            </div>
+        `;
+        
+        // Show calculation container
+        calculationContainer.style.display = 'block';
+        
+        // Animate the calculation bar
+        const calculationBar = calculationContainer.querySelector('.calculation-bar');
+        calculationBar.style.width = '0%';
+        
+        // Animate to 100% over 2 seconds
+        setTimeout(() => {
+            calculationBar.style.transition = 'width 2s ease-in-out';
+            calculationBar.style.width = '100%';
+        }, 100);
+        
+        // Update text after calculation is complete
+        setTimeout(() => {
+            calculationContainer.innerHTML = `
+                <div class="calculation-complete">
+                    <div class="success-icon">✓</div>
+                    <h3>Claim Analysis Complete!</h3>
+                    <p>Based on your information, we're elevating your case to a senior claim manager.</p>
+                    <p class="calculation-message">Preparing your approval...</p>
+                </div>
+            `;
+        }, 2500);
+    }
+    
+    // Show success message with click-to-call CTA
+    function showSuccessWithCallCTA(phone) {
+        // Hide all steps
+        steps.forEach(step => {
+            step.style.display = 'none';
+        });
+        
+        // Create success message container if it doesn't exist
+        let successContainer = document.getElementById('success-container');
+        if (!successContainer) {
+            successContainer = document.createElement('div');
+            successContainer.id = 'success-container';
+            successContainer.className = 'form-step success-container';
+            form.appendChild(successContainer);
+        }
+        
+        // Format phone number for display
+        const formattedPhone = phone.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+        
+        // Set success content with click-to-call button
+        successContainer.innerHTML = `
+            <div class="success-icon">✓</div>
+            <h3>Your Claim is Approved! Call Now to Start Your Settlement!</h3>
+            <p>Based on your file, we are elevating you to a case manager who can finalize your claim immediately.</p>
+            <p class="success-message">One call starts your compensation process:</p>
+            <a href="tel:+1${phone}" class="call-cta-button">
+                <span class="phone-icon">📞</span>
+                <span>Start Your Settlement Now</span>
+            </a>
+            <p class="success-note">Our settlement specialists are standing by to begin processing your claim immediately. Don't delay - approved claims that aren't initiated within 24 hours may require resubmission.</p>
+        `;
+        
+        // Show success container
+        successContainer.style.display = 'block';
+        
+        // Update progress bar to complete
+        updateProgressBar(totalSteps, totalSteps);
+        
+        // Track conversion
+        trackConversion(formData);
     }
     
     // Generate a unique lead ID
@@ -450,48 +527,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Re-throw the error so the calling function can handle it
             throw error;
         }
-    }
-    
-    // Show success message with click-to-call CTA
-    function showSuccessWithCallCTA(phone) {
-        // Hide all steps
-        steps.forEach(step => {
-            step.style.display = 'none';
-        });
-        
-        // Create success message container if it doesn't exist
-        let successContainer = document.getElementById('success-container');
-        if (!successContainer) {
-            successContainer = document.createElement('div');
-            successContainer.id = 'success-container';
-            successContainer.className = 'form-step success-container';
-            form.appendChild(successContainer);
-        }
-        
-        // Format phone number for display
-        const formattedPhone = phone.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
-        
-        // Set success content with click-to-call button
-        successContainer.innerHTML = `
-            <div class="success-icon">✓</div>
-            <h3>Your Claim is Approved! Call Now to Start Your Settlement!</h3>
-            <p>Congratulations! Based on the information you've provided, your claim has been pre-approved for our settlement assistance program.</p>
-            <p class="success-message">One call starts your compensation process:</p>
-            <a href="tel:+1${phone}" class="call-cta-button">
-                <span class="phone-icon">📞</span>
-                <span>Start Your Settlement Now</span>
-            </a>
-            <p class="success-note">Our settlement specialists are standing by to begin processing your claim immediately. Don't delay - approved claims that aren't initiated within 24 hours may require resubmission.</p>
-        `;
-        
-        // Show success container
-        successContainer.style.display = 'block';
-        
-        // Update progress bar to complete
-        updateProgressBar(totalSteps, totalSteps);
-        
-        // Track conversion
-        trackConversion(formData);
     }
     
     // Track conversion for analytics

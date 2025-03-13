@@ -45,150 +45,158 @@
     </section>
 
     <!-- Dynamic Form Section -->
-    <section class="form-section" id="form-section">
+    <section id="form-section" class="form-section">
         <div class="container">
             <h2>Free Case Evaluation</h2>
             <div class="progress-container">
-                <div class="progress-bar" id="progress-bar"></div>
-                <div class="step-indicators" id="step-indicators"></div>
+                <div id="progress-bar" class="progress-bar"></div>
             </div>
-            
-            <form id="claim-form">
-                <!-- Step 1 -->
-                <div class="form-step" id="step-1">
+            <form id="claim-form" class="claim-form">
+                <!-- Step 1: Vehicle Type -->
+                <div id="step-1" class="form-step">
                     <h3>What type of work vehicle hit you?</h3>
                     <div class="option-buttons">
-                        <button type="button" class="option-button" data-value="work-truck">Work Truck / Delivery Truck</button>
-                        <button type="button" class="option-button" data-value="service-van">Service Van (Plumbing, HVAC, etc.)</button>
-                        <button type="button" class="option-button" data-value="company-car">Company-Owned Sedan / Fleet Car</button>
-                        <button type="button" class="option-button" data-value="construction">Construction / Utility Vehicle</button>
-                        <button type="button" class="option-button" data-value="rideshare">Rideshare or Delivery App Vehicle</button>
-                        <button type="button" class="option-button" data-value="unsure">Not Sure / Other</button>
+                        <button type="button" class="option-button" data-value="truck">Commercial Truck / 18-Wheeler</button>
+                        <button type="button" class="option-button" data-value="delivery">Delivery Van / Truck</button>
+                        <button type="button" class="option-button" data-value="construction">Construction Vehicle</button>
+                        <button type="button" class="option-button" data-value="company-car">Company Car / Fleet Vehicle</button>
+                        <button type="button" class="option-button" data-value="other">Other Work Vehicle</button>
+                        <button type="button" class="option-button" data-value="unsure">Not Sure</button>
                     </div>
                 </div>
-
-                <!-- Step 1b (conditional) -->
-                <div class="form-step" id="step-1b">
-                    <h3>Are you certain it was a work/commercial vehicle?</h3>
+                
+                <!-- Step 1b: Confirmation (conditional) -->
+                <div id="step-1b" class="form-step">
+                    <h3>Was the vehicle being used for work purposes?</h3>
                     <div class="option-buttons">
                         <button type="button" class="option-button" data-value="yes">Yes</button>
                         <button type="button" class="option-button" data-value="no">No</button>
+                        <button type="button" class="option-button" data-value="unsure">Not Sure</button>
                     </div>
                 </div>
-
-                <!-- Step 2 -->
-                <div class="form-step" id="step-2">
-                    <h3>Who was at fault?</h3>
+                
+                <!-- Step 2: Fault -->
+                <div id="step-2" class="form-step">
+                    <h3>Who was at fault in the accident?</h3>
                     <div class="option-buttons">
+                        <button type="button" class="option-button" data-value="other-driver">The other driver</button>
                         <button type="button" class="option-button" data-value="me">Me</button>
-                        <button type="button" class="option-button" data-value="other">Other Driver</button>
-                        <button type="button" class="option-button" data-value="unsure">Unsure</button>
+                        <button type="button" class="option-button" data-value="shared">Shared fault</button>
+                        <button type="button" class="option-button" data-value="unsure">Not sure</button>
                     </div>
                 </div>
-
-                <!-- Step 3 -->
-                <div class="form-step" id="step-3">
+                
+                <!-- Step 3: Date -->
+                <div id="step-3" class="form-step">
                     <h3>When did the accident occur?</h3>
-                    <div class="date-picker-container">
-                        <input type="date" id="accident-date" name="accident-date" required max="2024-12-31">
-                        <p class="date-hint">Please select a date within the last 2 years</p>
+                    <div class="input-group date-picker-container">
+                        <input type="date" id="accident-date" name="accident-date" required>
+                        <p class="date-hint">Must be within the last 2 years</p>
+                        <button type="button" class="next-button">Continue</button>
                     </div>
-                    <button type="button" class="next-button">Next</button>
                 </div>
-
-                <!-- Step 4 -->
-                <div class="form-step" id="step-4">
-                    <h3>Were you on the clock (working) at the time of the accident?</h3>
+                
+                <!-- Step 4: On the Clock -->
+                <div id="step-4" class="form-step">
+                    <h3>Were you on the clock when the accident occurred?</h3>
                     <div class="option-buttons">
                         <button type="button" class="option-button" data-value="yes">Yes</button>
                         <button type="button" class="option-button" data-value="no">No</button>
                     </div>
                 </div>
-
-                <!-- Step 4b (conditional) -->
-                <div class="form-step" id="step-4b">
-                    <h3>Can you confirm the vehicle that hit you was being used for work purposes?</h3>
+                
+                <!-- Step 4b: Other Driver (conditional) -->
+                <div id="step-4b" class="form-step">
+                    <h3>Was the other driver in a work vehicle?</h3>
                     <div class="option-buttons">
                         <button type="button" class="option-button" data-value="yes">Yes</button>
                         <button type="button" class="option-button" data-value="no">No</button>
-                        <button type="button" class="option-button" data-value="unsure">Unsure</button>
+                        <button type="button" class="option-button" data-value="unsure">Not Sure</button>
                     </div>
                 </div>
-
-                <!-- Step 5 -->
-                <div class="form-step" id="step-5">
-                    <h3>Did you receive medical attention within 7 days?</h3>
-                    <div class="option-buttons">
-                        <button type="button" class="option-button" data-value="yes">Yes</button>
-                        <button type="button" class="option-button" data-value="no">No</button>
-                    </div>
-                </div>
-
-                <!-- Step 5b (conditional) -->
-                <div class="form-step" id="step-5b">
-                    <h3>Did you receive medical attention within 14 days?</h3>
+                
+                <!-- Step 5: Medical Attention -->
+                <div id="step-5" class="form-step">
+                    <h3>Did you seek medical attention within 7 days of the accident?</h3>
                     <div class="option-buttons">
                         <button type="button" class="option-button" data-value="yes">Yes</button>
                         <button type="button" class="option-button" data-value="no">No</button>
                     </div>
                 </div>
-
-                <!-- Step 6 -->
-                <div class="form-step" id="step-6">
-                    <h3>Did you file a police report?</h3>
+                
+                <!-- Step 5b: Medical Attention Extended (conditional) -->
+                <div id="step-5b" class="form-step">
+                    <h3>Did you seek medical attention within 14 days of the accident?</h3>
                     <div class="option-buttons">
                         <button type="button" class="option-button" data-value="yes">Yes</button>
                         <button type="button" class="option-button" data-value="no">No</button>
                     </div>
                 </div>
-
-                <!-- Step 6b (conditional) -->
-                <div class="form-step" id="step-6b">
-                    <h3>Do you have a copy of the report?</h3>
+                
+                <!-- Step 6: Police Report -->
+                <div id="step-6" class="form-step">
+                    <h3>Was a police report filed?</h3>
+                    <div class="option-buttons">
+                        <button type="button" class="option-button" data-value="yes">Yes</button>
+                        <button type="button" class="option-button" data-value="no">No</button>
+                        <button type="button" class="option-button" data-value="unsure">Not Sure</button>
+                    </div>
+                </div>
+                
+                <!-- Step 6b: Police Report Copy (conditional) -->
+                <div id="step-6b" class="form-step">
+                    <h3>Do you have a copy of the police report?</h3>
                     <div class="option-buttons">
                         <button type="button" class="option-button" data-value="yes">Yes</button>
                         <button type="button" class="option-button" data-value="no">No</button>
                     </div>
                 </div>
-
-                <!-- Step 7 (Final) -->
-                <div class="form-step" id="step-7">
-                    <h3>Complete Your Free Case Review</h3>
+                
+                <!-- Step 7: Contact Information -->
+                <div id="step-7" class="form-step">
+                    <h3>Final Step: Your Contact Information</h3>
+                    <p>Enter your information to see if you qualify for compensation.</p>
+                    
                     <div class="input-group">
                         <label for="first-name">First Name</label>
-                        <input type="text" id="first-name" name="first-name" required placeholder="Your first name">
+                        <input type="text" id="first-name" name="first-name" required>
                     </div>
+                    
                     <div class="input-group">
                         <label for="last-name">Last Name</label>
-                        <input type="text" id="last-name" name="last-name" required placeholder="Your last name">
+                        <input type="text" id="last-name" name="last-name" required>
                     </div>
+                    
                     <div class="input-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="1234567890" pattern="[0-9]{10}" maxlength="10">
-                        <p class="input-hint">Enter 10 digits without spaces or special characters</p>
+                        <input type="tel" id="phone" name="phone" placeholder="1234567890" pattern="[0-9]{10}" maxlength="10" required>
+                        <p class="input-hint">Format: 1234567890 (no spaces or dashes)</p>
                     </div>
+                    
                     <div class="input-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                        <input type="email" id="email" name="email" required>
                     </div>
-                    <button type="submit" class="submit-button">Check My Eligibility</button>
-                    <p class="form-disclaimer">By submitting, you agree to our <a href="privacy-policy.html">Privacy Policy</a> and consent to receive calls and texts at the number provided. Message/data rates apply. You can unsubscribe at any time. Your information is confidential and will only be used for case review.</p>
+                    
+                    <p class="form-disclaimer">By submitting this form, you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-of-service.html">Terms of Service</a>. We'll connect you with a specialized attorney who can help with your case.</p>
+                    
+                    <button type="submit" class="submit-button">Submit My Case Details</button>
                 </div>
-
+                
                 <!-- Disqualification Message -->
-                <div class="form-step disqualification" id="disqualification">
-                    <h3>Thank you for your interest</h3>
-                    <p>Based on the information provided, your case may not qualify for our specific services at this time.</p>
-                    <p>Some common reasons include:</p>
-                    <ul class="disqualification-reasons">
-                        <li>The accident occurred more than 2 years ago</li>
-                        <li>You were determined to be at fault</li>
-                        <li>Medical attention was not received within 14 days</li>
-                        <li>The vehicle that hit you was not a commercial or work vehicle</li>
-                        <li>Unable to confirm the vehicle was being used for work purposes</li>
-                    </ul>
-                    <p>We recommend consulting with a general personal injury attorney who may be able to assist you with your situation.</p>
-                    <button type="button" class="restart-button">Start Over</button>
+                <div id="disqualification" class="form-step disqualification">
+                    <h3>We're Sorry</h3>
+                    <p>Based on your answers, your case may not qualify for our work vehicle accident claim program at this time.</p>
+                    <div class="disqualification-reasons">
+                        <p>Common reasons include:</p>
+                        <ul>
+                            <li>The accident occurred more than 2 years ago</li>
+                            <li>The accident did not involve a work/commercial vehicle</li>
+                            <li>You were determined to be at fault for the accident</li>
+                            <li>Medical attention was not sought within 14 days</li>
+                        </ul>
+                    </div>
+                    <p>If you believe there's been an error or you have additional information about your case, please call us directly at <a href="tel:8001234567">(800) 123-4567</a>.</p>
                 </div>
             </form>
         </div>
