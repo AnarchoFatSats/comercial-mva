@@ -59,9 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Add event listener to restart button
-        document.querySelector('.restart-button').addEventListener('click', restartForm);
-        
         // Add event listener to form submission
         form.addEventListener('submit', handleSubmit);
         
@@ -339,48 +336,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return 'Unknown reason';
     }
     
-    // Restart the form
-    function restartForm() {
-        // Clear form data except for source tracking info
-        const sourceData = {
-            source: formData.source,
-            lead_type: formData.lead_type,
-            utm_source: formData.utm_source,
-            utm_medium: formData.utm_medium,
-            utm_campaign: formData.utm_campaign,
-            landing_page: formData.landing_page,
-            user_agent: formData.user_agent
-        };
-        
-        formData = sourceData;
-        formData.timestamp = new Date().toISOString();
-        
-        // Reset all selected buttons
-        document.querySelectorAll('.option-button').forEach(button => {
-            button.classList.remove('selected');
-        });
-        
-        // Reset all input fields
-        document.querySelectorAll('input').forEach(input => {
-            input.value = '';
-            input.classList.remove('error');
-        });
-        
-        // Hide success container if it exists
-        const successContainer = document.getElementById('success-container');
-        if (successContainer) {
-            successContainer.style.display = 'none';
-        }
-        
-        // Show all steps (they'll be hidden by showStep)
-        steps.forEach(step => {
-            step.style.display = '';
-        });
-        
-        // Show first step
-        showStep(0);
-    }
-    
     // Handle form submission
     function handleSubmit(e) {
         e.preventDefault();
@@ -527,7 +482,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span>Start Your Settlement Now</span>
             </a>
             <p class="success-note">Our settlement specialists are standing by to begin processing your claim immediately. Don't delay - approved claims that aren't initiated within 24 hours may require resubmission.</p>
-            <button type="button" class="restart-button">Submit Another Claim</button>
         `;
         
         // Show success container
@@ -535,9 +489,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update progress bar to complete
         updateProgressBar(totalSteps, totalSteps);
-        
-        // Add event listener to restart button
-        successContainer.querySelector('.restart-button').addEventListener('click', restartForm);
         
         // Track conversion
         trackConversion(formData);
