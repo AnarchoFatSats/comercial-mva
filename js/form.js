@@ -16,10 +16,28 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Current step tracking
     let currentStep = 0;
-    let formData = {};
+    let formData = {
+        // Add site identification and lead type tags
+        source: 'commercial-mva',
+        lead_type: 'work_vehicle_accident',
+        utm_source: getUrlParameter('utm_source') || 'direct',
+        utm_medium: getUrlParameter('utm_medium') || '',
+        utm_campaign: getUrlParameter('utm_campaign') || '',
+        landing_page: window.location.href,
+        submission_date: new Date().toISOString(),
+        user_agent: navigator.userAgent
+    };
     
     // Initialize the form
     initForm();
+    
+    // Get URL parameters
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        const results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
     
     // Initialize the form
     function initForm() {
@@ -88,21 +106,26 @@ document.addEventListener('DOMContentLoaded', function() {
         steps[stepIndex].classList.add('active');
         
         // Update progress bar
-        const progress = (stepIndex / (totalSteps - 1)) * 100;
+        updateProgressBar(stepIndex, totalSteps - 1);
+        
+        // Update current step
+        currentStep = stepIndex;
+    }
+    
+    // Update progress bar
+    function updateProgressBar(current, total) {
+        const progress = (current / total) * 100;
         progressBar.style.width = `${progress}%`;
         
         // Update step indicators
         const indicators = document.querySelectorAll('.step-indicator');
         indicators.forEach((indicator, index) => {
-            if (index <= stepIndex) {
+            if (index <= current) {
                 indicator.classList.add('active');
             } else {
                 indicator.classList.remove('active');
             }
         });
-        
-        // Update current step
-        currentStep = stepIndex;
     }
     
     // Handle option selection
@@ -119,10 +142,18 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add selected class to clicked button
         button.classList.add('selected');
         
-        // Store the selection
+        // Store the selection with proper question text and answer
         const stepId = stepElement.id;
         const value = button.getAttribute('data-value');
+        
+        // Get the question text
+        const questionText = stepElement.querySelector('h3').textContent;
+        const answerText = button.textContent.trim();
+        
+        // Store both the raw value and human-readable Q&A
         formData[stepId] = value;
+        formData[`${stepId}_question`] = questionText;
+        formData[`${stepId}_answer`] = answerText;
         
         // Process conditional logic
         setTimeout(() => {
@@ -256,6 +287,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Store the date and proceed
             formData['accident-date'] = datePicker.value;
+            
+            // Get the question text
+            const questionText = document.querySelector('#step-3 h3').textContent;
+            formData['step-3_question'] = questionText;
+            formData['step-3_answer'] = datePicker.value;
+            
             showStep(4);
         }
     }
@@ -270,16 +307,74 @@ document.addEventListener('DOMContentLoaded', function() {
                 step.classList.remove('active');
             }
         });
+        
+        // Add disqualification reason to form data
+        formData['qualified'] = false;
+        formData['disqualification_reason'] = determineDisqualificationReason();
+        
+        // Submit disqualified lead data to DynamoDB
+        submitToDynamoDB(formData);
+    }
+    
+    // Determine the reason for disqualification
+    function determineDisqualificationReason() {
+        if (formData['step-1b'] === 'no') {
+            return 'Not a work/commercial vehicle';
+        } else if (formData['step-2'] === 'me') {
+            return 'User was at fault';
+        } else if (formData['step-4b'] === 'no') {
+            return 'Vehicle not used for work purposes';
+        } else if (formData['step-5b'] === 'no') {
+            return 'No medical attention within 14 days';
+        } else if (formData['accident-date']) {
+            const selectedDate = new Date(formData['accident-date']);
+            const today = new Date();
+            const twoYearsAgo = new Date(today.getFullYear() - 2, today.getMonth(), today.getDate());
+            
+            if (selectedDate < twoYearsAgo) {
+                return 'Accident occurred more than 2 years ago';
+            }
+        }
+        
+        return 'Unknown reason';
     }
     
     // Restart the form
     function restartForm() {
-        // Clear form data
-        formData = {};
+        // Clear form data except for source tracking info
+        const sourceData = {
+            source: formData.source,
+            lead_type: formData.lead_type,
+            utm_source: formData.utm_source,
+            utm_medium: formData.utm_medium,
+            utm_campaign: formData.utm_campaign,
+            landing_page: formData.landing_page,
+            user_agent: formData.user_agent
+        };
+        
+        formData = sourceData;
+        formData.submission_date = new Date().toISOString();
         
         // Reset all selected buttons
         document.querySelectorAll('.option-button').forEach(button => {
             button.classList.remove('selected');
+        });
+        
+        // Reset all input fields
+        document.querySelectorAll('input').forEach(input => {
+            input.value = '';
+            input.classList.remove('error');
+        });
+        
+        // Hide success container if it exists
+        const successContainer = document.getElementById('success-container');
+        if (successContainer) {
+            successContainer.style.display = 'none';
+        }
+        
+        // Show all steps (they'll be hidden by showStep)
+        steps.forEach(step => {
+            step.style.display = '';
         });
         
         // Show first step
@@ -320,18 +415,70 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Store contact info
-        formData['first-name'] = firstName;
-        formData['last-name'] = lastName;
+        formData['first_name'] = firstName;
+        formData['last_name'] = lastName;
         formData['phone'] = phone;
         formData['email'] = email;
+        formData['qualified'] = true;
         
-        // Submit the form data
-        console.log('Form data submitted:', formData);
+        // Get the question text for contact info
+        const contactQuestionText = document.querySelector('#step-7 h3').textContent;
+        formData['contact_question'] = contactQuestionText;
         
-        // Here you would typically send the data to your server
+        // Generate a unique lead ID
+        formData['lead_id'] = generateLeadId(firstName, lastName, phone);
         
-        // Show success message with click-to-call CTA
-        showSuccessWithCallCTA(phone);
+        // Submit the form data to DynamoDB
+        submitToDynamoDB(formData)
+            .then(() => {
+                // Show success message with click-to-call CTA
+                showSuccessWithCallCTA(phone);
+            })
+            .catch(error => {
+                console.error('Error submitting to DynamoDB:', error);
+                // Still show success to user even if there's an error
+                showSuccessWithCallCTA(phone);
+            });
+    }
+    
+    // Generate a unique lead ID
+    function generateLeadId(firstName, lastName, phone) {
+        const timestamp = new Date().getTime();
+        const randomNum = Math.floor(Math.random() * 10000);
+        const nameInitials = (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
+        const lastFourDigits = phone.slice(-4);
+        
+        return `${nameInitials}${lastFourDigits}-${timestamp}-${randomNum}`;
+    }
+    
+    // Submit data to DynamoDB via API Gateway
+    async function submitToDynamoDB(data) {
+        try {
+            // Log the data being sent (for development purposes)
+            console.log('Submitting to DynamoDB:', data);
+            
+            // Call the API Gateway endpoint
+            const response = await fetch('https://REPLACE_WITH_YOUR_API_ENDPOINT/leads', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            
+            if (!response.ok) {
+                throw new Error(`API responded with status: ${response.status}`);
+            }
+            
+            const responseData = await response.json();
+            console.log('DynamoDB response:', responseData);
+            
+            return responseData;
+        } catch (error) {
+            console.error('Error submitting to DynamoDB:', error);
+            // Re-throw the error so the calling function can handle it
+            throw error;
+        }
     }
     
     // Show success message with click-to-call CTA
@@ -375,6 +522,33 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Add event listener to restart button
         successContainer.querySelector('.restart-button').addEventListener('click', restartForm);
+        
+        // Track conversion
+        trackConversion(formData);
+    }
+    
+    // Track conversion for analytics
+    function trackConversion(data) {
+        // Google Analytics conversion tracking
+        if (typeof gtag === 'function') {
+            gtag('event', 'conversion', {
+                'send_to': 'AW-CONVERSION_ID/CONVERSION_LABEL',
+                'value': 1.0,
+                'currency': 'USD',
+                'transaction_id': data.lead_id
+            });
+        }
+        
+        // Facebook Pixel conversion tracking
+        if (typeof fbq === 'function') {
+            fbq('track', 'Lead', {
+                content_name: 'Work Vehicle Accident Claim',
+                content_category: 'Legal',
+                value: 1.0,
+                currency: 'USD',
+                lead_id: data.lead_id
+            });
+        }
     }
     
     // Remove error class when input changes

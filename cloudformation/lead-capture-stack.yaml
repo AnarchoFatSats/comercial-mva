@@ -1,0 +1,230 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Lead Capture System for Commercial MVA Website'
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - staging
+      - prod
+    Description: Environment type
+
+  NotificationEmail:
+    Type: String
+    Default: leads@example.com
+    Description: Email address to receive lead notifications
+
+Resources:
+  # DynamoDB Table for storing leads
+  LeadsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub 'commercial-mva-leads-${Environment}'
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: lead_id
+          AttributeType: S
+        - AttributeName: submission_date
+          AttributeType: S
+      KeySchema:
+        - AttributeName: lead_id
+          KeyType: HASH
+        - AttributeName: submission_date
+          KeyType: RANGE
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Project
+          Value: commercial-mva
+
+  # SNS Topic for lead notifications
+  LeadNotificationTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub 'commercial-mva-lead-notifications-${Environment}'
+      DisplayName: 'Commercial MVA Lead Notifications'
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Project
+          Value: commercial-mva
+
+  # SNS Subscription for email notifications
+  LeadNotificationSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: email
+      Endpoint: !Ref NotificationEmail
+      TopicArn: !Ref LeadNotificationTopic
+
+  # IAM Role for Lambda function
+  LeadHandlerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: LeadHandlerPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:PutItem
+                  - dynamodb:GetItem
+                  - dynamodb:UpdateItem
+                  - dynamodb:Query
+                Resource: !GetAtt LeadsTable.Arn
+              - Effect: Allow
+                Action:
+                  - sns:Publish
+                Resource: !Ref LeadNotificationTopic
+
+  # Lambda function for handling lead submissions
+  LeadHandlerFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub 'commercial-mva-lead-handler-${Environment}'
+      Handler: lead-handler.handler
+      Role: !GetAtt LeadHandlerRole.Arn
+      Runtime: nodejs14.x
+      Timeout: 30
+      MemorySize: 256
+      Environment:
+        Variables:
+          DYNAMODB_TABLE: !Ref LeadsTable
+          SNS_TOPIC_ARN: !Ref LeadNotificationTopic
+      Code:
+        ZipFile: |
+          // This is a placeholder. The actual code will be deployed separately.
+          exports.handler = async (event) => {
+            return {
+              statusCode: 200,
+              body: JSON.stringify({ message: 'Placeholder function' })
+            };
+          };
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Project
+          Value: commercial-mva
+
+  # API Gateway REST API
+  LeadAPI:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: !Sub 'commercial-mva-lead-api-${Environment}'
+      Description: 'API for Commercial MVA Lead Capture'
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Project
+          Value: commercial-mva
+
+  # API Gateway Resource for leads endpoint
+  LeadsResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref LeadAPI
+      ParentId: !GetAtt LeadAPI.RootResourceId
+      PathPart: 'leads'
+
+  # API Gateway Method for POST requests
+  LeadsPostMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      RestApiId: !Ref LeadAPI
+      ResourceId: !Ref LeadsResource
+      HttpMethod: POST
+      AuthorizationType: NONE
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LeadHandlerFunction.Arn}/invocations'
+      MethodResponses:
+        - StatusCode: '200'
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+        - StatusCode: '500'
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+
+  # API Gateway Method for OPTIONS requests (CORS support)
+  LeadsOptionsMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      RestApiId: !Ref LeadAPI
+      ResourceId: !Ref LeadsResource
+      HttpMethod: OPTIONS
+      AuthorizationType: NONE
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - StatusCode: '200'
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'GET,POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            ResponseTemplates:
+              application/json: '{}'
+        RequestTemplates:
+          application/json: '{"statusCode": 200}'
+      MethodResponses:
+        - StatusCode: '200'
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Origin: true
+
+  # Lambda Permission for API Gateway
+  LeadHandlerPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref LeadHandlerFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${LeadAPI}/*/POST/leads'
+
+  # API Gateway Deployment
+  LeadAPIDeployment:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn:
+      - LeadsPostMethod
+      - LeadsOptionsMethod
+    Properties:
+      RestApiId: !Ref LeadAPI
+      StageName: !Ref Environment
+
+Outputs:
+  LeadsTableName:
+    Description: 'DynamoDB table name for leads'
+    Value: !Ref LeadsTable
+
+  LeadAPIEndpoint:
+    Description: 'API Gateway endpoint URL for lead submissions'
+    Value: !Sub 'https://${LeadAPI}.execute-api.${AWS::Region}.amazonaws.com/${Environment}/leads'
+
+  LeadNotificationTopicARN:
+    Description: 'SNS Topic ARN for lead notifications'
+    Value: !Ref LeadNotificationTopic 
