@@ -6,9 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form elements
     const form = document.getElementById('claim-form');
     const progressBar = document.getElementById('progress-bar');
-    const stepIndicators = document.getElementById('step-indicators');
     const heroCta = document.getElementById('hero-cta');
-    const mobileCta = document.getElementById('mobile-cta');
     
     // Form steps
     const steps = document.querySelectorAll('.form-step');
@@ -59,12 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add event listener to form submission
         form.addEventListener('submit', handleSubmit);
         
-        // Add event listeners to hero and mobile CTAs
+        // Add event listener to hero CTA
         heroCta.addEventListener('click', () => {
-            document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
-        });
-        
-        mobileCta.addEventListener('click', () => {
             document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
         });
         
