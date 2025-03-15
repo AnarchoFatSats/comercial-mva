@@ -13,6 +13,7 @@
     --form-bg: #fff;
     --input-bg: #f8fafc;
     --input-focus-border: #4299e1;
+    --focus-outline-color: #3182ce;
 }
 
 * {
@@ -26,6 +27,51 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--background-color);
+}
+
+/* Accessibility Styles */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus styles for keyboard navigation */
+:focus {
+    outline: 3px solid var(--focus-outline-color);
+    outline-offset: 2px;
+}
+
+/* Remove focus outline for mouse users, keep for keyboard */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+:focus-visible {
+    outline: 3px solid var(--focus-outline-color);
+    outline-offset: 2px;
+}
+
+/* Skip to content link for keyboard users */
+.skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px;
+    z-index: 100;
+    transition: top 0.3s;
+}
+
+.skip-to-content:focus {
+    top: 0;
 }
 
 .container {
@@ -329,6 +375,13 @@ button {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
     box-shadow: inset 0 0 0 4px #fff;
+}
+
+/* High contrast focus state for option buttons */
+.option-button:focus {
+    outline: 3px solid var(--focus-outline-color);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.4);
 }
 
 .input-group {
@@ -1281,7 +1334,7 @@ footer {
     }
 }
 
-/* Success Container Styles */
+/* Success Container Styles with enhanced accessibility */
 .success-container {
     text-align: center;
     padding: 2rem;
@@ -1373,7 +1426,14 @@ footer {
     overflow-wrap: break-word;
 }
 
-/* Calculation Animation Styles */
+/* High contrast focus for call-to-action button */
+.call-cta-button:focus {
+    outline: 3px solid var(--focus-outline-color);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.4);
+}
+
+/* Calculation Animation Styles with enhanced accessibility */
 .calculation-container {
     text-align: center;
     padding: 2rem;
@@ -1483,6 +1543,44 @@ footer {
         height: 50px;
         font-size: 24px;
         margin-bottom: 15px;
+    }
+    
+    /* Ensure focus outlines are visible on mobile */
+    :focus {
+        outline: 3px solid var(--focus-outline-color);
+    }
+    
+    /* Increase touch target sizes for better accessibility on mobile */
+    .option-button,
+    .next-button, 
+    .submit-button, 
+    .restart-button,
+    .call-cta-button {
+        min-height: 44px; /* Minimum touch target size */
+        padding: 12px 15px;
+    }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+    .option-button.selected {
+        border: 3px solid CanvasText;
+    }
+    
+    .progress-bar {
+        background: Highlight;
+    }
+    
+    .success-icon,
+    .calculation-complete .success-icon {
+        border: 2px solid CanvasText;
+        background-color: Highlight;
+    }
+    
+    .call-cta-button {
+        border: 2px solid CanvasText;
+        background-color: Highlight;
+        color: Canvas;
     }
 }
 

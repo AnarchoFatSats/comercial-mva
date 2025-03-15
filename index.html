@@ -31,160 +31,172 @@
     </script>
 </head>
 <body>
+    <!-- Screen reader announcements -->
+    <div id="sr-announce" class="sr-only" aria-live="polite"></div>
+    
+    <!-- Skip to content link for accessibility -->
+    <a href="#form-section" class="skip-to-content">Skip to form</a>
+    
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-background">
+    <section class="hero" role="banner">
+        <div class="hero-background" aria-hidden="true">
             <!-- Aerial view of commercial truck accident -->
         </div>
         <div class="hero-content">
             <h1>Injured in a Work Vehicle Accident? You May Be Owed Compensation!</h1>
             <p class="subheading">Find out in 30 seconds—100% FREE case review!</p>
-            <button class="cta-button" id="hero-cta">Start My Free Case Review</button>
+            <button class="cta-button" id="hero-cta" aria-label="Start my free case review">Start My Free Case Review</button>
         </div>
     </section>
 
     <!-- Dynamic Form Section -->
-    <section id="form-section" class="form-section">
+    <section id="form-section" class="form-section" role="main">
         <div class="container">
             <h2>Free Case Evaluation</h2>
-            <div class="progress-container">
-                <div id="progress-bar" class="progress-bar"></div>
+            <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Form completion progress">
+                <div class="progress-bar"></div>
+                <div class="step-indicators" aria-hidden="true">
+                    <!-- Step indicators will be dynamically updated -->
+                </div>
             </div>
-            <form id="claim-form" class="claim-form">
-                <!-- Step 1: Vehicle Type -->
+            
+            <form id="claim-form" role="form" aria-label="Work Vehicle Accident Claim Qualification Form" novalidate>
+                <!-- Step 1: Type of Work Vehicle -->
                 <div id="step-1" class="form-step">
-                    <h3>What type of work vehicle hit you?</h3>
-                    <div class="option-buttons">
-                        <button type="button" class="option-button" data-value="truck">Commercial Truck / 18-Wheeler</button>
-                        <button type="button" class="option-button" data-value="delivery">Delivery Van / Truck</button>
-                        <button type="button" class="option-button" data-value="construction">Construction Vehicle</button>
-                        <button type="button" class="option-button" data-value="company-car">Company Car / Fleet Vehicle</button>
-                        <button type="button" class="option-button" data-value="other">Other Work Vehicle</button>
-                        <button type="button" class="option-button" data-value="unsure">Not Sure</button>
+                    <h3 id="step1-question">What type of work vehicle were you hit by?</h3>
+                    <div class="option-buttons" role="radiogroup" aria-labelledby="step1-question">
+                        <button type="button" class="option-button" data-value="truck" role="radio" aria-checked="false" tabindex="0">Commercial Truck / 18-Wheeler</button>
+                        <button type="button" class="option-button" data-value="delivery" role="radio" aria-checked="false" tabindex="0">Delivery Van / Truck</button>
+                        <button type="button" class="option-button" data-value="construction" role="radio" aria-checked="false" tabindex="0">Construction Vehicle</button>
+                        <button type="button" class="option-button" data-value="company-car" role="radio" aria-checked="false" tabindex="0">Company Car / Fleet Vehicle</button>
+                        <button type="button" class="option-button" data-value="other" role="radio" aria-checked="false" tabindex="0">Other Work Vehicle</button>
+                        <button type="button" class="option-button" data-value="unsure" role="radio" aria-checked="false" tabindex="0">Not Sure</button>
                     </div>
                 </div>
                 
-                <!-- Step 1b: Confirmation (conditional) -->
+                <!-- Step 1b: Confirm Work Vehicle (conditional) -->
                 <div id="step-1b" class="form-step">
-                    <h3>Was the vehicle being used for work purposes?</h3>
-                    <div class="option-buttons">
-                        <button type="button" class="option-button" data-value="yes">Yes</button>
-                        <button type="button" class="option-button" data-value="no">No</button>
-                        <button type="button" class="option-button" data-value="unsure">Not Sure</button>
+                    <h3 id="step1b-question">Was the vehicle being used for work purposes?</h3>
+                    <div class="option-buttons" role="radiogroup" aria-labelledby="step1b-question">
+                        <button type="button" class="option-button" data-value="yes" role="radio" aria-checked="false" tabindex="0">Yes, it was a work vehicle</button>
+                        <button type="button" class="option-button" data-value="no" role="radio" aria-checked="false" tabindex="0">No, it was not for work</button>
+                        <button type="button" class="option-button" data-value="unsure" role="radio" aria-checked="false" tabindex="0">Not sure</button>
                     </div>
                 </div>
                 
                 <!-- Step 2: Fault -->
                 <div id="step-2" class="form-step">
-                    <h3>Who was at fault in the accident?</h3>
-                    <div class="option-buttons">
-                        <button type="button" class="option-button" data-value="other-driver">The other driver</button>
-                        <button type="button" class="option-button" data-value="me">Me</button>
-                        <button type="button" class="option-button" data-value="shared">Shared fault</button>
-                        <button type="button" class="option-button" data-value="unsure">Not sure</button>
+                    <h3 id="step2-question">Who was at fault in the accident?</h3>
+                    <div class="option-buttons" role="radiogroup" aria-labelledby="step2-question">
+                        <button type="button" class="option-button" data-value="other-driver" role="radio" aria-checked="false" tabindex="0">The other driver</button>
+                        <button type="button" class="option-button" data-value="me" role="radio" aria-checked="false" tabindex="0">Me</button>
+                        <button type="button" class="option-button" data-value="shared" role="radio" aria-checked="false" tabindex="0">Shared fault</button>
+                        <button type="button" class="option-button" data-value="unsure" role="radio" aria-checked="false" tabindex="0">Not sure</button>
                     </div>
                 </div>
                 
                 <!-- Step 3: Date -->
                 <div id="step-3" class="form-step">
-                    <h3>When did the accident occur?</h3>
+                    <h3 id="step3-question">When did the accident occur?</h3>
                     <div class="input-group date-picker-container">
-                        <input type="date" id="accident-date" name="accident-date" required>
-                        <p class="date-hint">Must be within the last 2 years</p>
-                        <button type="button" class="next-button">Continue</button>
+                        <label for="accident-date" class="sr-only">Date of accident</label>
+                        <input type="date" id="accident-date" name="accident-date" required aria-required="true" aria-describedby="date-hint">
+                        <p id="date-hint" class="date-hint">Must be within the last 2 years</p>
                     </div>
+                    <button type="button" class="next-button" aria-label="Continue to next step">Continue</button>
                 </div>
                 
                 <!-- Step 4: On the Clock -->
                 <div id="step-4" class="form-step">
-                    <h3>Were you on the clock when the accident occurred?</h3>
-                    <div class="option-buttons">
-                        <button type="button" class="option-button" data-value="yes">Yes</button>
-                        <button type="button" class="option-button" data-value="no">No</button>
+                    <h3 id="step4-question">Were you on the clock or working when the accident occurred?</h3>
+                    <div class="option-buttons" role="radiogroup" aria-labelledby="step4-question">
+                        <button type="button" class="option-button" data-value="yes" role="radio" aria-checked="false" tabindex="0">Yes, I was working</button>
+                        <button type="button" class="option-button" data-value="no" role="radio" aria-checked="false" tabindex="0">No, I was not working</button>
+                        <button type="button" class="option-button" data-value="unsure" role="radio" aria-checked="false" tabindex="0">Not sure</button>
                     </div>
                 </div>
                 
-                <!-- Step 4b: Other Driver (conditional) -->
+                <!-- Step 4b: Other Driver Work Vehicle (conditional) -->
                 <div id="step-4b" class="form-step">
-                    <h3>Was the other driver in a work vehicle?</h3>
-                    <div class="option-buttons">
-                        <button type="button" class="option-button" data-value="yes">Yes</button>
-                        <button type="button" class="option-button" data-value="no">No</button>
-                        <button type="button" class="option-button" data-value="unsure">Not Sure</button>
+                    <h3 id="step4b-question">Was the other driver in a work vehicle or on the job?</h3>
+                    <div class="option-buttons" role="radiogroup" aria-labelledby="step4b-question">
+                        <button type="button" class="option-button" data-value="yes" role="radio" aria-checked="false" tabindex="0">Yes, they were working</button>
+                        <button type="button" class="option-button" data-value="no" role="radio" aria-checked="false" tabindex="0">No, they were not working</button>
+                        <button type="button" class="option-button" data-value="unsure" role="radio" aria-checked="false" tabindex="0">Not sure</button>
                     </div>
                 </div>
                 
                 <!-- Step 5: Medical Attention -->
                 <div id="step-5" class="form-step">
-                    <h3>Did you seek medical attention within 7 days of the accident?</h3>
-                    <div class="option-buttons">
-                        <button type="button" class="option-button" data-value="yes">Yes</button>
-                        <button type="button" class="option-button" data-value="no">No</button>
+                    <h3 id="step5-question">Did you seek medical attention within 7 days of the accident?</h3>
+                    <div class="option-buttons" role="radiogroup" aria-labelledby="step5-question">
+                        <button type="button" class="option-button" data-value="yes" role="radio" aria-checked="false" tabindex="0">Yes, within 7 days</button>
+                        <button type="button" class="option-button" data-value="no" role="radio" aria-checked="false" tabindex="0">No, after 7 days or not yet</button>
                     </div>
                 </div>
                 
                 <!-- Step 5b: Medical Attention Extended (conditional) -->
                 <div id="step-5b" class="form-step">
-                    <h3>Did you seek medical attention within 14 days of the accident?</h3>
-                    <div class="option-buttons">
-                        <button type="button" class="option-button" data-value="yes">Yes</button>
-                        <button type="button" class="option-button" data-value="no">No</button>
+                    <h3 id="step5b-question">Did you seek medical attention within 14 days of the accident?</h3>
+                    <div class="option-buttons" role="radiogroup" aria-labelledby="step5b-question">
+                        <button type="button" class="option-button" data-value="yes" role="radio" aria-checked="false" tabindex="0">Yes, within 14 days</button>
+                        <button type="button" class="option-button" data-value="no" role="radio" aria-checked="false" tabindex="0">No, after 14 days or not yet</button>
                     </div>
                 </div>
                 
                 <!-- Step 6: Police Report -->
                 <div id="step-6" class="form-step">
-                    <h3>Was a police report filed?</h3>
-                    <div class="option-buttons">
-                        <button type="button" class="option-button" data-value="yes">Yes</button>
-                        <button type="button" class="option-button" data-value="no">No</button>
-                        <button type="button" class="option-button" data-value="unsure">Not Sure</button>
+                    <h3 id="step6-question">Was a police report filed for the accident?</h3>
+                    <div class="option-buttons" role="radiogroup" aria-labelledby="step6-question">
+                        <button type="button" class="option-button" data-value="yes" role="radio" aria-checked="false" tabindex="0">Yes, a report was filed</button>
+                        <button type="button" class="option-button" data-value="no" role="radio" aria-checked="false" tabindex="0">No report was filed</button>
+                        <button type="button" class="option-button" data-value="unsure" role="radio" aria-checked="false" tabindex="0">Not sure</button>
                     </div>
                 </div>
                 
                 <!-- Step 6b: Police Report Copy (conditional) -->
                 <div id="step-6b" class="form-step">
-                    <h3>Do you have a copy of the police report?</h3>
-                    <div class="option-buttons">
-                        <button type="button" class="option-button" data-value="yes">Yes</button>
-                        <button type="button" class="option-button" data-value="no">No</button>
+                    <h3 id="step6b-question">Do you have a copy of the police report?</h3>
+                    <div class="option-buttons" role="radiogroup" aria-labelledby="step6b-question">
+                        <button type="button" class="option-button" data-value="yes" role="radio" aria-checked="false" tabindex="0">Yes, I have a copy</button>
+                        <button type="button" class="option-button" data-value="no" role="radio" aria-checked="false" tabindex="0">No, I don't have a copy</button>
                     </div>
                 </div>
                 
                 <!-- Step 7: Contact Information -->
                 <div id="step-7" class="form-step">
-                    <h3>Final Step: Your Contact Information</h3>
-                    <p>Enter your information to see if you qualify for compensation.</p>
+                    <h3 id="step7-heading">Final Step: Your Contact Information</h3>
+                    <p id="step7-description">Enter your information to see if you qualify for compensation.</p>
                     
                     <div class="input-group">
                         <label for="first-name">First Name</label>
-                        <input type="text" id="first-name" name="first-name" required>
+                        <input type="text" id="first-name" name="first-name" required aria-required="true">
                     </div>
                     
                     <div class="input-group">
                         <label for="last-name">Last Name</label>
-                        <input type="text" id="last-name" name="last-name" required>
+                        <input type="text" id="last-name" name="last-name" required aria-required="true">
                     </div>
                     
                     <div class="input-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="1234567890" pattern="[0-9]{10}" maxlength="10" required>
-                        <p class="input-hint">Format: 1234567890 (no spaces or dashes)</p>
+                        <input type="tel" id="phone" name="phone" placeholder="1234567890" pattern="[0-9]{10}" maxlength="10" required aria-required="true" aria-describedby="phone-hint">
+                        <p id="phone-hint" class="input-hint">Format: 1234567890 (no spaces or dashes)</p>
                     </div>
                     
                     <div class="input-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" required aria-required="true">
                     </div>
                     
                     <p class="form-disclaimer">By submitting this form, you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-of-service.html">Terms of Service</a>. We'll connect you with a specialized attorney who can help with your case.</p>
                     
-                    <button type="submit" class="submit-button">Submit My Case Details</button>
+                    <button type="submit" class="submit-button" aria-label="Submit my case details to check eligibility">Submit My Case Details</button>
                 </div>
                 
                 <!-- Disqualification Message -->
-                <div id="disqualification" class="form-step disqualification">
-                    <h3>We're Sorry</h3>
+                <div id="disqualification" class="form-step disqualification" role="alert" aria-live="assertive">
+                    <h3 id="disqualification-heading">We're Sorry</h3>
                     <p>Based on your answers, your case may not qualify for our work vehicle accident claim program at this time.</p>
                     <div class="disqualification-reasons">
                         <p>Common reasons include:</p>
@@ -195,74 +207,74 @@
                             <li>Medical attention was not sought within 14 days</li>
                         </ul>
                     </div>
-                    <p>If you believe there's been an error or you have additional information about your case, please call us directly at <a href="tel:+18339986932">(833) 998-6932</a>.</p>
+                    <p>If you believe there's been an error or you have additional information about your case, please call us directly at <a href="tel:+18339986932" aria-label="Call 8 3 3 9 9 8 6 9 3 2">(833) 998-6932</a>.</p>
                 </div>
             </form>
         </div>
     </section>
 
     <!-- Trust Building Section -->
-    <section class="trust-section">
+    <section class="trust-section" role="complementary" aria-labelledby="trust-section-heading">
         <div class="container">
-            <h2>Why Choose Us</h2>
+            <h2 id="trust-section-heading">Why Choose Us</h2>
             
             <!-- Testimonials -->
-            <div class="testimonials">
+            <div class="testimonials" role="region" aria-label="Client testimonials">
                 <div class="testimonial">
-                    <img src="assets/images/testimonials/male-testimonial.jpg" alt="Client Testimonial">
-                    <div class="rating">★★★★★</div>
+                    <img src="assets/images/testimonials/male-testimonial.jpg" alt="Photo of Michael R., a pedestrian client">
+                    <div class="rating" aria-label="5 out of 5 star rating">★★★★★</div>
                     <blockquote>"I was hit by a delivery truck while crossing the street. Claim Connectors connected me with an amazing attorney who secured a $350,000 settlement for my injuries and lost wages."</blockquote>
                     <cite>- Michael R., Pedestrian</cite>
                 </div>
                 <div class="testimonial">
-                    <img src="assets/images/testimonials/female-testimonial.jpg" alt="Client Testimonial">
-                    <div class="rating">★★★★★</div>
+                    <img src="assets/images/testimonials/female-testimonial.jpg" alt="Photo of Sarah T., a rideshare driver client">
+                    <div class="rating" aria-label="5 out of 5 star rating">★★★★★</div>
                     <blockquote>"I was hit by a construction vehicle while driving for Uber. The team made the process so easy and got me a settlement that covered all my medical bills and lost income."</blockquote>
                     <cite>- Sarah T., Rideshare Driver</cite>
                 </div>
             </div>
             
             <!-- FAQ Section -->
-            <div class="faq-section">
-                <h3>Frequently Asked Questions</h3>
+            <div class="faq-section" role="region" aria-labelledby="faq-heading">
+                <h3 id="faq-heading">Frequently Asked Questions</h3>
                 <div class="faq-item">
-                    <div class="faq-question">Am I eligible if I was hit by a commercial vehicle?</div>
-                    <div class="faq-answer">Yes, if you were injured in an accident where a commercial or work vehicle hit you, you may be eligible for significant compensation. This includes accidents involving delivery trucks, service vans, company cars, construction vehicles, and even rideshare vehicles being used for work purposes.</div>
+                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-1" tabindex="0">Am I eligible if I was hit by a commercial vehicle?</div>
+                    <div id="faq-answer-1" class="faq-answer" aria-hidden="true">Yes, if you were injured in an accident where a commercial or work vehicle hit you, you may be eligible for significant compensation. This includes accidents involving delivery trucks, service vans, company cars, construction vehicles, and even rideshare vehicles being used for work purposes.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">How much compensation could I qualify for?</div>
-                    <div class="faq-answer">Compensation varies based on factors like injury severity, medical expenses, lost wages, and liability. Commercial vehicle accidents often qualify for higher settlements due to commercial insurance policies and potential employer liability. Many of our clients have received settlements ranging from $50,000 to over $500,000.</div>
+                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-2" tabindex="0">How much compensation could I qualify for?</div>
+                    <div id="faq-answer-2" class="faq-answer" aria-hidden="true">Compensation varies based on factors like injury severity, medical expenses, lost wages, and liability. Commercial vehicle accidents often qualify for higher settlements due to commercial insurance policies and potential employer liability. Many of our clients have received settlements ranging from $50,000 to over $500,000.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Do I need to pay anything upfront?</div>
-                    <div class="faq-answer">No. Our partner attorneys work on a contingency fee basis, meaning you pay nothing unless they win your case. There are no upfront costs, consultation fees, or hidden charges. You only pay a percentage of your settlement after you receive compensation.</div>
+                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-3" tabindex="0">Do I need to pay anything upfront?</div>
+                    <div id="faq-answer-3" class="faq-answer" aria-hidden="true">No. Our partner attorneys work on a contingency fee basis, meaning you pay nothing unless they win your case. There are no upfront costs, consultation fees, or hidden charges. You only pay a percentage of your settlement after you receive compensation.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">What if the accident was partially my fault?</div>
-                    <div class="faq-answer">Depending on your state's laws, you may still be eligible for compensation even if you were partially at fault. This is known as comparative negligence. For example, if you were 20% at fault, you might still recover 80% of your damages. Our attorneys can evaluate your specific situation.</div>
+                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-4" tabindex="0">What if the accident was partially my fault?</div>
+                    <div id="faq-answer-4" class="faq-answer" aria-hidden="true">Depending on your state's laws, you may still be eligible for compensation even if you were partially at fault. This is known as comparative negligence. For example, if you were 20% at fault, you might still recover 80% of your damages. Our attorneys can evaluate your specific situation.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">How long does a commercial vehicle accident claim take?</div>
-                    <div class="faq-answer">Most commercial vehicle accident claims are resolved within 6-18 months, depending on the complexity of the case and the parties involved. Simple cases may settle faster, while complex cases involving multiple parties or severe injuries might take longer.</div>
+                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-5" tabindex="0">How long does a commercial vehicle accident claim take?</div>
+                    <div id="faq-answer-5" class="faq-answer" aria-hidden="true">Most commercial vehicle accident claims are resolved within 6-18 months, depending on the complexity of the case and the parties involved. Simple cases may settle faster, while complex cases involving multiple parties or severe injuries might take longer.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Why are commercial vehicle accidents different from regular accidents?</div>
-                    <div class="faq-answer">Commercial vehicle accidents typically involve higher insurance policy limits, potential employer liability, and may be subject to additional regulations. This often means more potential compensation for victims. Additionally, companies may have more resources to investigate accidents quickly, making it important for you to seek legal help promptly.</div>
+                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-6" tabindex="0">Why are commercial vehicle accidents different from regular accidents?</div>
+                    <div id="faq-answer-6" class="faq-answer" aria-hidden="true">Commercial vehicle accidents typically involve higher insurance policy limits, potential employer liability, and may be subject to additional regulations. This often means more potential compensation for victims. Additionally, companies may have more resources to investigate accidents quickly, making it important for you to seek legal help promptly.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">What if I was a pedestrian or cyclist hit by a work vehicle?</div>
-                    <div class="faq-answer">Pedestrians and cyclists hit by work vehicles often have strong claims for compensation. These cases may involve significant injuries and clear liability against the commercial driver and their employer. Our network of attorneys has extensive experience representing pedestrians and cyclists in these situations.</div>
+                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-7" tabindex="0">What if I was a pedestrian or cyclist hit by a work vehicle?</div>
+                    <div id="faq-answer-7" class="faq-answer" aria-hidden="true">Pedestrians and cyclists hit by work vehicles often have strong claims for compensation. These cases may involve significant injuries and clear liability against the commercial driver and their employer. Our network of attorneys has extensive experience representing pedestrians and cyclists in these situations.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">What types of damages can I recover?</div>
-                    <div class="faq-answer">You may be eligible to recover medical expenses (past and future), lost wages, loss of earning capacity, pain and suffering, emotional distress, property damage, and in some cases, punitive damages. Our attorneys work to maximize all available compensation sources.</div>
+                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-8" tabindex="0">What types of damages can I recover?</div>
+                    <div id="faq-answer-8" class="faq-answer" aria-hidden="true">You may be eligible to recover medical expenses (past and future), lost wages, loss of earning capacity, pain and suffering, emotional distress, property damage, and in some cases, punitive damages. Our attorneys work to maximize all available compensation sources.</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer role="contentinfo">
         <div class="container">
             <p>&copy; 2025 Claim Connectors. All rights reserved.</p>
             <div class="footer-links">
@@ -274,10 +286,10 @@
     </footer>
 
     <!-- Exit Intent Popup -->
-    <div id="exit-popup" class="exit-popup">
+    <div id="exit-popup" class="exit-popup" role="dialog" aria-labelledby="exit-popup-heading" aria-hidden="true">
         <div class="exit-popup-content">
-            <button id="exit-popup-close" class="exit-popup-close">&times;</button>
-            <h3>Wait! Don't Miss Out On Compensation</h3>
+            <button id="exit-popup-close" class="exit-popup-close" aria-label="Close popup">&times;</button>
+            <h3 id="exit-popup-heading">Wait! Don't Miss Out On Compensation</h3>
             <p>You may be entitled to significant compensation for your work vehicle accident. Take 30 seconds to see if you qualify.</p>
             <button id="exit-popup-cta" class="exit-popup-cta">Check My Eligibility Now</button>
         </div>
