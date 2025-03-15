@@ -388,7 +388,26 @@ document.addEventListener('DOMContentLoaded', function() {
             form.appendChild(calculationContainer);
         }
         
-        // Set calculation content with animation
+        // Clear any existing content and ensure it's visible
+        calculationContainer.style.opacity = '1';
+        calculationContainer.style.display = 'block';
+        
+        // Function to transition to next screen with fade effect
+        function transitionToScreen(content, delay) {
+            setTimeout(() => {
+                // Fade out current content
+                calculationContainer.style.opacity = '0';
+                
+                // After fade out, update content and fade in
+                setTimeout(() => {
+                    calculationContainer.innerHTML = content;
+                    calculationContainer.style.opacity = '1';
+                    calculationContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 500);
+            }, delay);
+        }
+        
+        // STEP 1: Initial processing screen
         calculationContainer.innerHTML = `
             <div class="calculation-animation">
                 <div class="calculation-progress">
@@ -398,9 +417,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <p>Please wait while we review your claim details.</p>
             </div>
         `;
-        
-        // Show calculation container
-        calculationContainer.style.display = 'block';
         
         // Ensure container is visible and scrolled into view
         calculationContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -414,83 +430,61 @@ document.addEventListener('DOMContentLoaded', function() {
             calculationBar.style.width = '100%';
         }, 500);
         
-        // STEP 1: Initial processing - 4 seconds
+        // STEP 2: Information received screen
+        const infoReceivedContent = `
+            <div class="calculation-complete">
+                <div class="success-icon">✓</div>
+                <h3>Information Received</h3>
+                <p>Your claim details have been successfully submitted.</p>
+                <p class="calculation-message">Analyzing your eligibility...</p>
+            </div>
+        `;
+        transitionToScreen(infoReceivedContent, 4000);
+        
+        // STEP 3: Claim analysis complete screen
+        const analysisCompleteContent = `
+            <div class="calculation-complete">
+                <div class="success-icon">✓</div>
+                <h3>Claim Analysis Complete</h3>
+                <p>We've reviewed the information you provided.</p>
+                <p class="calculation-message">Determining your qualification status...</p>
+            </div>
+        `;
+        transitionToScreen(analysisCompleteContent, 9000);
+        
+        // STEP 4: Claim approved screen
+        const claimApprovedContent = `
+            <div class="calculation-complete">
+                <div class="success-icon" style="animation: approved 2s forwards;">✓</div>
+                <h3>Your Claim is Approved!</h3>
+                <p>Congratulations! Based on your information, you qualify for our settlement program.</p>
+                <p class="calculation-message">Preparing your next steps...</p>
+            </div>
+        `;
+        transitionToScreen(claimApprovedContent, 14000);
+        
+        // STEP 5: Ready to proceed screen
+        const readyToProceedContent = `
+            <div class="calculation-complete">
+                <div class="success-icon" style="background-color: #4CAF50;">✓</div>
+                <h3>Your Claim is Ready to Proceed</h3>
+                <p>To complete your settlement process, you need to speak with a claim specialist.</p>
+                <p class="calculation-message">Loading your contact options...</p>
+            </div>
+        `;
+        transitionToScreen(readyToProceedContent, 19000);
+        
+        // STEP 6: Transition to call CTA
         setTimeout(() => {
-            // Fade out the current content
-            const currentAnimation = calculationContainer.querySelector('.calculation-animation');
-            currentAnimation.style.opacity = '0';
+            // Fade out the calculation container
+            calculationContainer.style.opacity = '0';
             
+            // After fade out, hide calculation container and show success screen
             setTimeout(() => {
-                calculationContainer.innerHTML = `
-                    <div class="calculation-complete">
-                        <div class="success-icon">✓</div>
-                        <h3>Information Received</h3>
-                        <p>Your claim details have been successfully submitted.</p>
-                        <p class="calculation-message">Analyzing your eligibility...</p>
-                    </div>
-                `;
-                
-                // Ensure updated content is visible
-                calculationContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                // STEP 2: Claim analysis - 4 seconds later
-                setTimeout(() => {
-                    calculationContainer.innerHTML = `
-                        <div class="calculation-complete">
-                            <div class="success-icon">✓</div>
-                            <h3>Claim Analysis Complete</h3>
-                            <p>We've reviewed the information you provided.</p>
-                            <p class="calculation-message">Determining your qualification status...</p>
-                        </div>
-                    `;
-                    
-                    // STEP 3: Approval stage - 4 seconds later
-                    setTimeout(() => {
-                        // Get the success icon and apply the approved animation
-                        const successIcon = calculationContainer.querySelector('.success-icon');
-                        successIcon.style.animation = 'approved 2s forwards';
-                        
-                        // After a short transition, update the text
-                        setTimeout(() => {
-                            calculationContainer.innerHTML = `
-                                <div class="calculation-complete">
-                                    <div class="success-icon" style="background-color: #4CAF50;">✓</div>
-                                    <h3>Your Claim is Approved!</h3>
-                                    <p>Congratulations! Based on your information, you qualify for our settlement program.</p>
-                                    <p class="calculation-message">Preparing your next steps...</p>
-                                </div>
-                            `;
-                            
-                            // STEP 4: Final instructions - 3 seconds later
-                            setTimeout(() => {
-                                calculationContainer.innerHTML = `
-                                    <div class="calculation-complete">
-                                        <div class="success-icon" style="background-color: #4CAF50;">✓</div>
-                                        <h3>Your Claim is Ready to Proceed</h3>
-                                        <p>To complete your settlement process, you need to speak with a claim specialist.</p>
-                                        <p class="calculation-message">Loading your contact options...</p>
-                                    </div>
-                                `;
-                                
-                                // STEP 5: Transition to call CTA - 3 seconds later
-                                setTimeout(() => {
-                                    // Fade out the calculation container
-                                    calculationContainer.style.opacity = '0';
-                                    
-                                    setTimeout(() => {
-                                        // Remove the calculation container
-                                        calculationContainer.style.display = 'none';
-                                        
-                                        // Show the success message with call CTA
-                                        showSuccessWithCallCTA(phone);
-                                    }, 1000);
-                                }, 3000);
-                            }, 3000);
-                        }, 1000);
-                    }, 4000);
-                }, 4000);
+                calculationContainer.style.display = 'none';
+                showSuccessWithCallCTA(phone);
             }, 500);
-        }, 4000);
+        }, 23000);
     }
     
     // Show success message with click-to-call CTA
@@ -507,7 +501,14 @@ document.addEventListener('DOMContentLoaded', function() {
             successContainer.id = 'success-container';
             successContainer.className = 'form-step success-container';
             form.appendChild(successContainer);
+        } else {
+            // Clear any existing content
+            successContainer.innerHTML = '';
         }
+        
+        // Set initial opacity to 0 for fade-in effect
+        successContainer.style.opacity = '0';
+        successContainer.style.display = 'block';
         
         // Set success content with click-to-call button
         successContainer.innerHTML = `
@@ -522,8 +523,10 @@ document.addEventListener('DOMContentLoaded', function() {
             <p class="success-note">Our settlement specialists are standing by to begin processing your claim immediately. Don't delay - approved claims that aren't initiated within 24 hours may require resubmission.</p>
         `;
         
-        // Show success container
-        successContainer.style.display = 'block';
+        // Fade in the success container
+        setTimeout(() => {
+            successContainer.style.opacity = '1';
+        }, 100);
         
         // Ensure container is visible and scrolled into view
         successContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
