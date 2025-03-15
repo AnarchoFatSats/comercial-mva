@@ -394,8 +394,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="calculation-progress">
                     <div class="calculation-bar"></div>
                 </div>
-                <h3>Analyzing Your Claim...</h3>
-                <p>Please wait while we process your information.</p>
+                <h3>Processing Your Information...</h3>
+                <p>Please wait while we review your claim details.</p>
             </div>
         `;
         
@@ -409,12 +409,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const calculationBar = calculationContainer.querySelector('.calculation-bar');
         calculationBar.style.width = '0%';
         
-        // Animate to 100% over 2 seconds
+        // Animate to 100% over 3 seconds
         setTimeout(() => {
             calculationBar.style.width = '100%';
-        }, 100);
+        }, 500);
         
-        // Update text after calculation is complete
+        // STEP 1: Initial processing - 4 seconds
         setTimeout(() => {
             // Fade out the current content
             const currentAnimation = calculationContainer.querySelector('.calculation-animation');
@@ -424,55 +424,73 @@ document.addEventListener('DOMContentLoaded', function() {
                 calculationContainer.innerHTML = `
                     <div class="calculation-complete">
                         <div class="success-icon">✓</div>
-                        <h3>Analysis Complete</h3>
-                        <p>Your claim is being reviewed by our team.</p>
-                        <p class="calculation-message">Preparing your results...</p>
+                        <h3>Information Received</h3>
+                        <p>Your claim details have been successfully submitted.</p>
+                        <p class="calculation-message">Analyzing your eligibility...</p>
                     </div>
                 `;
                 
                 // Ensure updated content is visible
                 calculationContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 
-                // After a short delay, show the approval animation
+                // STEP 2: Claim analysis - 4 seconds later
                 setTimeout(() => {
-                    // Get the success icon and apply the approved animation
-                    const successIcon = calculationContainer.querySelector('.success-icon');
-                    successIcon.style.animation = 'approved 1.5s forwards';
+                    calculationContainer.innerHTML = `
+                        <div class="calculation-complete">
+                            <div class="success-icon">✓</div>
+                            <h3>Claim Analysis Complete</h3>
+                            <p>We've reviewed the information you provided.</p>
+                            <p class="calculation-message">Determining your qualification status...</p>
+                        </div>
+                    `;
                     
-                    // Fade out the text
-                    const texts = calculationContainer.querySelectorAll('p, h3');
-                    texts.forEach(text => {
-                        text.style.opacity = '0.5';
-                    });
-                    
-                    // After a short transition, update the text
+                    // STEP 3: Approval stage - 4 seconds later
                     setTimeout(() => {
-                        calculationContainer.innerHTML = `
-                            <div class="calculation-complete">
-                                <div class="success-icon" style="background-color: #4CAF50;">✓</div>
-                                <h3>Claim Approved!</h3>
-                                <p>Congratulations! Your claim has been approved.</p>
-                                <p class="calculation-message">Preparing your next steps...</p>
-                            </div>
-                        `;
+                        // Get the success icon and apply the approved animation
+                        const successIcon = calculationContainer.querySelector('.success-icon');
+                        successIcon.style.animation = 'approved 2s forwards';
                         
-                        // After another short delay, transition to the final success screen
+                        // After a short transition, update the text
                         setTimeout(() => {
-                            // Fade out the calculation container
-                            calculationContainer.style.opacity = '0';
+                            calculationContainer.innerHTML = `
+                                <div class="calculation-complete">
+                                    <div class="success-icon" style="background-color: #4CAF50;">✓</div>
+                                    <h3>Your Claim is Approved!</h3>
+                                    <p>Congratulations! Based on your information, you qualify for our settlement program.</p>
+                                    <p class="calculation-message">Preparing your next steps...</p>
+                                </div>
+                            `;
                             
+                            // STEP 4: Final instructions - 3 seconds later
                             setTimeout(() => {
-                                // Remove the calculation container
-                                calculationContainer.style.display = 'none';
+                                calculationContainer.innerHTML = `
+                                    <div class="calculation-complete">
+                                        <div class="success-icon" style="background-color: #4CAF50;">✓</div>
+                                        <h3>Your Claim is Ready to Proceed</h3>
+                                        <p>To complete your settlement process, you need to speak with a claim specialist.</p>
+                                        <p class="calculation-message">Loading your contact options...</p>
+                                    </div>
+                                `;
                                 
-                                // Show the success message with call CTA
-                                showSuccessWithCallCTA(phone);
-                            }, 500);
-                        }, 1500);
-                    }, 500);
-                }, 1500);
-            }, 300);
-        }, 2500);
+                                // STEP 5: Transition to call CTA - 3 seconds later
+                                setTimeout(() => {
+                                    // Fade out the calculation container
+                                    calculationContainer.style.opacity = '0';
+                                    
+                                    setTimeout(() => {
+                                        // Remove the calculation container
+                                        calculationContainer.style.display = 'none';
+                                        
+                                        // Show the success message with call CTA
+                                        showSuccessWithCallCTA(phone);
+                                    }, 1000);
+                                }, 3000);
+                            }, 3000);
+                        }, 1000);
+                    }, 4000);
+                }, 4000);
+            }, 500);
+        }, 4000);
     }
     
     // Show success message with click-to-call CTA
@@ -495,8 +513,8 @@ document.addEventListener('DOMContentLoaded', function() {
         successContainer.innerHTML = `
             <div class="success-icon">✓</div>
             <h3>Your Claim is Approved! Call Now to Start Your Settlement!</h3>
-            <p>Based on your file, we are elevating you to a case manager who can finalize your claim immediately.</p>
-            <p class="success-message">One call starts your compensation process:</p>
+            <p>Your claim has been successfully submitted and approved. To complete your settlement process, you must speak with a claim specialist.</p>
+            <p class="success-message">Call now to finalize your settlement:</p>
             <a href="tel:+18339986932" class="call-cta-button">
                 <span class="phone-icon">📞</span>
                 <span>Call (833) 998-6932 Now</span>
