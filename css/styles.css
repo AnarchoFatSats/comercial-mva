@@ -351,6 +351,8 @@ button {
     pointer-events: auto;
     z-index: 10;
     -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
 }
 
 .option-button:before {
@@ -364,6 +366,7 @@ button {
     border: 2px solid var(--border-color);
     border-radius: 50%;
     transition: var(--transition);
+    min-width: 20px;
 }
 
 .option-button:hover {
