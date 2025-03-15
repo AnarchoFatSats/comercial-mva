@@ -441,18 +441,15 @@ document.addEventListener('DOMContentLoaded', function() {
             form.appendChild(successContainer);
         }
         
-        // Format phone number for display
-        const formattedPhone = phone.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
-        
         // Set success content with click-to-call button
         successContainer.innerHTML = `
             <div class="success-icon">✓</div>
             <h3>Your Claim is Approved! Call Now to Start Your Settlement!</h3>
             <p>Based on your file, we are elevating you to a case manager who can finalize your claim immediately.</p>
             <p class="success-message">One call starts your compensation process:</p>
-            <a href="tel:+1${phone}" class="call-cta-button">
+            <a href="tel:+18339986932" class="call-cta-button">
                 <span class="phone-icon">📞</span>
-                <span>Start Your Settlement Now</span>
+                <span>Call (833) 998-6932 Now</span>
             </a>
             <p class="success-note">Our settlement specialists are standing by to begin processing your claim immediately. Don't delay - approved claims that aren't initiated within 24 hours may require resubmission.</p>
         `;
