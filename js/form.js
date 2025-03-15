@@ -394,13 +394,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="calculation-progress">
                     <div class="calculation-bar"></div>
                 </div>
-                <h3>Calculating Claim Eligibility...</h3>
-                <p>Please wait while our system analyzes your case details.</p>
+                <h3>Analyzing Your Claim...</h3>
+                <p>Please wait while we process your information.</p>
             </div>
         `;
         
         // Show calculation container
         calculationContainer.style.display = 'block';
+        
+        // Ensure container is visible and scrolled into view
+        calculationContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
         // Animate the calculation bar
         const calculationBar = calculationContainer.querySelector('.calculation-bar');
@@ -408,20 +411,67 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Animate to 100% over 2 seconds
         setTimeout(() => {
-            calculationBar.style.transition = 'width 2s ease-in-out';
             calculationBar.style.width = '100%';
         }, 100);
         
         // Update text after calculation is complete
         setTimeout(() => {
-            calculationContainer.innerHTML = `
-                <div class="calculation-complete">
-                    <div class="success-icon">✓</div>
-                    <h3>Claim Analysis Complete!</h3>
-                    <p>Based on your information, we're elevating your case to a senior claim manager.</p>
-                    <p class="calculation-message">Preparing your approval...</p>
-                </div>
-            `;
+            // Fade out the current content
+            const currentAnimation = calculationContainer.querySelector('.calculation-animation');
+            currentAnimation.style.opacity = '0';
+            
+            setTimeout(() => {
+                calculationContainer.innerHTML = `
+                    <div class="calculation-complete">
+                        <div class="success-icon">✓</div>
+                        <h3>Analysis Complete</h3>
+                        <p>Your claim is being reviewed by our team.</p>
+                        <p class="calculation-message">Preparing your results...</p>
+                    </div>
+                `;
+                
+                // Ensure updated content is visible
+                calculationContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // After a short delay, show the approval animation
+                setTimeout(() => {
+                    // Get the success icon and apply the approved animation
+                    const successIcon = calculationContainer.querySelector('.success-icon');
+                    successIcon.style.animation = 'approved 1.5s forwards';
+                    
+                    // Fade out the text
+                    const texts = calculationContainer.querySelectorAll('p, h3');
+                    texts.forEach(text => {
+                        text.style.opacity = '0.5';
+                    });
+                    
+                    // After a short transition, update the text
+                    setTimeout(() => {
+                        calculationContainer.innerHTML = `
+                            <div class="calculation-complete">
+                                <div class="success-icon" style="background-color: #4CAF50;">✓</div>
+                                <h3>Claim Approved!</h3>
+                                <p>Congratulations! Your claim has been approved.</p>
+                                <p class="calculation-message">Preparing your next steps...</p>
+                            </div>
+                        `;
+                        
+                        // After another short delay, transition to the final success screen
+                        setTimeout(() => {
+                            // Fade out the calculation container
+                            calculationContainer.style.opacity = '0';
+                            
+                            setTimeout(() => {
+                                // Remove the calculation container
+                                calculationContainer.style.display = 'none';
+                                
+                                // Show the success message with call CTA
+                                showSuccessWithCallCTA(phone);
+                            }, 500);
+                        }, 1500);
+                    }, 500);
+                }, 1500);
+            }, 300);
         }, 2500);
     }
     
@@ -456,6 +506,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show success container
         successContainer.style.display = 'block';
+        
+        // Ensure container is visible and scrolled into view
+        successContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
         // Update progress bar to complete
         updateProgressBar(totalSteps, totalSteps);
