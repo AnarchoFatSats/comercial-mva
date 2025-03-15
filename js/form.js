@@ -388,103 +388,129 @@ document.addEventListener('DOMContentLoaded', function() {
             form.appendChild(calculationContainer);
         }
         
-        // Clear any existing content and ensure it's visible
-        calculationContainer.style.opacity = '1';
-        calculationContainer.style.display = 'block';
-        
-        // Function to transition to next screen with fade effect
-        function transitionToScreen(content, delay) {
-            setTimeout(() => {
-                // Fade out current content
-                calculationContainer.style.opacity = '0';
-                
-                // After fade out, update content and fade in
-                setTimeout(() => {
-                    calculationContainer.innerHTML = content;
-                    calculationContainer.style.opacity = '1';
-                    calculationContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 500);
-            }, delay);
+        // Remove any existing success container to prevent stacking
+        const existingSuccessContainer = document.getElementById('success-container');
+        if (existingSuccessContainer) {
+            existingSuccessContainer.remove();
         }
         
-        // STEP 1: Initial processing screen
-        calculationContainer.innerHTML = `
-            <div class="calculation-animation">
-                <div class="calculation-progress">
-                    <div class="calculation-bar"></div>
-                </div>
-                <h3>Processing Your Information...</h3>
-                <p>Please wait while we review your claim details.</p>
-            </div>
-        `;
+        // Set up the animation sequence
+        let currentScreen = 0;
+        const screens = [
+            // Screen 1: Processing
+            {
+                content: `
+                    <div class="calculation-animation">
+                        <div class="calculation-progress">
+                            <div class="calculation-bar"></div>
+                        </div>
+                        <h3>Processing Your Information...</h3>
+                        <p>Please wait while we review your claim details.</p>
+                    </div>
+                `,
+                duration: 4000,
+                onStart: () => {
+                    // Animate the calculation bar
+                    setTimeout(() => {
+                        const calculationBar = calculationContainer.querySelector('.calculation-bar');
+                        if (calculationBar) calculationBar.style.width = '100%';
+                    }, 300);
+                }
+            },
+            // Screen 2: Information Received
+            {
+                content: `
+                    <div class="calculation-complete">
+                        <div class="success-icon">✓</div>
+                        <h3>Information Received</h3>
+                        <p>Your claim details have been successfully submitted.</p>
+                        <p class="calculation-message">Analyzing your eligibility...</p>
+                    </div>
+                `,
+                duration: 4000
+            },
+            // Screen 3: Analysis Complete
+            {
+                content: `
+                    <div class="calculation-complete">
+                        <div class="success-icon">✓</div>
+                        <h3>Claim Analysis Complete</h3>
+                        <p>We've reviewed the information you provided.</p>
+                        <p class="calculation-message">Determining your qualification status...</p>
+                    </div>
+                `,
+                duration: 4000
+            },
+            // Screen 4: Claim Approved
+            {
+                content: `
+                    <div class="calculation-complete">
+                        <div class="success-icon" style="animation: approved 2s forwards;">✓</div>
+                        <h3>Your Claim is Approved!</h3>
+                        <p>Congratulations! Based on your information, you qualify for our settlement program.</p>
+                        <p class="calculation-message">Preparing your next steps...</p>
+                    </div>
+                `,
+                duration: 3000
+            },
+            // Screen 5: Ready to Proceed
+            {
+                content: `
+                    <div class="calculation-complete">
+                        <div class="success-icon" style="background-color: #4CAF50;">✓</div>
+                        <h3>Your Claim is Ready to Proceed</h3>
+                        <p>To complete your settlement process, you need to speak with a claim specialist.</p>
+                        <p class="calculation-message">Loading your contact options...</p>
+                    </div>
+                `,
+                duration: 3000
+            }
+        ];
         
-        // Ensure container is visible and scrolled into view
-        calculationContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
-        // Animate the calculation bar
-        const calculationBar = calculationContainer.querySelector('.calculation-bar');
-        calculationBar.style.width = '0%';
-        
-        // Animate to 100% over 3 seconds
-        setTimeout(() => {
-            calculationBar.style.width = '100%';
-        }, 500);
-        
-        // STEP 2: Information received screen
-        const infoReceivedContent = `
-            <div class="calculation-complete">
-                <div class="success-icon">✓</div>
-                <h3>Information Received</h3>
-                <p>Your claim details have been successfully submitted.</p>
-                <p class="calculation-message">Analyzing your eligibility...</p>
-            </div>
-        `;
-        transitionToScreen(infoReceivedContent, 4000);
-        
-        // STEP 3: Claim analysis complete screen
-        const analysisCompleteContent = `
-            <div class="calculation-complete">
-                <div class="success-icon">✓</div>
-                <h3>Claim Analysis Complete</h3>
-                <p>We've reviewed the information you provided.</p>
-                <p class="calculation-message">Determining your qualification status...</p>
-            </div>
-        `;
-        transitionToScreen(analysisCompleteContent, 9000);
-        
-        // STEP 4: Claim approved screen
-        const claimApprovedContent = `
-            <div class="calculation-complete">
-                <div class="success-icon" style="animation: approved 2s forwards;">✓</div>
-                <h3>Your Claim is Approved!</h3>
-                <p>Congratulations! Based on your information, you qualify for our settlement program.</p>
-                <p class="calculation-message">Preparing your next steps...</p>
-            </div>
-        `;
-        transitionToScreen(claimApprovedContent, 14000);
-        
-        // STEP 5: Ready to proceed screen
-        const readyToProceedContent = `
-            <div class="calculation-complete">
-                <div class="success-icon" style="background-color: #4CAF50;">✓</div>
-                <h3>Your Claim is Ready to Proceed</h3>
-                <p>To complete your settlement process, you need to speak with a claim specialist.</p>
-                <p class="calculation-message">Loading your contact options...</p>
-            </div>
-        `;
-        transitionToScreen(readyToProceedContent, 19000);
-        
-        // STEP 6: Transition to call CTA
-        setTimeout(() => {
-            // Fade out the calculation container
-            calculationContainer.style.opacity = '0';
+        // Function to show a specific screen
+        function showScreen(index) {
+            if (index >= screens.length) {
+                // We've reached the end of the animation sequence
+                // Fade out the calculation container
+                calculationContainer.style.opacity = '0';
+                
+                // After fade out, hide calculation container and show success screen
+                setTimeout(() => {
+                    calculationContainer.style.display = 'none';
+                    showSuccessWithCallCTA(phone);
+                }, 500);
+                return;
+            }
             
-            // After fade out, hide calculation container and show success screen
+            // Set the content for the current screen
+            calculationContainer.innerHTML = screens[index].content;
+            
+            // Make sure the container is visible
+            calculationContainer.style.display = 'block';
+            calculationContainer.style.opacity = '1';
+            
+            // Scroll to the container
+            calculationContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Run the onStart function if it exists
+            if (screens[index].onStart) {
+                screens[index].onStart();
+            }
+            
+            // Schedule the next screen
             setTimeout(() => {
-                calculationContainer.style.display = 'none';
-                showSuccessWithCallCTA(phone);
-            }, 500);
-        }, 23000);
+                // Fade out
+                calculationContainer.style.opacity = '0';
+                
+                // After fade out, show the next screen
+                setTimeout(() => {
+                    showScreen(index + 1);
+                }, 500);
+            }, screens[index].duration);
+        }
+        
+        // Start the animation sequence
+        showScreen(0);
     }
     
     // Show success message with click-to-call CTA
@@ -493,6 +519,12 @@ document.addEventListener('DOMContentLoaded', function() {
         steps.forEach(step => {
             step.style.display = 'none';
         });
+        
+        // Remove any existing calculation container
+        const existingCalculationContainer = document.getElementById('calculation-container');
+        if (existingCalculationContainer) {
+            existingCalculationContainer.remove();
+        }
         
         // Create success message container if it doesn't exist
         let successContainer = document.getElementById('success-container');

@@ -1290,12 +1290,13 @@ footer {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.5s ease-in-out;
     box-sizing: border-box;
     width: 100%;
     overflow: hidden;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
+    position: relative;
+    z-index: 10;
 }
 
 .success-icon {
@@ -1386,6 +1387,8 @@ footer {
     overflow: hidden;
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
+    position: relative;
+    z-index: 10;
 }
 
 .calculation-animation {
@@ -1451,35 +1454,36 @@ footer {
     transition: transform 0.5s ease-in-out;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
+/* Mobile styles for calculation animation */
+@media (max-width: 768px) {
+    .calculation-container,
+    .success-container {
+        padding: 1.5rem;
+        margin: 0 1rem;
+        width: calc(100% - 2rem);
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    
+    .calculation-container h3,
+    .success-container h3 {
+        font-size: 1.5rem;
     }
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+    
+    .calculation-container p,
+    .success-container p {
+        font-size: 1rem;
     }
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+    
+    .calculation-progress {
+        margin: 1rem 0;
     }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+    
+    .success-icon,
+    .calculation-complete .success-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        margin-bottom: 15px;
     }
-}
-
-.calculation-complete .success-icon {
-    animation: pulse 1.5s infinite;
-    transition: background-color 0.5s ease-in-out;
 }
 
 /* Animation for the approval step */
