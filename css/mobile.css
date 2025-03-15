@@ -43,6 +43,10 @@
     .option-button {
         width: 100%;
         margin-bottom: 10px;
+        padding: 15px 20px;
+        touch-action: manipulation;
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
     }
     
     /* Calculation Animation */
@@ -204,5 +208,18 @@
     .call-cta-button {
         padding: 10px 15px;
         font-size: 0.9rem;
+    }
+}
+
+/* Fix for iOS devices */
+@media (hover: none) {
+    .option-button,
+    .next-button,
+    .submit-button,
+    .cta-button,
+    .call-cta-button {
+        cursor: pointer;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        touch-action: manipulation;
     }
 } 

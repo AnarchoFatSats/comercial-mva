@@ -185,6 +185,10 @@ button {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 10;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1);
 }
 
 .cta-button:hover {
@@ -343,6 +347,10 @@ button {
     text-align: left;
     position: relative;
     padding-left: 45px;
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 10;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1);
 }
 
 .option-button:before {
@@ -450,6 +458,9 @@ button {
     overflow: hidden;
     margin-top: 10px;
     box-shadow: 0 4px 6px rgba(44, 82, 130, 0.2);
+    pointer-events: auto;
+    z-index: 10;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1);
 }
 
 .next-button:hover, .submit-button:hover, .restart-button:hover {

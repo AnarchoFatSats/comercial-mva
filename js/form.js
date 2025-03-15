@@ -1,12 +1,32 @@
 /**
  * Multi-step Form Implementation
  * Handles the logic for the multi-step lead capture form
+ * With enhanced accessibility features
  */
 document.addEventListener('DOMContentLoaded', function() {
     // Form elements
     const form = document.getElementById('claim-form');
-    const progressBar = document.getElementById('progress-bar');
+    const progressBar = document.querySelector('.progress-bar');
     const heroCta = document.getElementById('hero-cta');
+    
+    // Accessibility announcement element for screen readers
+    let ariaLiveRegion;
+    
+    // Create aria-live region for screen reader announcements
+    function createAriaLiveRegion() {
+        ariaLiveRegion = document.createElement('div');
+        ariaLiveRegion.setAttribute('aria-live', 'polite');
+        ariaLiveRegion.setAttribute('aria-atomic', 'true');
+        ariaLiveRegion.classList.add('sr-only'); // Screen reader only
+        document.body.appendChild(ariaLiveRegion);
+    }
+    
+    // Announce messages to screen readers
+    function announceToScreenReader(message) {
+        if (ariaLiveRegion) {
+            ariaLiveRegion.textContent = message;
+        }
+    }
     
     // Form steps
     const steps = document.querySelectorAll('.form-step');
@@ -39,18 +59,52 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize the form
     function initForm() {
+        // Create aria-live region for accessibility
+        createAriaLiveRegion();
+        
+        // Add role="form" and aria-label to the form
+        form.setAttribute('role', 'form');
+        form.setAttribute('aria-label', 'Work Vehicle Accident Claim Qualification Form');
+        
         // Show first step
         showStep(0);
         
         // Add event listeners to option buttons
-        document.querySelectorAll('.option-button').forEach(button => {
-            button.addEventListener('click', handleOptionSelection);
+        document.querySelectorAll('.option-button').forEach((button, index) => {
+            // Add accessibility attributes
+            button.setAttribute('role', 'radio');
+            button.setAttribute('aria-checked', 'false');
+            button.setAttribute('tabindex', '0');
+            
+            // Add event listeners with debugging
+            button.addEventListener('click', function(e) {
+                console.log('Button clicked:', button.textContent.trim());
+                handleOptionSelection(e);
+            });
+            
+            // Add keyboard support
+            button.addEventListener('keydown', function(e) {
+                // Enter or Space to select
+                if (e.key === 'Enter' || e.key === ' ') {
+                    console.log('Button activated via keyboard:', button.textContent.trim());
+                    e.preventDefault();
+                    handleOptionSelection({ target: button });
+                }
+            });
         });
         
         // Add event listeners to next buttons
         document.querySelectorAll('.next-button').forEach(button => {
             button.addEventListener('click', () => {
                 validateAndProceed();
+            });
+            
+            // Add keyboard support
+            button.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    validateAndProceed();
+                }
             });
         });
         
@@ -71,6 +125,32 @@ document.addEventListener('DOMContentLoaded', function() {
         
         datePicker.setAttribute('max', maxDate);
         datePicker.setAttribute('min', minDate);
+        
+        // Add accessibility attributes to date picker
+        datePicker.setAttribute('aria-label', 'Date of accident');
+        datePicker.setAttribute('aria-required', 'true');
+        datePicker.setAttribute('aria-describedby', 'date-hint');
+        
+        // Add accessibility attributes to input fields
+        document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]').forEach(input => {
+            input.setAttribute('aria-required', 'true');
+            
+            // Add descriptive labels for screen readers
+            const labelText = input.previousElementSibling ? input.previousElementSibling.textContent : '';
+            if (labelText) {
+                input.setAttribute('aria-label', labelText.trim());
+            }
+        });
+        
+        // Make progress bar accessible
+        const progressContainer = document.querySelector('.progress-container');
+        if (progressContainer) {
+            progressContainer.setAttribute('role', 'progressbar');
+            progressContainer.setAttribute('aria-valuemin', '0');
+            progressContainer.setAttribute('aria-valuemax', '100');
+            progressContainer.setAttribute('aria-valuenow', '0');
+            progressContainer.setAttribute('aria-label', 'Form completion progress');
+        }
     }
     
     // Show a specific step
@@ -78,41 +158,87 @@ document.addEventListener('DOMContentLoaded', function() {
         // Hide all steps
         steps.forEach(step => {
             step.classList.remove('active');
+            step.setAttribute('aria-hidden', 'true');
         });
         
         // Show the current step
         steps[stepIndex].classList.add('active');
+        steps[stepIndex].setAttribute('aria-hidden', 'false');
         
         // Update progress bar
         updateProgressBar(stepIndex, totalSteps - 1);
         
         // Update current step
         currentStep = stepIndex;
+        
+        // Set focus to the first focusable element in the step
+        const focusableElements = steps[stepIndex].querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusableElements.length > 0) {
+            setTimeout(() => {
+                focusableElements[0].focus();
+            }, 100);
+        }
+        
+        // Announce step change to screen readers
+        const stepTitle = steps[stepIndex].querySelector('h3');
+        if (stepTitle) {
+            announceToScreenReader(`Step ${stepIndex + 1} of ${totalSteps}: ${stepTitle.textContent}`);
+        }
     }
     
     // Update progress bar
     function updateProgressBar(current, total) {
         const progress = (current / total) * 100;
-        progressBar.style.width = `${progress}%`;
+        
+        // Add null check for progressBar
+        if (progressBar) {
+            progressBar.style.width = `${progress}%`;
+        } else {
+            console.warn('Progress bar element not found');
+        }
+        
+        // Update ARIA attributes for accessibility
+        const progressContainer = document.querySelector('.progress-container');
+        if (progressContainer) {
+            progressContainer.setAttribute('aria-valuenow', progress);
+            progressContainer.setAttribute('aria-valuetext', `Step ${current + 1} of ${total + 1}, ${Math.round(progress)}% complete`);
+        }
     }
     
     // Handle option selection
     function handleOptionSelection(e) {
         const button = e.target;
+        console.log('handleOptionSelection called for:', button.textContent.trim());
+        
+        // Ensure we have the button element
+        if (!button || !button.classList.contains('option-button')) {
+            console.error('Invalid button element:', button);
+            return;
+        }
+        
         const stepElement = button.closest('.form-step');
+        if (!stepElement) {
+            console.error('Could not find parent step element');
+            return;
+        }
+        
         const stepButtons = stepElement.querySelectorAll('.option-button');
         
         // Remove selected class from all buttons in this step
         stepButtons.forEach(btn => {
             btn.classList.remove('selected');
+            btn.setAttribute('aria-checked', 'false');
         });
         
         // Add selected class to clicked button
         button.classList.add('selected');
+        button.setAttribute('aria-checked', 'true');
         
         // Store the selection with proper question text and answer
         const stepId = stepElement.id;
         const value = button.getAttribute('data-value');
+        
+        console.log('Step ID:', stepId, 'Value:', value);
         
         // Get the question text
         const questionText = stepElement.querySelector('h3').textContent;
@@ -123,8 +249,12 @@ document.addEventListener('DOMContentLoaded', function() {
         formData[`${stepId}_question`] = questionText;
         formData[`${stepId}_answer`] = answerText;
         
-        // Process conditional logic
+        // Announce selection to screen readers
+        announceToScreenReader(`Selected: ${answerText}`);
+        
+        // Process conditional logic with a slight delay to ensure UI updates first
         setTimeout(() => {
+            console.log('Processing conditional logic for step:', stepId, 'with value:', value);
             processConditionalLogic(stepId, value);
         }, 300);
     }
@@ -377,6 +507,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Hide all steps
         steps.forEach(step => {
             step.style.display = 'none';
+            step.setAttribute('aria-hidden', 'true');
         });
         
         // Create calculation container if it doesn't exist
@@ -385,6 +516,8 @@ document.addEventListener('DOMContentLoaded', function() {
             calculationContainer = document.createElement('div');
             calculationContainer.id = 'calculation-container';
             calculationContainer.className = 'form-step calculation-container';
+            calculationContainer.setAttribute('role', 'status');
+            calculationContainer.setAttribute('aria-live', 'polite');
             form.appendChild(calculationContainer);
         }
         
@@ -401,19 +534,26 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 content: `
                     <div class="calculation-animation">
-                        <div class="calculation-progress">
+                        <div class="calculation-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Processing progress">
                             <div class="calculation-bar"></div>
                         </div>
-                        <h3>Processing Your Information...</h3>
+                        <h3 id="processing-status">Processing Your Information...</h3>
                         <p>Please wait while we review your claim details.</p>
                     </div>
                 `,
                 duration: 4000,
+                ariaAnnouncement: "Processing your information. Please wait while we review your claim details.",
                 onStart: () => {
                     // Animate the calculation bar
                     setTimeout(() => {
                         const calculationBar = calculationContainer.querySelector('.calculation-bar');
-                        if (calculationBar) calculationBar.style.width = '100%';
+                        const progressBar = calculationContainer.querySelector('.calculation-progress');
+                        if (calculationBar) {
+                            calculationBar.style.width = '100%';
+                            if (progressBar) {
+                                progressBar.setAttribute('aria-valuenow', '100');
+                            }
+                        }
                     }, 300);
                 }
             },
@@ -421,49 +561,53 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 content: `
                     <div class="calculation-complete">
-                        <div class="success-icon">✓</div>
-                        <h3>Information Received</h3>
+                        <div class="success-icon" aria-hidden="true">✓</div>
+                        <h3 id="info-received-status">Information Received</h3>
                         <p>Your claim details have been successfully submitted.</p>
                         <p class="calculation-message">Analyzing your eligibility...</p>
                     </div>
                 `,
-                duration: 4000
+                duration: 4000,
+                ariaAnnouncement: "Information received. Your claim details have been successfully submitted. Now analyzing your eligibility."
             },
             // Screen 3: Analysis Complete
             {
                 content: `
                     <div class="calculation-complete">
-                        <div class="success-icon">✓</div>
-                        <h3>Claim Analysis Complete</h3>
+                        <div class="success-icon" aria-hidden="true">✓</div>
+                        <h3 id="analysis-complete-status">Claim Analysis Complete</h3>
                         <p>We've reviewed the information you provided.</p>
                         <p class="calculation-message">Determining your qualification status...</p>
                     </div>
                 `,
-                duration: 4000
+                duration: 4000,
+                ariaAnnouncement: "Claim analysis complete. We've reviewed the information you provided. Now determining your qualification status."
             },
             // Screen 4: Claim Approved
             {
                 content: `
                     <div class="calculation-complete">
-                        <div class="success-icon" style="animation: approved 2s forwards;">✓</div>
-                        <h3>Your Claim is Approved!</h3>
+                        <div class="success-icon" style="animation: approved 2s forwards;" aria-hidden="true">✓</div>
+                        <h3 id="claim-approved-status">Your Claim is Approved!</h3>
                         <p>Congratulations! Based on your information, you qualify for our settlement program.</p>
                         <p class="calculation-message">Preparing your next steps...</p>
                     </div>
                 `,
-                duration: 3000
+                duration: 3000,
+                ariaAnnouncement: "Your claim is approved! Congratulations! Based on your information, you qualify for our settlement program. Now preparing your next steps."
             },
             // Screen 5: Ready to Proceed
             {
                 content: `
                     <div class="calculation-complete">
-                        <div class="success-icon" style="background-color: #4CAF50;">✓</div>
-                        <h3>Your Claim is Ready to Proceed</h3>
+                        <div class="success-icon" style="background-color: #4CAF50;" aria-hidden="true">✓</div>
+                        <h3 id="ready-to-proceed-status">Your Claim is Ready to Proceed</h3>
                         <p>To complete your settlement process, you need to speak with a claim specialist.</p>
                         <p class="calculation-message">Loading your contact options...</p>
                     </div>
                 `,
-                duration: 3000
+                duration: 3000,
+                ariaAnnouncement: "Your claim is ready to proceed. To complete your settlement process, you need to speak with a claim specialist. Loading your contact options."
             }
         ];
         
@@ -473,6 +617,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // We've reached the end of the animation sequence
                 // Fade out the calculation container
                 calculationContainer.style.opacity = '0';
+                calculationContainer.setAttribute('aria-hidden', 'true');
+                
+                // Announce transition to final step
+                announceToScreenReader("Preparing final instructions for your approved claim.");
                 
                 // After fade out, hide calculation container and show success screen
                 setTimeout(() => {
@@ -488,6 +636,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // Make sure the container is visible
             calculationContainer.style.display = 'block';
             calculationContainer.style.opacity = '1';
+            calculationContainer.setAttribute('aria-hidden', 'false');
+            
+            // Announce the current screen to screen readers
+            if (screens[index].ariaAnnouncement) {
+                announceToScreenReader(screens[index].ariaAnnouncement);
+            }
             
             // Scroll to the container
             calculationContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -518,6 +672,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Hide all steps
         steps.forEach(step => {
             step.style.display = 'none';
+            step.setAttribute('aria-hidden', 'true');
         });
         
         // Remove any existing calculation container
@@ -532,6 +687,8 @@ document.addEventListener('DOMContentLoaded', function() {
             successContainer = document.createElement('div');
             successContainer.id = 'success-container';
             successContainer.className = 'form-step success-container';
+            successContainer.setAttribute('role', 'alert');
+            successContainer.setAttribute('aria-live', 'assertive');
             form.appendChild(successContainer);
         } else {
             // Clear any existing content
@@ -541,18 +698,22 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set initial opacity to 0 for fade-in effect
         successContainer.style.opacity = '0';
         successContainer.style.display = 'block';
+        successContainer.setAttribute('aria-hidden', 'false');
+        
+        // Format phone number for better screen reader pronunciation
+        const formattedPhone = phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
         
         // Set success content with click-to-call button
         successContainer.innerHTML = `
-            <div class="success-icon">✓</div>
-            <h3>Your Claim is Approved! Call Now to Start Your Settlement!</h3>
+            <div class="success-icon" aria-hidden="true">✓</div>
+            <h3 id="success-heading">Your Claim is Approved! Call Now to Start Your Settlement!</h3>
             <p>Your claim has been successfully submitted and approved. To complete your settlement process, you must speak with a claim specialist.</p>
-            <p class="success-message">Call now to finalize your settlement:</p>
-            <a href="tel:+18339986932" class="call-cta-button">
-                <span class="phone-icon">📞</span>
+            <p class="success-message" id="call-instruction">Call now to finalize your settlement:</p>
+            <a href="tel:+18339986932" class="call-cta-button" role="button" aria-labelledby="call-instruction">
+                <span class="phone-icon" aria-hidden="true">📞</span>
                 <span>Call (833) 998-6932 Now</span>
             </a>
-            <p class="success-note">Our settlement specialists are standing by to begin processing your claim immediately. Don't delay - approved claims that aren't initiated within 24 hours may require resubmission.</p>
+            <p class="success-note" id="urgency-note">Our settlement specialists are standing by to begin processing your claim immediately. Don't delay - approved claims that aren't initiated within 24 hours may require resubmission.</p>
         `;
         
         // Fade in the success container
@@ -562,6 +723,17 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Ensure container is visible and scrolled into view
         successContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Set focus to the call button for keyboard users
+        setTimeout(() => {
+            const callButton = successContainer.querySelector('.call-cta-button');
+            if (callButton) {
+                callButton.focus();
+            }
+        }, 600);
+        
+        // Announce success to screen readers
+        announceToScreenReader("Your claim has been approved! To complete your settlement process, call (833) 998-6932 now to speak with a claim specialist.");
         
         // Update progress bar to complete
         updateProgressBar(totalSteps, totalSteps);
@@ -656,4 +828,82 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.remove('error');
         });
     });
+    
+    // Debug click events
+    function setupClickDebugger() {
+        console.log('Setting up click debugger');
+        
+        // Create a debug overlay for mobile testing
+        const debugOverlay = document.createElement('div');
+        debugOverlay.style.position = 'fixed';
+        debugOverlay.style.bottom = '10px';
+        debugOverlay.style.right = '10px';
+        debugOverlay.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        debugOverlay.style.color = 'white';
+        debugOverlay.style.padding = '10px';
+        debugOverlay.style.borderRadius = '5px';
+        debugOverlay.style.zIndex = '9999';
+        debugOverlay.style.fontSize = '12px';
+        debugOverlay.style.maxWidth = '300px';
+        debugOverlay.style.display = 'none';
+        debugOverlay.id = 'debug-overlay';
+        document.body.appendChild(debugOverlay);
+        
+        // Add a toggle button
+        const toggleButton = document.createElement('button');
+        toggleButton.textContent = 'Debug';
+        toggleButton.style.position = 'fixed';
+        toggleButton.style.bottom = '10px';
+        toggleButton.style.right = '10px';
+        toggleButton.style.zIndex = '10000';
+        toggleButton.style.padding = '5px 10px';
+        toggleButton.addEventListener('click', function() {
+            const overlay = document.getElementById('debug-overlay');
+            overlay.style.display = overlay.style.display === 'none' ? 'block' : 'none';
+        });
+        document.body.appendChild(toggleButton);
+        
+        // Listen for all clicks on the document
+        document.addEventListener('click', function(e) {
+            const target = e.target;
+            const overlay = document.getElementById('debug-overlay');
+            
+            // Log click information
+            const clickInfo = `
+                <strong>Click detected:</strong><br>
+                Element: ${target.tagName}<br>
+                Class: ${target.className}<br>
+                ID: ${target.id}<br>
+                Text: ${target.textContent ? target.textContent.substring(0, 30) : 'none'}<br>
+                Position: ${e.clientX}, ${e.clientY}<br>
+                Time: ${new Date().toLocaleTimeString()}
+            `;
+            
+            console.log('Click detected:', {
+                element: target.tagName,
+                class: target.className,
+                id: target.id,
+                text: target.textContent ? target.textContent.substring(0, 30) : 'none',
+                position: `${e.clientX}, ${e.clientY}`
+            });
+            
+            overlay.innerHTML = clickInfo;
+        }, true);
+        
+        // Add special debugging for option buttons
+        document.querySelectorAll('.option-button').forEach(button => {
+            button.addEventListener('touchstart', function(e) {
+                console.log('Touchstart on button:', button.textContent.trim());
+            });
+            
+            button.addEventListener('touchend', function(e) {
+                console.log('Touchend on button:', button.textContent.trim());
+            });
+        });
+    }
+    
+    // Initialize the debugger in development environments
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.search.includes('debug=true')) {
+        setupClickDebugger();
+    }
 }); 
