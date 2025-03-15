@@ -19,18 +19,23 @@ exports.handler = async (event) => {
             leadData = event.body;
         }
         
-        // Add timestamp if not present
-        if (!leadData.submission_date) {
-            leadData.submission_date = new Date().toISOString();
+        // Ensure required fields are present
+        if (!leadData.lead_id) {
+            throw new Error('Missing required field: lead_id');
         }
         
-        // Add a TTL for data retention (90 days)
+        // Add timestamp if not present
+        if (!leadData.timestamp) {
+            leadData.timestamp = new Date().toISOString();
+        }
+        
+        // Add TTL for data retention (90 days)
         const ttl = Math.floor(Date.now() / 1000) + (90 * 24 * 60 * 60);
         leadData.ttl = ttl;
         
-        // Prepare the DynamoDB params
+        // Prepare the DynamoDB params - using only lead_id as the partition key
         const params = {
-            TableName: process.env.DYNAMODB_TABLE,
+            TableName: process.env.DYNAMODB_TABLE || 'commercial-mva-leads',
             Item: leadData
         };
         
@@ -97,6 +102,7 @@ Lead ID: ${leadData.lead_id}
 Source: ${leadData.source}
 UTM Source: ${leadData.utm_source}
 UTM Campaign: ${leadData.utm_campaign}
+Timestamp: ${leadData.timestamp}
 ---------------------------
 `;
 
@@ -104,9 +110,15 @@ UTM Campaign: ${leadData.utm_campaign}
     const params = {
         Message: message,
         Subject: `New Qualified Lead: ${leadData.first_name} ${leadData.last_name}`,
-        TopicArn: process.env.SNS_TOPIC_ARN
+        TopicArn: process.env.SNS_TOPIC_ARN || 'arn:aws:sns:us-east-1:123456789012:commercial-mva-lead-notifications'
     };
     
-    // Send the notification
-    await sns.publish(params).promise();
+    try {
+        // Send the notification
+        await sns.publish(params).promise();
+        console.log('Notification sent successfully');
+    } catch (error) {
+        console.error('Error sending notification:', error);
+        // Don't throw the error to prevent the main function from failing
+    }
 } 

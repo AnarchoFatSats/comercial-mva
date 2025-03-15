@@ -45,6 +45,43 @@
         margin-bottom: 10px;
     }
     
+    /* Calculation Animation */
+    .calculation-container {
+        padding: 1rem;
+        max-width: 100%;
+    }
+    
+    .calculation-container h3 {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .calculation-container p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .calculation-progress {
+        margin: 1rem 0;
+    }
+    
+    .success-container {
+        padding: 1rem;
+    }
+    
+    .success-container h3 {
+        font-size: 1.4rem;
+    }
+    
+    .success-container p {
+        font-size: 1rem;
+    }
+    
+    .call-cta-button {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+    
     /* Testimonials */
     .testimonial {
         min-width: 100%;
@@ -145,5 +182,27 @@
     .footer-links {
         flex-direction: column;
         gap: 10px;
+    }
+    
+    /* Calculation Animation for Small Devices */
+    .calculation-container h3 {
+        font-size: 1.2rem;
+    }
+    
+    .calculation-container p {
+        font-size: 0.9rem;
+    }
+    
+    .success-container h3 {
+        font-size: 1.2rem;
+    }
+    
+    .success-container p {
+        font-size: 0.9rem;
+    }
+    
+    .call-cta-button {
+        padding: 10px 15px;
+        font-size: 0.9rem;
     }
 } 
