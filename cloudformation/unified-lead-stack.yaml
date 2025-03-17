@@ -1,0 +1,285 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Unified Lead Storage Infrastructure for Multiple Websites'
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - staging
+      - prod
+    Description: Environment type
+
+  NotificationEmail:
+    Type: String
+    Default: leads@example.com
+    Description: Email address to receive lead notifications
+    
+  TrustedFormsApiKey:
+    Type: String
+    NoEcho: true
+    Default: 'ccdd54f8fb4dc3b495d85dd504abd5f3'
+    Description: API key for TrustedForms integration
+    
+  DataRetentionDays:
+    Type: Number
+    Default: 90
+    Description: Number of days to retain lead data
+    MinValue: 30
+    MaxValue: 3650
+
+Resources:
+  # S3 Bucket for storing all leads in JSON format
+  LeadsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'company-leads-${Environment}'
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: TransitionToGlacierRule
+            Status: Enabled
+            ExpirationInDays: !Ref DataRetentionDays
+            Transitions:
+              - TransitionInDays: 30
+                StorageClass: GLACIER
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Project
+          Value: unified-leads
+  
+  # S3 Bucket Policy - enforce HTTPS
+  LeadsBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref LeadsBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: ForceSSLOnly
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource:
+              - !Sub 'arn:aws:s3:::${LeadsBucket}'
+              - !Sub 'arn:aws:s3:::${LeadsBucket}/*'
+            Condition:
+              Bool:
+                'aws:SecureTransport': false
+
+  # DynamoDB Table for quick lookup of leads
+  UnifiedLeadsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub 'unified-leads-${Environment}'
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: leadId
+          AttributeType: S
+        - AttributeName: submissionDate 
+          AttributeType: S
+        - AttributeName: funnelType
+          AttributeType: S
+        - AttributeName: leadType
+          AttributeType: S
+      KeySchema:
+        - AttributeName: leadId
+          KeyType: HASH
+        - AttributeName: submissionDate
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: ByFunnelAndLeadType
+          KeySchema:
+            - AttributeName: funnelType
+              KeyType: HASH
+            - AttributeName: leadType
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Project
+          Value: unified-leads
+
+  # SNS Topic for lead notifications
+  LeadNotificationTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub 'unified-lead-notifications-${Environment}'
+      DisplayName: 'Unified Lead Notifications'
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Project
+          Value: unified-leads
+
+  # SNS Subscription for email notifications
+  LeadNotificationSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: email
+      Endpoint: !Ref NotificationEmail
+      TopicArn: !Ref LeadNotificationTopic
+
+  # IAM Role for Lambda function
+  UnifiedLeadHandlerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: UnifiedLeadHandlerPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:PutItem
+                  - dynamodb:GetItem
+                  - dynamodb:UpdateItem
+                  - dynamodb:Query
+                Resource: !GetAtt UnifiedLeadsTable.Arn
+              - Effect: Allow
+                Action:
+                  - dynamodb:Query
+                Resource: !Sub "${UnifiedLeadsTable.Arn}/index/*"
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:PutObjectTagging
+                  - s3:GetObject
+                Resource: !Sub "${LeadsBucket.Arn}/*"
+              - Effect: Allow
+                Action:
+                  - sns:Publish
+                Resource: !Ref LeadNotificationTopic
+
+  # Lambda function for handling lead submissions
+  UnifiedLeadHandlerFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub 'unified-lead-handler-${Environment}'
+      Handler: unified-lead-handler.handler
+      Role: !GetAtt UnifiedLeadHandlerRole.Arn
+      Runtime: nodejs14.x
+      Timeout: 30
+      MemorySize: 256
+      Environment:
+        Variables:
+          LEADS_BUCKET: !Ref LeadsBucket
+          DYNAMODB_TABLE: !Ref UnifiedLeadsTable
+          SNS_TOPIC_ARN: !Ref LeadNotificationTopic
+          TRUSTED_FORMS_API_KEY: !Ref TrustedFormsApiKey
+          VERIFY_TRUSTED_FORMS: 'true'
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Project
+          Value: unified-leads
+
+  # API Gateway for lead submission API
+  LeadApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: !Sub 'unified-lead-api-${Environment}'
+      Description: 'API for unified lead submissions'
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Project
+          Value: unified-leads
+
+  # API Resource for leads endpoint
+  LeadsResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref LeadApi
+      ParentId: !GetAtt LeadApi.RootResourceId
+      PathPart: 'leads'
+
+  # API Method for POST request
+  LeadsPostMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      RestApiId: !Ref LeadApi
+      ResourceId: !Ref LeadsResource
+      HttpMethod: POST
+      AuthorizationType: NONE
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UnifiedLeadHandlerFunction.Arn}/invocations'
+      MethodResponses:
+        - StatusCode: '200'
+          ResponseModels:
+            application/json: 'Empty'
+        - StatusCode: '400'
+          ResponseModels:
+            application/json: 'Error'
+        - StatusCode: '500'
+          ResponseModels:
+            application/json: 'Error'
+
+  # API Deployment
+  ApiDeployment:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn:
+      - LeadsPostMethod
+    Properties:
+      RestApiId: !Ref LeadApi
+      StageName: !Ref Environment
+
+  # Permission for API Gateway to invoke Lambda
+  LambdaApiPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref UnifiedLeadHandlerFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${LeadApi}/*/*/*'
+
+  # Connect the leads pipeline to Amazon Connect
+  # Add additional resources for AWS Connect integration as needed
+
+Outputs:
+  LeadApiEndpoint:
+    Description: 'API Gateway endpoint URL for lead submissions'
+    Value: !Sub 'https://${LeadApi}.execute-api.${AWS::Region}.amazonaws.com/${Environment}/leads'
+
+  LeadsBucketName:
+    Description: 'S3 bucket for lead storage'
+    Value: !Ref LeadsBucket
+
+  DynamoDBTableName:
+    Description: 'DynamoDB table for lead lookup'
+    Value: !Ref UnifiedLeadsTable
+
+  NotificationTopicARN:
+    Description: 'SNS Topic ARN for lead notifications'
+    Value: !Ref LeadNotificationTopic 

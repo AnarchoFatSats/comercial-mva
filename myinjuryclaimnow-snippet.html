@@ -1,0 +1,35 @@
+<!-- 
+    Integration snippet for myinjuryclaimnow.com
+    Add this to the bottom of the HTML, just before the closing </body> tag 
+-->
+
+<!-- Unified Lead Processing System Scripts -->
+<script src="/js/lead-schema.js"></script>
+<script src="/js/trusted-forms.js"></script>
+<script src="/js/myinjuryclaimnow-integration.js"></script>
+
+<!-- TrustedForms badge (optional but recommended) -->
+<div id="TrustedFormsCertificate" style="position:fixed; bottom:0; right:0; opacity:0.3;">
+    <a href="https://certificates.trustedform.com/" target="_blank">
+        <img src="https://certs.trustedform.com/badge.png" alt="TrustedForms Badge">
+    </a>
+</div>
+
+<!-- 
+    Additional tracking code if needed
+    This will make sure the TrustedForms certificate is captured
+    even if the user doesn't complete the form
+-->
+<script>
+(function() {
+    // Track pageview for TrustedForms
+    if (typeof window.TrustedForm !== 'undefined' && typeof window.TrustedForm.trackForm === 'function') {
+        window.TrustedForm.trackForm({
+            campaign_id: 'ccdd54f8fb4dc3b495d85dd504abd5f3'
+        });
+    }
+    
+    // Add debugging to console (remove in production)
+    console.log('Unified Lead Processing System initialized');
+})();
+</script> 

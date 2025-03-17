@@ -1,0 +1,19 @@
+{
+  "name": "unified-lead-system-lambdas",
+  "version": "1.0.0",
+  "description": "Lambda functions for the unified lead processing system",
+  "main": "unified-lead-handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1048.0",
+    "axios": "^0.24.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "author": "",
+  "license": "ISC"
+} 
