@@ -1,0 +1,190 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Commercial MVA Lead Management System'
+
+Parameters:
+  TrustedFormApiKey:
+    Type: String
+    Description: API key for TrustedForm integration
+    NoEcho: true
+  LeadsBucketName:
+    Type: String
+    Default: company-leads-prod
+    Description: Name of the S3 bucket to store lead data
+
+Resources:
+  # S3 Bucket for storing lead data
+  LeadsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref LeadsBucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: ArchiveOldLeads
+            Status: Enabled
+            Transitions:
+              - TransitionInDays: 365
+                StorageClass: GLACIER
+      Tags:
+        - Key: Purpose
+          Value: LeadStorage
+
+  # Bucket policy to restrict access
+  LeadsBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref LeadsBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: RestrictToLambdaAndService
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action:
+              - s3:PutObject
+              - s3:GetObject
+            Resource: !Sub ${LeadsBucket.Arn}/*
+
+  # IAM Role for Lambda Function
+  LeadProcessorRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: S3Access
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:PutObjectTagging
+                Resource: !Sub ${LeadsBucket.Arn}/*
+
+  # Lambda Function
+  LeadProcessorFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: commercial-mva-lead-processor
+      Runtime: nodejs16.x
+      Handler: index.handler
+      Role: !GetAtt LeadProcessorRole.Arn
+      Code:
+        ZipFile: |
+          # Lambda code will be deployed separately
+      Environment:
+        Variables:
+          TRUSTED_FORM_API_KEY: !Ref TrustedFormApiKey
+          LEADS_BUCKET: !Ref LeadsBucketName
+      Timeout: 30
+      MemorySize: 256
+      Tags:
+        - Key: Purpose
+          Value: LeadProcessing
+
+  # API Gateway
+  LeadApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: CommercialMvaLeadApi
+      Description: API for commercial MVA lead submissions
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+
+  LeadResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref LeadApi
+      ParentId: !GetAtt LeadApi.RootResourceId
+      PathPart: 'leads'
+
+  CommercialMvaResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref LeadApi
+      ParentId: !Ref LeadResource
+      PathPart: 'commercial-mva'
+
+  LeadMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      RestApiId: !Ref LeadApi
+      ResourceId: !Ref CommercialMvaResource
+      HttpMethod: POST
+      AuthorizationType: NONE
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LeadProcessorFunction.Arn}/invocations
+
+  LeadOptionsMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      RestApiId: !Ref LeadApi
+      ResourceId: !Ref CommercialMvaResource
+      HttpMethod: OPTIONS
+      AuthorizationType: NONE
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            ResponseTemplates:
+              application/json: ""
+        PassthroughBehavior: WHEN_NO_MATCH
+        RequestTemplates:
+          application/json: '{"statusCode": 200}'
+      MethodResponses:
+        - StatusCode: 200
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Origin: true
+          ResponseModels:
+            application/json: 'Empty'
+
+  # API Deployment
+  LeadApiDeployment:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn:
+      - LeadMethod
+      - LeadOptionsMethod
+    Properties:
+      RestApiId: !Ref LeadApi
+      StageName: prod
+
+  # Lambda Permission for API Gateway
+  LambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref LeadProcessorFunction
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${LeadApi}/*/POST/leads/commercial-mva
+
+Outputs:
+  ApiEndpoint:
+    Description: URL of the API endpoint
+    Value: !Sub https://${LeadApi}.execute-api.${AWS::Region}.amazonaws.com/prod/leads/commercial-mva
+  LeadsBucketName:
+    Description: Name of the S3 bucket storing lead data
+    Value: !Ref LeadsBucket 

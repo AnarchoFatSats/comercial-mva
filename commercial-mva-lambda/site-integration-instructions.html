@@ -1,0 +1,30 @@
+<!-- 
+Commercial MVA Lead Management System - Integration Instructions
+
+To integrate the lead management system with myinjuryclaimnow.com, add these code snippets
+to the appropriate locations in your website.
+-->
+
+<!-- 1. Add this script tag to your website's <head> section -->
+<script src="path/to/site-integration.js"></script>
+
+<!-- 2. Add this hidden field to your form to track the lead source -->
+<input type="hidden" name="leadSource" value="myinjuryclaimnow.com">
+
+<!-- 3. Add this before the closing </body> tag to initialize the integration -->
+<script>
+  // Replace with your actual API Gateway URL
+  const API_ENDPOINT = 'YOUR_API_GATEWAY_URL/leads/commercial-mva';
+  
+  // Optional: Add any custom tracking or analytics code here
+  console.log('Commercial MVA Lead Management System initialized');
+</script>
+
+<!--
+Integration Checklist:
+1. Upload site-integration.js to your web server
+2. Update API_ENDPOINT with your actual API Gateway URL
+3. Test the form submission
+4. Verify leads are being stored in S3
+5. Check Lambda logs for any errors
+--> 

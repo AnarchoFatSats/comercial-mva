@@ -4,7 +4,7 @@
 async function submitFormToAPI(formData) {
     try {
         // Using fetch API for form submission
-        const response = await fetch('https://REPLACE_WITH_YOUR_API_ENDPOINT/submit', {
+        const response = await fetch('https://bnmcip8xp5.execute-api.us-east-1.amazonaws.com/default/commercial-mva-lead-processor', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
