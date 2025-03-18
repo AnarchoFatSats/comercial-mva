@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Submitting standardized lead data:', leadData);
             
             // Send to unified API endpoint
-            const response = await fetch('https://REPLACE_WITH_YOUR_UNIFIED_API_ENDPOINT/leads', {
+            const response = await fetch('https://bnmcip8xp5.execute-api.us-east-1.amazonaws.com/default/commercial-mva-lead-processor', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
