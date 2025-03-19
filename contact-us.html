@@ -222,5 +222,21 @@
             formContainer.scrollIntoView({ behavior: 'smooth' });
         });
     </script>
+
+    <script src="js/tracking.js"></script>
+    
+    <!-- Enhanced TrustedForm with Consent Tags -->
+    <script>
+    (function() {
+        var tf = document.createElement('script');
+        tf.type = 'text/javascript';
+        tf.async = true;
+        tf.src = ('https:' == document.location.protocol ? 'https://': 'http://') + 
+            'api.trustedform.com/trustedform.js?field=trustedFormCertUrl&use_tagged_consent=true&l=' + 
+            new Date().getTime() + Math.random();
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(tf, s);
+    })();
+    </script>
+    <noscript><img src="https://api.trustedform.com/ns.gif" /></noscript>
 </body>
 </html> 

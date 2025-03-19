@@ -111,27 +111,47 @@ exports.handler = async (event) => {
   try {
     console.log('Received event:', JSON.stringify(event, null, 2));
     
-    // Parse form data from event with better error handling
+    // Parse the form data from the body
     let formData;
     try {
-      if (event.body) {
-        formData = JSON.parse(event.body);
-        console.log('Parsed form data:', JSON.stringify(formData, null, 2));
-      } else {
-        console.log('Warning: No body found in event');
-        formData = {};
-      }
+        // If the body is a string, try to parse it as JSON
+        if (typeof event.body === 'string') {
+            formData = JSON.parse(event.body);
+        } else {
+            formData = event.body;
+        }
+        
+        console.log("Parsed form data:", formData);
     } catch (error) {
-      console.error('Error parsing form data:', error.message);
-      console.log('Raw body content:', event.body);
-      formData = {};
+        console.error("Error parsing form data:", error);
+        return {
+            statusCode: 400,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ success: false, message: "Invalid form data" })
+        };
     }
     
-    // Extract TrustedForm certificate URL if present
-    const trustedFormCertUrl = formData.trustedFormCertUrl || null;
+    // Process TrustedForm certificate if available
+    let trustedFormResult = null;
     
-    // Process TrustedForm certificate in parallel with other operations
-    const trustedFormPromise = processTrustedFormCertificate(trustedFormCertUrl);
+    // Check for TrustedForm certificate URL - try both possible field names
+    const tfCertUrl = formData.trustedFormCertUrl || formData.xxTrustedFormCertUrl;
+    
+    if (tfCertUrl) {
+        console.log("TrustedForm certificate URL provided:", tfCertUrl);
+        try {
+            trustedFormResult = await processTrustedFormCertificate(tfCertUrl);
+        } catch (error) {
+            console.warn("Error processing TrustedForm certificate:", error.message);
+            // Continue processing even if TrustedForm verification fails
+        }
+    } else {
+        console.log("No TrustedForm certificate URL provided, skipping certificate claim");
+    }
     
     // Generate lead ID
     const leadId = uuidv4();
@@ -148,9 +168,8 @@ exports.handler = async (event) => {
     };
     
     // Wait for TrustedForm processing to complete
-    const trustedFormData = await trustedFormPromise;
-    if (trustedFormData) {
-      leadData.trustedForm = trustedFormData;
+    if (trustedFormResult) {
+      leadData.trustedForm = trustedFormResult;
     }
     
     console.log('Prepared lead data:', JSON.stringify(leadData, null, 2));
