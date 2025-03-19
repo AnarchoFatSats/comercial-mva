@@ -4,6 +4,9 @@
  * With enhanced accessibility features
  */
 document.addEventListener('DOMContentLoaded', function() {
+    // Immediately scroll to top (fixes auto-scrolling issue)
+    window.scrollTo(0, 0);
+    
     // Form elements
     const form = document.getElementById('claim-form');
     const progressBar = document.querySelector('.progress-bar');
@@ -111,10 +114,17 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add event listener to form submission
         form.addEventListener('submit', handleSubmit);
         
-        // Add event listener to hero CTA
-        heroCta.addEventListener('click', () => {
-            document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
-        });
+        // Add event listener to hero CTA - only scroll when clicked
+        if (heroCta) {
+            heroCta.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default link behavior
+                const formSection = document.getElementById('form-section');
+                if (formSection) {
+                    // Explicitly scroll to the form section only when clicked
+                    formSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
         
         // Set max date for accident date (2 years ago)
         const datePicker = document.getElementById('accident-date');

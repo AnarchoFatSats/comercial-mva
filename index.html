@@ -303,5 +303,18 @@
     <script src="js/lead-system/trusted-forms.js"></script>
     <script src="js/lead-system/myinjuryclaimnow-integration.js"></script>
     <script src="js/form-api.js"></script>
+    
+    <!-- Fix for auto-scrolling issue -->
+    <script>
+        // Force scroll to top on page load
+        window.onload = function() {
+            window.scrollTo(0, 0);
+            
+            // This helps prevent any auto-scrolling that might happen after initial load
+            setTimeout(function() {
+                window.scrollTo(0, 0);
+            }, 100);
+        };
+    </script>
 </body>
 </html> 
