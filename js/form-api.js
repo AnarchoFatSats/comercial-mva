@@ -3,6 +3,32 @@
 
 async function submitFormToAPI(formData) {
     try {
+        // Get TrustedForm certificate URL if available
+        let trustedFormCertUrl = null;
+        if (typeof window.TrustedForm !== 'undefined') {
+            trustedFormCertUrl = await new Promise((resolve) => {
+                window.TrustedForm.getCertificateUrl((error, url) => {
+                    if (error) {
+                        console.error('Error getting TrustedForm certificate:', error);
+                        resolve(null);
+                    } else {
+                        console.log('TrustedForm certificate URL:', url);
+                        resolve(url);
+                    }
+                });
+            });
+        } else {
+            console.warn('TrustedForm not loaded');
+        }
+        
+        // Add TrustedForm URL to form data if available
+        if (trustedFormCertUrl) {
+            formData.trustedFormCertUrl = trustedFormCertUrl;
+        }
+        
+        // Log the complete form data
+        console.log('Form data with TrustedForm:', formData);
+        
         // Using fetch API for form submission
         const response = await fetch('https://bnmcip8xp5.execute-api.us-east-1.amazonaws.com/default/commercial-mva-lead-processor', {
             method: 'POST',

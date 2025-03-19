@@ -7,6 +7,7 @@
     <meta name="description" content="Were you hit by a work or commercial vehicle? You may be entitled to significant compensation. Free case review in just 30 seconds.">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/custom-overrides.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
@@ -36,6 +37,9 @@
             console.log('Facebook Pixel not initialized: No valid Pixel ID provided');
         }
     </script>
+    
+    <!-- TrustedForm Script -->
+    <script src="https://certificates.trustedform.com/certificates.js"></script>
 </head>
 <body>
     <!-- Screen reader announcements -->
@@ -62,9 +66,6 @@
             <h2>Free Case Evaluation</h2>
             <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Form completion progress">
                 <div class="progress-bar"></div>
-                <div class="step-indicators" aria-hidden="true">
-                    <!-- Step indicators will be dynamically updated -->
-                </div>
             </div>
             
             <form id="claim-form" role="form" aria-label="Work Vehicle Accident Claim Qualification Form" novalidate>
@@ -292,21 +293,10 @@
         </div>
     </footer>
 
-    <!-- Exit Intent Popup -->
-    <div id="exit-popup" class="exit-popup" role="dialog" aria-labelledby="exit-popup-heading" aria-hidden="true">
-        <div class="exit-popup-content">
-            <button id="exit-popup-close" class="exit-popup-close" aria-label="Close popup">&times;</button>
-            <h3 id="exit-popup-heading">Wait! Don't Miss Out On Compensation</h3>
-            <p>You may be entitled to significant compensation for your work vehicle accident. Take 30 seconds to see if you qualify.</p>
-            <button id="exit-popup-cta" class="exit-popup-cta">Check My Eligibility Now</button>
-        </div>
-    </div>
-
     <script src="js/form.js"></script>
     <script src="js/tracking.js"></script>
     <script src="js/lazy-loading.js"></script>
     <script src="js/faq.js"></script>
-    <script src="js/exit-popup.js"></script>
     
     <!-- Lead Processing System -->
     <script src="js/lead-system/lead-schema.js"></script>

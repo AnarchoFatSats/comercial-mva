@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/mobile.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- TrustedForm Script -->
+    <script src="https://certificates.trustedform.com/certificates.js"></script>
 </head>
 <body>
     <!-- Simple Header -->
@@ -135,18 +138,83 @@
 
     <script>
         // Simple form validation and submission handling
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // In a real implementation, you would send the form data to your server here
-            // For demonstration purposes, we'll just show a success message
+            // Get form field values
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
             
+            // Create form data object
+            const formData = {
+                firstName,
+                lastName,
+                email,
+                phone,
+                subject,
+                message,
+                timestamp: new Date().toISOString(),
+                form_type: 'contact'
+            };
+            
+            // Get TrustedForm certificate URL if available
+            try {
+                if (typeof window.TrustedForm !== 'undefined') {
+                    const trustedFormCertUrl = await new Promise((resolve) => {
+                        window.TrustedForm.getCertificateUrl((error, url) => {
+                            if (error) {
+                                console.error('Error getting TrustedForm certificate:', error);
+                                resolve(null);
+                            } else {
+                                console.log('TrustedForm certificate URL:', url);
+                                resolve(url);
+                            }
+                        });
+                    });
+                    
+                    if (trustedFormCertUrl) {
+                        formData.trustedFormCertUrl = trustedFormCertUrl;
+                    }
+                }
+            } catch (error) {
+                console.error('Error with TrustedForm:', error);
+            }
+            
+            // Log the form data (for debugging)
+            console.log('Contact form submission:', formData);
+            
+            // In a real implementation, you would send the form data to your server here
+            // For example:
+            // try {
+            //     const response = await fetch('your-api-endpoint', {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify(formData)
+            //     });
+            //     const data = await response.json();
+            //     console.log('Server response:', data);
+            // } catch (error) {
+            //     console.error('Error submitting form:', error);
+            // }
+            
+            // For demonstration purposes, we'll just show a success message
             const formContainer = document.querySelector('.contact-form-container');
             formContainer.innerHTML = `
                 <div class="success-message">
+                    <div class="success-icon">
+                        <div class="success-circle">
+                            <span class="checkmark">✓</span>
+                        </div>
+                    </div>
                     <h2>Thank You!</h2>
                     <p>Your message has been sent successfully. We'll get back to you within 24 hours.</p>
-                    <button type="button" class="submit-button" onclick="window.location.reload()">Send Another Message</button>
+                    <button type="button" class="return-home" onclick="window.location.reload()">Send Another Message</button>
                 </div>
             `;
             

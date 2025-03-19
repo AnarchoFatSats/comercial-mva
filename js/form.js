@@ -165,8 +165,20 @@ document.addEventListener('DOMContentLoaded', function() {
         steps[stepIndex].classList.add('active');
         steps[stepIndex].setAttribute('aria-hidden', 'false');
         
-        // Update progress bar
-        updateProgressBar(stepIndex, totalSteps - 1);
+        // For more accurate progress calculation, determine visible steps only
+        const visibleStepCount = getVisibleStepCount();
+        const currentVisibleStep = getVisibleStepNumber(stepIndex);
+        
+        // Check if this is the contact information step (final step)
+        const isFinalStep = steps[stepIndex].id === 'step-7';
+        
+        // Update progress bar with visible step count
+        // If it's the final step, treat as last step for progress purposes
+        if (isFinalStep) {
+            updateProgressBar(visibleStepCount - 1, visibleStepCount - 1);
+        } else {
+            updateProgressBar(currentVisibleStep, visibleStepCount - 1);
+        }
         
         // Update current step
         currentStep = stepIndex;
@@ -182,17 +194,63 @@ document.addEventListener('DOMContentLoaded', function() {
         // Announce step change to screen readers
         const stepTitle = steps[stepIndex].querySelector('h3');
         if (stepTitle) {
-            announceToScreenReader(`Step ${stepIndex + 1} of ${totalSteps}: ${stepTitle.textContent}`);
+            announceToScreenReader(`Step ${getVisibleStepNumber(stepIndex) + 1} of ${visibleStepCount}: ${stepTitle.textContent}`);
         }
+    }
+    
+    // Get the count of visible steps (excluding conditional steps)
+    function getVisibleStepCount() {
+        // These are the main steps (not conditional)
+        const mainStepIds = ['step-1', 'step-2', 'step-3', 'step-4', 'step-5', 'step-6', 'step-7'];
+        return mainStepIds.length;
+    }
+    
+    // Get the visible step number for a given index
+    function getVisibleStepNumber(stepIndex) {
+        // Map the actual step index to a visible step number
+        // This converts conditional step indices to their corresponding main step number
+        const stepElement = steps[stepIndex];
+        
+        if (!stepElement) return 0;
+        
+        const stepId = stepElement.id;
+        
+        // Determine which main step this belongs to
+        if (stepId === 'step-1' || stepId === 'step-1b') return 0;
+        if (stepId === 'step-2') return 1;
+        if (stepId === 'step-3') return 2;
+        if (stepId === 'step-4' || stepId === 'step-4b') return 3;
+        if (stepId === 'step-5' || stepId === 'step-5b') return 4;
+        if (stepId === 'step-6' || stepId === 'step-6b') return 5;
+        if (stepId === 'step-7') return 6;
+        
+        // Default case
+        return 0;
     }
     
     // Update progress bar
     function updateProgressBar(current, total) {
-        const progress = (current / total) * 100;
+        // Use a more progressive scale for the progress bar
+        let progress;
+        
+        // Make sure the step is properly tracked
+        console.log(`Progress bar update: Step ${current+1} of ${total+1}`);
+        
+        if (current === total) {
+            // Last step - show 100%
+            progress = 100;
+        } else if (current === total - 1) {
+            // Second to last step - show 90%
+            progress = 90;
+        } else {
+            // Scale other steps between 0-85% proportionally
+            progress = (current / (total - 1)) * 85;
+        }
         
         // Add null check for progressBar
         if (progressBar) {
             progressBar.style.width = `${progress}%`;
+            console.log(`Setting progress bar width to ${progress}%`);
         } else {
             console.warn('Progress bar element not found');
         }
@@ -438,7 +496,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Handle form submission
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         
         // Validate final step
@@ -470,6 +528,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // Set progress bar to 100% - form is complete
+        if (progressBar) {
+            progressBar.style.width = '100%';
+        }
+        
         // Store contact info
         formData['first_name'] = firstName;
         formData['last_name'] = lastName;
@@ -483,6 +546,29 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Generate a unique lead ID
         formData['lead_id'] = generateLeadId(firstName, lastName, phone);
+        
+        // Get TrustedForm certificate URL if available
+        try {
+            if (typeof window.TrustedForm !== 'undefined') {
+                const trustedFormCertUrl = await new Promise((resolve) => {
+                    window.TrustedForm.getCertificateUrl((error, url) => {
+                        if (error) {
+                            console.error('Error getting TrustedForm certificate:', error);
+                            resolve(null);
+                        } else {
+                            console.log('TrustedForm certificate URL:', url);
+                            resolve(url);
+                        }
+                    });
+                });
+                
+                if (trustedFormCertUrl) {
+                    formData['trustedFormCertUrl'] = trustedFormCertUrl;
+                }
+            }
+        } catch (error) {
+            console.error('Error with TrustedForm:', error);
+        }
         
         // Show calculation animation before submitting
         showCalculationAnimation(phone);
@@ -686,7 +772,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!successContainer) {
             successContainer = document.createElement('div');
             successContainer.id = 'success-container';
-            successContainer.className = 'form-step success-container';
+            successContainer.className = 'form-step success-message';
             successContainer.setAttribute('role', 'alert');
             successContainer.setAttribute('aria-live', 'assertive');
             form.appendChild(successContainer);
@@ -705,13 +791,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Set success content with click-to-call button
         successContainer.innerHTML = `
-            <div class="success-icon" aria-hidden="true">✓</div>
-            <h3 id="success-heading">Your Claim is Approved! Call Now to Start Your Settlement!</h3>
+            <div class="success-icon">
+                <div class="success-circle">
+                    <span class="checkmark">✓</span>
+                </div>
+            </div>
+            <h2 id="success-heading">Your Claim is Approved!</h2>
             <p>Your claim has been successfully submitted and approved. To complete your settlement process, you must speak with a claim specialist.</p>
-            <p class="success-message" id="call-instruction">Call now to finalize your settlement:</p>
-            <a href="tel:+18339986932" class="call-cta-button" role="button" aria-labelledby="call-instruction">
-                <span class="phone-icon" aria-hidden="true">📞</span>
-                <span>Call (833) 998-6932 Now</span>
+            <p class="call-instruction" id="call-instruction">Call now to finalize your settlement:</p>
+            <a href="tel:+18339986932" class="phone-number" role="button" aria-labelledby="call-instruction">
+                <span class="phone-icon">📱</span>(833) 998-6932
             </a>
             <p class="success-note" id="urgency-note">Our settlement specialists are standing by to begin processing your claim immediately. Don't delay - approved claims that aren't initiated within 24 hours may require resubmission.</p>
         `;
@@ -726,7 +815,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Set focus to the call button for keyboard users
         setTimeout(() => {
-            const callButton = successContainer.querySelector('.call-cta-button');
+            const callButton = successContainer.querySelector('.phone-number');
             if (callButton) {
                 callButton.focus();
             }
