@@ -1,103 +1,146 @@
-# Commercial MVA Claims
+# Commercial MVA Lead Management System
 
-A landing page for commercial motor vehicle accident claims. This website helps users determine if they qualify for compensation after being involved in a commercial vehicle accident through an interactive questionnaire.
+This project implements a lead management system for commercial motor vehicle accident (MVA) claims. It processes form submissions from the website, stores the data in a standardized JSON format in Amazon S3, and integrates with AWS Connect for call center operations.
 
 ## Features
 
-- Interactive multi-step qualification form
-- Mobile-responsive design
-- Testimonials section
-- FAQ section
-- Trust indicators
+- Processes form submissions from myinjuryclaimnow.com
+- Creates a standardized JSON format for lead data
+- Stores leads in Amazon S3 with appropriate tagging and organization
+- Integrates with TrustedForm for compliance certification
+- Qualification logic to filter leads based on criteria
+- Ready for AWS Connect integration
 
-## Project Structure # comercial-mva
+## Architecture
+
+- AWS Lambda for processing form submissions
+- Amazon S3 for secure lead storage
+- Amazon API Gateway for handling form submission requests
+- TrustedForm integration for compliance
 
 ## Setup Instructions
 
-### Local Development
+### Prerequisites
 
-1. Clone the repository:
+- AWS account with appropriate permissions
+- AWS CLI installed and configured
+- Node.js installed (for local testing)
+- TrustedForm API key
+
+### Local Development Setup
+
+1. Clone this repository
+2. Navigate to the `commercial-mva-lambda` directory
+3. Install dependencies:
    ```
-   git clone https://github.com/contentkingpins/comercial-mva.git
-   cd comercial-mva
+   npm install
    ```
+4. Open `test-form.html` to test form submissions locally
 
-2. Run the setup script to create necessary directories:
+### AWS Deployment
+
+#### Option 1: Manual Deployment
+
+1. Create Lambda deployment package:
    ```
-   chmod +x setup.sh
-   ./setup.sh
-   ```
-
-### Current Image Implementation
-
-The site now uses local images stored in the assets/images directory:
-
-1. **Hero Background**: Commercial vehicle accident image
-   - Path: `assets/images/truck-accident-aerial.jpg`
-   - Defined in: `css/styles.css`
-
-2. **Testimonial Photos**: Local testimonial images
-   - Paths: `assets/images/testimonials/male-testimonial.jpg` and `assets/images/testimonials/female-testimonial.jpg`
-   - Defined in: `index.html`
-
-3. **Partner Logos**: Local partner logo images
-   - Paths: `assets/images/partner-logos/*.png`
-   - Defined in: `index.html`
-
-### Customizing Images
-
-To replace with your own images:
-
-1. Simply replace the files in the respective directories:
-   - For hero: Replace `assets/images/truck-accident-aerial.jpg`
-   - For testimonials: Replace files in `assets/images/testimonials/`
-   - For logos: Replace files in `assets/images/partner-logos/`
-
-2. Make sure to maintain the same filenames or update the references in the HTML and CSS files.
-
-### Replacing with Your Own Images
-
-When you're ready to use your own images:
-
-1. Create the appropriate directories:
-   ```
-   mkdir -p assets/images/testimonials assets/images/partner-logos
+   cd commercial-mva-lambda
+   ./deploy.ps1  # For Windows
    ```
 
-2. Add your images to these directories
+2. In the AWS Management Console:
+   - Create S3 bucket: `company-leads-prod`
+   - Create Lambda function: `commercial-mva-lead-processor`
+   - Upload the `function.zip` file
+   - Configure environment variables:
+     - `TRUSTED_FORM_API_KEY`: Your TrustedForm API key
+     - `LEADS_BUCKET`: `company-leads-prod`
+   - Set up appropriate IAM permissions for S3 access
+   - Create API Gateway and configure to trigger Lambda
 
-3. Update the image paths in the HTML and CSS files:
-   - For hero: Update `background-image` in `css/styles.css`
-   - For testimonials and logos: Update `src` attributes in `index.html`
+#### Option 2: CloudFormation Deployment
 
-### AWS Amplify Setup
-
-1. Replace placeholder values in `aws-exports.js` with your actual AWS resource IDs.
-2. Update the API endpoint in `js/form-api.js`.
-3. Deploy to AWS Amplify:
+1. Deploy using AWS CloudFormation:
    ```
-   amplify publish
+   aws cloudformation create-stack \
+     --stack-name commercial-mva-lead-system \
+     --template-body file://commercial-mva-lambda/template.yaml \
+     --parameters ParameterKey=TrustedFormApiKey,ParameterValue=YOUR_API_KEY \
+     --capabilities CAPABILITY_IAM
    ```
 
-## Image Optimization
+2. Upload Lambda code:
+   ```
+   cd commercial-mva-lambda
+   ./deploy.ps1
+   aws lambda update-function-code \
+     --function-name commercial-mva-lead-processor \
+     --zip-file fileb://function.zip
+   ```
 
-For the best performance, optimize all images before adding them to the project:
+### Testing
 
-1. **Compression**: Use tools like TinyPNG, Squoosh, or ImageOptim
-2. **Format**: Consider using WebP format for better compression (with JPG fallback)
-3. **Dimensions**: Resize images to the exact dimensions needed
-4. **Lazy Loading**: The site uses lazy loading for images below the fold
+1. Update the API endpoint in `test-form.html` with your API Gateway URL
+2. Open the form in a browser and submit test data
+3. Check CloudWatch Logs for Lambda execution logs
+4. Verify lead data in S3 bucket
 
-### Performance Benefits of Static Hero Image
+## JSON Schema
 
-Using a static image for the hero section instead of a video provides several performance advantages:
+The system uses a standardized JSON schema for storing lead data:
 
-1. **Faster Page Load**: Static images load much faster than videos
-2. **Lower Bandwidth Usage**: Images typically use 10-20x less bandwidth than videos
-3. **Better Mobile Experience**: Less battery drain and data usage on mobile devices
-4. **Improved Core Web Vitals**: Better Largest Contentful Paint (LCP) scores
-5. **Universal Compatibility**: Works on all browsers and devices without fallback concerns
+```json
+{
+  "leadId": "[uuid]",
+  "sourceSite": "myinjuryclaimnow.com",
+  "timestamp": "[iso-timestamp]",
+  "funnelType": "CommercialMVA",
+  "leadType": "WorkVehicleAccident",
+  "adCategory": "LegalServices",
+  "formData": {
+    "contactInfo": {
+      "firstName": "",
+      "lastName": "",
+      "phoneNumber": "",
+      "emailAddress": ""
+    },
+    "accidentDetails": {
+      "workVehicleType": "", 
+      "usedForWorkPurposes": "",
+      "faultParty": "",
+      "accidentDate": "",
+      "victimWorking": "",
+      "otherDriverWorking": "",
+      "medicalAttentionWithin7Days": "",
+      "medicalAttentionWithin14Days": "",
+      "policeReportFiled": "",
+      "hasPoliceReportCopy": ""
+    }
+  },
+  "qualificationStatus": "",
+  "trustedFormCertUrl": ""
+}
+```
 
-## Deployment
+## S3 Storage Structure
 
-This project is configured for deployment with AWS Amplify. Follow the AWS Amplify setup instructions above to deploy.
+Leads are stored with this folder structure:
+```
+s3://company-leads-prod/
+   funnelType=CommercialMVA/leadType=WorkVehicleAccident/
+       YYYY/MM/DD/
+           myinjuryclaimnow_com_[timestamp]_[leadId].json
+```
+
+## Security Considerations
+
+- API keys are stored as environment variables
+- S3 bucket is configured with private access only
+- TrustedForm API calls are made server-side only
+- Data is tagged and organized for compliance
+
+## Next Steps
+
+- Implement AWS Connect integration for call center operations
+- Add additional lead sources/websites
+- Set up monitoring and alerting
+- Implement lead analytics dashboard

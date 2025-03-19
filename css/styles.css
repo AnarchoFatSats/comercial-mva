@@ -257,9 +257,13 @@ button {
 }
 
 .progress-container {
-    margin-bottom: 30px;
-    max-width: 600px;
-    margin: 0 auto 30px;
+    width: 100%;
+    background-color: #f0f0f0;
+    height: 6px;
+    border-radius: 3px;
+    margin: 15px 0 20px;
+    position: relative;
+    overflow: hidden;
 }
 
 .progress-bar {
@@ -269,6 +273,9 @@ button {
     width: 0;
     transition: width 0.5s ease;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .step-indicators {
@@ -1254,17 +1261,85 @@ footer {
 
 .success-message {
     text-align: center;
-    padding: 30px;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.success-icon {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.success-circle {
+    width: 70px;
+    height: 70px;
+    background: #4CAF50;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+}
+
+.checkmark {
+    color: white;
+    font-size: 32px;
+    line-height: 1;
 }
 
 .success-message h2 {
-    color: var(--success-color);
+    color: #4CAF50;
+    font-size: 32px;
     margin-bottom: 15px;
+    font-weight: 600;
 }
 
 .success-message p {
-    margin-bottom: 25px;
-    font-size: 1.1rem;
+    font-size: 18px;
+    color: #5A6576;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
+/* Form submission CTA buttons - consistent across all forms */
+.submit-button, .return-home {
+    display: inline-block;
+    background: #31456A;
+    color: white;
+    text-decoration: none;
+    padding: 14px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid #31456A;
+    cursor: pointer;
+}
+
+.submit-button:hover, .return-home:hover {
+    background: white;
+    color: #31456A;
+}
+
+/* Mobile styling for success messages */
+@media (max-width: 768px) {
+    .success-message h2 {
+        font-size: 28px;
+    }
+    
+    .success-message p {
+        font-size: 16px;
+    }
+    
+    .success-circle {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .checkmark {
+        font-size: 28px;
+    }
 }
 
 .faq-preview {

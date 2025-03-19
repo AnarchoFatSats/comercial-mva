@@ -30,26 +30,251 @@
         fbq('init', 'PIXEL_ID');
         fbq('track', 'Lead');
     </script>
+    <style>
+        .thank-you-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: 60px 0;
+        }
+        
+        .thank-you-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow: visible;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            padding-top: 30px;
+        }
+        
+        .success-icon {
+            position: absolute;
+            top: -35px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+        
+        .success-circle {
+            width: 70px;
+            height: 70px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        .checkmark {
+            color: white;
+            font-size: 32px;
+            line-height: 1;
+        }
+        
+        .thank-you-content {
+            padding: 20px 40px 40px;
+            text-align: center;
+        }
+        
+        .thank-you-content h1 {
+            color: #4CAF50;
+            font-size: 42px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .confirmation-message {
+            font-size: 18px;
+            color: #5A6576;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        
+        .next-steps {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .next-steps h2 {
+            color: #31456A;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .next-steps h2:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #31456A;
+        }
+        
+        .next-steps ol {
+            margin: 0;
+            padding: 0 0 0 25px;
+        }
+        
+        .next-steps li {
+            color: #5A6576;
+            font-size: 16px;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            position: relative;
+        }
+        
+        .next-steps li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .next-steps li::marker {
+            color: #4CAF50;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .expedite-box {
+            background: #31456A;
+            color: white;
+            border-radius: 8px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .expedite-box:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='rgba(255,255,255,0.05)' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        
+        .expedite-box h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: white;
+            position: relative;
+        }
+        
+        .expedite-box p {
+            margin: 0;
+            font-size: 18px;
+            position: relative;
+        }
+        
+        .phone-number {
+            color: #FFD54F;
+            font-weight: 700;
+            font-size: 24px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .phone-number:hover {
+            color: #fff;
+            transform: scale(1.05);
+        }
+        
+        .phone-icon {
+            display: inline-block;
+            font-size: 22px;
+            margin-right: 5px;
+            color: #e74c3c;
+        }
+        
+        .return-home {
+            display: inline-block;
+            background: #31456A;
+            color: white;
+            text-decoration: none;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid #31456A;
+        }
+        
+        .return-home:hover {
+            background: white;
+            color: #31456A;
+        }
+        
+        @media (max-width: 768px) {
+            .thank-you-section {
+                padding: 40px 20px;
+            }
+            
+            .thank-you-content {
+                padding: 20px 25px 35px;
+            }
+            
+            .next-steps, .expedite-box {
+                padding: 20px;
+            }
+            
+            .confirmation-message, .expedite-box p {
+                font-size: 16px;
+            }
+            
+            .thank-you-content h1 {
+                font-size: 32px;
+            }
+            
+            .next-steps h2, .expedite-box h3 {
+                font-size: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
     <section class="thank-you-section">
         <div class="container">
-            <div class="thank-you-content">
-                <h1>Thank You!</h1>
-                <p class="confirmation-message">Thanks! Our legal team will review your case and contact you shortly.</p>
-                <div class="next-steps">
-                    <h2>What Happens Next?</h2>
-                    <ol>
-                        <li>Our legal team will review your case details</li>
-                        <li>A case specialist will contact you within 24-48 hours</li>
-                        <li>We'll discuss your options and potential next steps</li>
-                    </ol>
+            <div class="thank-you-card">
+                <div class="thank-you-content">
+                    <h1>Thank You!</h1>
+                    <p class="confirmation-message">Thanks! Our legal team will review your case and contact you shortly.</p>
+                    
+                    <div class="next-steps">
+                        <h2>What Happens Next?</h2>
+                        <ol>
+                            <li>Our legal team will review your case details</li>
+                            <li>A case specialist will contact you within 24-48 hours</li>
+                            <li>We'll discuss your options and potential next steps</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="expedite-box">
+                        <h3>Want faster processing?</h3>
+                        <p>Call us now at</p>
+                        <a href="tel:+18339986932" class="phone-number">
+                            <span class="phone-icon">📱</span>(833) 998-6932
+                        </a>
+                    </div>
+                    
+                    <a href="index.html" class="return-home">Return to Homepage</a>
                 </div>
-                <div class="expedite-box">
-                    <h3>Want faster processing?</h3>
-                    <p>Call us now at <a href="tel:+18339986932" class="phone-number">(833) 998-6932</a></p>
-                </div>
-                <a href="index.html" class="return-home">Return to Homepage</a>
             </div>
         </div>
     </section>
@@ -57,11 +282,11 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2023 Claim Connectors. All rights reserved.</p>
+            <p>&copy; 2025 Claim Connectors. All rights reserved.</p>
             <div class="footer-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Contact Us</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+                <a href="contact-us.html">Contact Us</a>
             </div>
         </div>
     </footer>
