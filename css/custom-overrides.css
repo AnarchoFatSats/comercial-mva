@@ -1,5 +1,11 @@
 /* Custom Overrides for Visual Fixes */
 
+/* Fix for auto-scrolling issue - force page to start at top */
+html, body {
+    scroll-behavior: auto;
+    overflow-anchor: none;
+}
+
 /* Progress bar styling to ensure it grows proportionally */
 .progress-container {
     background-color: #f0f0f0;
