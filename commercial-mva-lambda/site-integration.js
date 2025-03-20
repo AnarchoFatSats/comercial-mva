@@ -5,8 +5,8 @@
  * form submissions to the lead processing API.
  */
 
-// Configuration - Using the correct API Gateway URL
-const API_ENDPOINT = 'https://bnmcip8xp5.execute-api.us-east-1.amazonaws.com/default/commercial-mva-lead-processor';
+// Import API endpoint from config instead of hardcoding
+import { API_ENDPOINT } from './config.js';
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
