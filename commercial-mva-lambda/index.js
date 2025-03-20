@@ -8,6 +8,16 @@ const { v4: uuidv4 } = require('uuid');
 const TRUSTED_FORM_API_KEY = process.env.TRUSTED_FORM_API_KEY;
 const LEADS_BUCKET = process.env.LEADS_BUCKET || 'mva-lead-system-deployment';
 
+// List of allowed origins
+const ALLOWED_ORIGINS = [
+  'https://www.ridesharerights.com',
+  'https://ridesharerights.com',
+  'https://myinjuryclaimnow.com',
+  'https://www.myinjuryclaimnow.com',
+  'http://localhost:8080', // For local testing
+  'http://localhost:3000'  // For local testing
+];
+
 // Initialize S3 client
 const s3Client = new S3Client({ region: 'us-east-1' });
 
@@ -107,10 +117,35 @@ async function processTrustedFormCertificate(certificateUrl) {
   }
 }
 
+// Handle CORS headers
+function getCorsHeaders(event) {
+  const origin = event.headers?.origin || event.headers?.Origin || '*';
+  
+  // Check if origin is in allowed list, otherwise use '*' for development or the first allowed origin
+  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  
+  return {
+    'Access-Control-Allow-Origin': allowedOrigin,
+    'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+    'Access-Control-Allow-Methods': 'OPTIONS,POST',
+    'Access-Control-Allow-Credentials': 'true'
+  };
+}
+
 exports.handler = async (event) => {
+  console.log('Received event:', JSON.stringify(event, null, 2));
+  
+  // Handle preflight OPTIONS request for CORS
+  if (event.httpMethod === 'OPTIONS') {
+    console.log('Handling OPTIONS preflight request');
+    return {
+      statusCode: 200,
+      headers: getCorsHeaders(event),
+      body: ''
+    };
+  }
+  
   try {
-    console.log('Received event:', JSON.stringify(event, null, 2));
-    
     // Parse the form data from the body
     let formData;
     try {
@@ -126,11 +161,7 @@ exports.handler = async (event) => {
         console.error("Error parsing form data:", error);
         return {
             statusCode: 400,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Content-Type',
-                'Content-Type': 'application/json'
-            },
+            headers: getCorsHeaders(event),
             body: JSON.stringify({ success: false, message: "Invalid form data" })
         };
     }
@@ -149,22 +180,18 @@ exports.handler = async (event) => {
             console.warn("Error processing TrustedForm certificate:", error.message);
             // Continue processing even if TrustedForm verification fails
         }
-    } else {
-        console.log("No TrustedForm certificate URL provided, skipping certificate claim");
     }
     
     // Generate lead ID
     const leadId = uuidv4();
-    console.log('Generated lead ID:', leadId);
     
-    // Create lead JSON
+    // Prepare the lead data for storage
     const leadData = {
-      leadId,
-      timestamp: new Date().toISOString(),
-      sourceSite: "myinjuryclaimnow.com",
-      funnelType: "CommercialMVA",
-      leadType: "WorkVehicleAccident",
-      formData
+        leadId: leadId,
+        formData: formData,
+        receivedAt: new Date().toISOString(),
+        sourceIp: event.requestContext?.identity?.sourceIp || 'unknown',
+        userAgent: event.headers?.['User-Agent'] || event.headers?.['user-agent'] || 'unknown'
     };
     
     // Wait for TrustedForm processing to complete
@@ -198,11 +225,7 @@ exports.handler = async (event) => {
     
     return {
       statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Content-Type': 'application/json'
-      },
+      headers: getCorsHeaders(event),
       body: JSON.stringify({ 
         success: true, 
         message: "Your case details have been successfully submitted. A legal representative will contact you shortly.",
@@ -213,11 +236,7 @@ exports.handler = async (event) => {
     console.error('Error processing lead:', error);
     return {
       statusCode: 500,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Content-Type': 'application/json'
-      },
+      headers: getCorsHeaders(event),
       body: JSON.stringify({ 
         success: false, 
         message: "Error processing your submission. Please try again later.",
