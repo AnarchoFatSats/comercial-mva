@@ -1,7 +1,11 @@
 // This file contains the API integration for form submission
 // Include this after form.js
 
-async function submitFormToAPI(formData) {
+// Import API endpoint from config instead of hardcoding
+import { API_ENDPOINT } from '../commercial-mva-lambda/config.js';
+
+// Create global function to be accessed by form.js
+window.submitFormToAPI = async function(formData) {
     try {
         // Get TrustedForm certificate URL if available
         let trustedFormCertUrl = null;
@@ -29,8 +33,8 @@ async function submitFormToAPI(formData) {
         // Log the complete form data
         console.log('Form data with TrustedForm:', formData);
         
-        // Using fetch API for form submission
-        const response = await fetch('https://bnmcip8xp5.execute-api.us-east-1.amazonaws.com/default/commercial-mva-lead-processor', {
+        // Using fetch API for form submission with API_ENDPOINT from config
+        const response = await fetch(API_ENDPOINT, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -49,16 +53,18 @@ async function submitFormToAPI(formData) {
         window.location.href = 'thank-you.html';
         return null;
     }
-}
+};
 
-// Update the submitForm function in form.js to use this API
-const originalSubmitForm = submitForm;
-submitForm = async function() {
-    console.log('Form data submitted:', formData);
-    
-    // Try to submit to API
-    const apiResponse = await submitFormToAPI(formData);
-    
-    // Redirect to thank you page
-    window.location.href = 'thank-you.html';
-}; 
+// Update the submitForm function in form.js if it exists (will be executed when this script loads)
+if (typeof submitForm === 'function') {
+    const originalSubmitForm = submitForm;
+    submitForm = async function() {
+        console.log('Form data submitted:', formData);
+        
+        // Try to submit to API
+        const apiResponse = await window.submitFormToAPI(formData);
+        
+        // Redirect to thank you page
+        window.location.href = 'thank-you.html';
+    };
+} 
