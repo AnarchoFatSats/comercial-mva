@@ -514,13 +514,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const lastName = document.getElementById('last-name').value;
         const phone = document.getElementById('phone').value;
         const email = document.getElementById('email').value;
+        const tcpaConsent = document.getElementById('tcpa-consent').checked;
         
-        if (!firstName || !lastName || !phone || !email) {
+        if (!firstName || !lastName || !phone || !email || !tcpaConsent) {
             // Show error if any field is empty
             if (!firstName) document.getElementById('first-name').classList.add('error');
             if (!lastName) document.getElementById('last-name').classList.add('error');
             if (!phone) document.getElementById('phone').classList.add('error');
             if (!email) document.getElementById('email').classList.add('error');
+            if (!tcpaConsent) {
+                const tcpaCheckbox = document.getElementById('tcpa-consent');
+                tcpaCheckbox.parentElement.classList.add('error');
+                announceToScreenReader("TCPA consent is required");
+            }
             return;
         }
         
@@ -925,6 +931,11 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('input').forEach(input => {
         input.addEventListener('input', function() {
             this.classList.remove('error');
+            
+            // For checkboxes, also remove error class from parent
+            if (this.type === 'checkbox') {
+                this.parentElement.classList.remove('error');
+            }
         });
     });
     

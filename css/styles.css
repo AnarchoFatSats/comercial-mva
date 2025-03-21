@@ -1242,9 +1242,11 @@ footer {
     min-height: 120px;
 }
 
+/* Checkbox group in forms */
 .checkbox-group {
     display: flex;
     align-items: flex-start;
+    margin-bottom: 20px;
 }
 
 .checkbox-group input {
@@ -1257,6 +1259,20 @@ footer {
     font-weight: normal;
     font-size: 0.9rem;
     line-height: 1.5;
+}
+
+.checkbox-group label::after {
+    content: ' *';
+    color: var(--error-color);
+}
+
+.checkbox-group.error {
+    color: var(--error-color);
+}
+
+.checkbox-group.error input {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 1px var(--error-color);
 }
 
 .success-message {
