@@ -158,14 +158,23 @@ html, body {
 }
 
 .trust-icon {
-    width: 42px;
-    height: 42px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 15px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.trust-img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
 .trust-icon i {
@@ -213,13 +222,17 @@ html, body {
     line-height: 1.2;
     font-family: 'Arial', sans-serif;
     letter-spacing: 0.5px;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .trust-text span {
     font-size: 0.9rem;
     font-weight: 400;
-    opacity: 0.9;
     font-family: 'Arial', sans-serif;
+    color: white;
+    opacity: 0.95;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 /* Color variations for trust icons */
@@ -907,89 +920,6 @@ footer {
 }
 
 /* Vehicle types icons styling */
-.vehicle-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: rgba(66, 153, 225, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 15px;
-    border: 2px solid rgba(66, 153, 225, 0.2);
-}
-
-.vehicle-icon i {
-    color: #2b6cb0;
-    font-size: 1.8rem;
-}
-
-/* Vehicle icons */
-@font-face {
-    font-family: 'VehicleIcons';
-    src: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAasAAsAAAAACTgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAQwAAAFZW7lHiY21hcAAAAYgAAABnAAABnM+nbN5nbHlmAAAB8AAAAqIAAAMcyGT2b2hlYWQAAASUAAAALwAAADYkhtZFaGhlYQAABMQAAAAdAAAAJAc8A59obXR4AAAE5AAAAB4AAAAgIAD//2xvY2EAAAUEAAAAEgAAABIClgIYbWF4cAAABRgAAAAfAAAAIAEUAF9uYW1lAAAFOAAAATMAAAJS8kf5rXBvc3QAAAZsAAAASgAAAF6Lhop8eJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gbCDgCWRwMTgzeQCmi+BTIdADPBgG4AHicY2BkYWCcwMDKwMHUyXSGgYGhH0IzvmYwYuRgYGBiYGVmwAoC0lxTGByeCT0TYm7438AQw9zA0AAUZgTJAQDhzgwZeJztkLENgDAMBM+QEEKMAQUDUFKxRtqswTjBgylgAt66yH5ZLh7YgCgOJUE4CUx1qRryI5vyCyfzAzvQqLPu9X6ez6auptdJSSN4ZvlX+dXmvh/TNa6Df3NOF/uujyDoAWEYGE8AeJxtjz1rwkAYx5/nkhAvEXOJYpLTw9rYa9TEqBUV26hVUCiCbQVdHFxKwUHoauJHcHGvS7+C4OBUdCn0Wzh08HL9BFq48n/Pc/8fPDw8IEHgJk9kQIAQmUG0EKPt7uLhAjbSGvBOJe/X6B72n0UHNtLYUx6T9LVhiAMVZvbBl59S+0DgXX4uX+Uj+ST35RM+UFQEE+LLDhGEmRlS+QbZdM3xQTWOq5hzVRyTNifwSFI+x4f8kDwCgjgS6JG2g1iSu/YLYEuXH909oIi+3U1/BzTRNt3NYQTsjLeSL1/5nxV5eS4gStqA6U3KzROYGkbK1BKphCmTOmZM9VGHqGOrV9HmqG0VlIRpKGEzISm1yDiQ6mKhG7ZWtDJ6UT4rWJpuFA2XDX2yGdOmKKLJnJrdV/YX/k8x0AB4nGNgZGBgAOJPl+Ys4vltvjJwszCAwPWt1QYQNP8/C2MzcwOQy8HABBIFACvhCpoAeJxjYGRgYG7438AQw8LAwPD/PwsjA1AEBbABAHJCBG0EAAAABAD//wQAAAAAAQAAAAQAAACFAAB4nGNgZGBgYGYIZGBlAAEmIOYCQgaG/2A+AwAREgFxAHicZY9NTsMwEIVf+gekEqqoYIfkBWIBKP0Rq25YVGr3XXTfpk6bKokjx63UA3AejsAJOALcgDvwSCebNpbH37x5Y08A3OAHHo7fLfeRPVwyO3INF7gXrlN/EG6QX4SbaONVuEX9TdjHM6bCbXRheYPXuGL2hHdhDx18CNdwjU/hOvUv4Qb5W7iJO/wKt9Dx6sI+5l5XuI1HL/bHVi+cXqnlQcWhySKTOb+CmV7vkoWt0uqca1vEJlODoF9JU51pW91T7NdD5yIVWZOqCas6SYzKrdnq0AUb5/JRrxeJHoQm5Vhj/rbGAo5xBYUlDowxQhhkiMro6DtVZvSvsUPCXntWPc3ndFsU1P9zhQEC9M9cU7qy0nk6T4E9XxtSdXQrbsuelDSRXs1JErJCXta2VELqATZlV44RelzRiT8oZ0j/AAlabsgAAAB4nGNgYoAALgbsgJmRiZGZkYWRlZGNkZ2Rg4GluCAzryQ1L6OSKyWxIJWJIzWnJLSoJFfIJL8kNa+0lItpWWpRRWZZapGQQ5qXf0kJAECuFm0=') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-.icon-delivery:before {
-    font-family: 'VehicleIcons';
-    content: "\e800";
-}
-
-.icon-truck:before {
-    font-family: 'VehicleIcons';
-    content: "\e801";
-}
-
-.icon-car:before {
-    font-family: 'VehicleIcons';
-    content: "\e802";
-}
-
-.icon-construction:before {
-    font-family: 'VehicleIcons';
-    content: "\e803";
-}
-
-/* Color variations for vehicle icons */
-.delivery-icon {
-    background-color: rgba(59, 130, 246, 0.1);
-    border-color: rgba(59, 130, 246, 0.3);
-}
-
-.truck-icon {
-    background-color: rgba(239, 68, 68, 0.1);
-    border-color: rgba(239, 68, 68, 0.3);
-}
-
-.car-icon {
-    background-color: rgba(16, 185, 129, 0.1);
-    border-color: rgba(16, 185, 129, 0.3);
-}
-
-.special-icon {
-    background-color: rgba(245, 158, 11, 0.1);
-    border-color: rgba(245, 158, 11, 0.3);
-}
-
-.delivery-icon i {
-    color: #3b82f6;
-}
-
-.truck-icon i {
-    color: #ef4444;
-}
-
-.car-icon i {
-    color: #10b981;
-}
-
-.special-icon i {
-    color: #f59e0b;
-}
-
-/* Styling for vehicle types section */
 .vehicle-types-section {
     margin-top: 40px;
     padding: 30px;
@@ -1062,7 +992,7 @@ footer {
 /* Phone icon styling */
 @font-face {
     font-family: 'PhoneIcon';
-    src: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAWQAAsAAAAABgAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAQwAAAFZW7kgwY21hcAAAAYgAAABLAAABcOEoo6pnbHlmAAAB1AAAAYMAAAGsG2YQg2hlYWQAAANYAAAALwAAADYkhhrxaGhlYQAAA+QAAAAcAAAAJAeKAzlobXR4AAAEAAAAAA4AAAAUCgD//2xvY2EAAAQQAAAADAAAAAwBDAEybWF4cAAABBwAAAAfAAAAIAESAGRuYW1lAAAD3AAAASIAAAIKpqI8GnBvc3QAAAUAAAAAMwAAAERLJGCNeJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gbCDgCWdwMTgx6/2IY/7EwMDSCWAr/FRi8AMwWCxd4nGNgZGBlYGBgZLBjYGGQQOJmUGBgzcHAxMDGwAQEDEwMDglmCuqQDC31zf//mxjYGdrTGLgYQIABJgZUwMKAE4MAAAzrCGsAAAB4nHWOuw7CMAxFbyEJBYnCwCKGDlk68F0ITOzcz/IYiA/yoiWZ6uHepLavsj0AHYiOWQngOoHSt9JouXMqCU+2GjzRnB1w7pjkJYSYeEqrYQ3Ug9nk+sNs1jTrGRnfSFXrsU2c18hI/7Zc/d/3Vqvj59I9v/QvZYQpTCAmTLGGmDHFOuINcRoUSgB4nGNgZGBgAOJND7PMYJ3vZ6YXGJhZXBuBcPmzKgmoOgSyuTgYmECiAB1iCM8AAAB4nGNgZGBgbvjfwBDDwsDAwPD/CwsjA1AEBbABAHJCBG0EAAAABAD//wQAAAAAAQAAAAQAAACFAAB4nGNgZGBgYGYIZGBlAAEmIOYCQgaG/2A+AwAREgFxAHicZY9NTsMwEIVf+gekEqqoYIfkBWIBKP0Rq25YVGr3XXTfpk6bKokjx63UA3AejsAJOALcgDvwSCebNpbH37x5Y08A3OAHHo7fLfeRPVwyO3INF7gXrlN/EG6QX4SbaONVuEX9TdjHM6bCbXRheYPXuGL2hHdhDx18CNdwjU/hOvUv4Qb5W7iJO/wKt9Dx6sI+5l5XuI1HL/bHVi+cXqnlQcWhySKTOb+CmV7vkoWt0uqca1vEJlODoF9JU51pW91T7NdD5yIVWZOqCas6SYzKrdnq0AUb5/JRrxeJHoQm5Vhj/rbGAo5xBYUlDowxQhhkiMro6DtVZvSvsUPCXntWPc3ndFsU1P9zhQEC9M9cU7qy0nk6T4E9XxtSdXQrbsuelDSRXs1JErJCXta2VELqATZlV44RelzRiT8oZ0j/AAlabsgAAAB4nGNgYoAALgbsgJmRiZGZkYWRlZGNkZ2Rg4GluCAzryQ1L6OSKyWxIJWJIzWnJLSoJFfIJL8kNa+0lItpWWpRRWZZapGQQ5qXf0kJAECuFm0=') format('woff');
+    src: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAWQAAsAAAAABgAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAQwAAAFZW7kgwY21hcAAAAYgAAABLAAABcOEoo6pnbHlmAAAB4AAAAdEAAAI0CfXwwmhlYWQAAAO0AAAALwAAADYkhhrxaGhlYQAAA+QAAAAcAAAAJAeKAzlobXR4AAAEAAAAAA4AAAAUCgD//2xvY2EAAAQQAAAADAAAAAwBDAEybWF4cAAABBwAAAAfAAAAIAESAGRuYW1lAAAD3AAAASIAAAIKpqI8GnBvc3QAAAUAAAAAMwAAAERLJGCNeJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gbCDgCWdwMTgx6/2IY/7EwMDSCWAr/FRi8AMwWCxd4nGNgZGBlYGBgZLBjYGGQQOJmUGBgzcHAxMDGwAQEDEwMDglmCuqQDC31zf//mxjYGdrTGLgYQIABJgZUwMKAE4MAAAzrCGsAAAB4nHWOuw7CMAxFbyEJBYnCwCKGDlk68F0ITOzcz/IYiA/yoiWZ6uHepLavsj0AHYiOWQngOoHSt9JouXMqCU+2GjzRnB1w7pjkJYSYeEqrYQ3Ug9nk+sNs1jTrGRnfSFXrsU2c18hI/7Zc/d/3Vqvj59I9v/QvZYQpTCAmTLGGmDHFOuINcRoUSgB4nGNgZGBgAOJND7PMYJ3vZ6YXGJhZXBuBcPmzKgmoOgSyuTgYmECiAB1iCM8AAAB4nGNgZGBgbvjfwBDDwsDAwPD/CwsjA1AEBbABAHJCBG0EAAAABAD//wQAAAAAAQAAAAQAAACFAAB4nGNgZGBgYGYIZGBlAAEmIOYCQgaG/2A+AwAREgFxAHicZY9NTsMwEIVf+gekEqqoYIfkBWIBKP0Rq25YVGr3XXTfpk6bKokjx63UA3AejsAJOALcgDvwSCebNpbH37x5Y08A3OAHHo7fLfeRPVwyO3INF7gXrlN/EG6QX4SbaONVuEX9TdjHM6bCbXRheYPXuGL2hHdhDx18CNdwjU/hOvUv4Qb5W7iJO/wKt9Dx6sI+5l5XuI1HL/bHVi+cXqnlQcWhySKTOb+CmV7vkoWt0uqca1vEJlODoF9JU51pW91T7NdD5yIVWZOqCas6SYzKrdnq0AUb5/JRrxeJHoQm5Vhj/rbGAo5xBYUlDowxQhhkiMro6DtVZvSvsUPCXntWPc3ndFsU1P9zhQEC9M9cU7qy0nk6T4E9XxtSdXQrbsuelDSRXs1JErJCXta2VELqATZlV44RelzRiT8oZ0j/AAlabsgAAAB4nGNgYoAALgbsgJmRiZGZkYWRlZGNkZ2Rg4GluCAzryQ1L6OSKyWxIJWJIzWnJLSoJFfIJL8kNa+0lItpWWpRRWZZapGQQ5qXf0kJAECuFm0=') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -1097,7 +1027,7 @@ footer {
 /* Lock icon styling */
 @font-face {
     font-family: 'LockIcon';
-    src: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAWsAAsAAAAACDgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAQwAAAFZW7lGRY21hcAAAAYgAAABVAAABhnr73YpnbHlmAAAB4AAAAdEAAAI0CfXwwmhlYWQAAAO0AAAALwAAADYkhhrxaGhlYQAAA+QAAAAcAAAAJAeKAzlobXR4AAAEAAAAAA4AAAAUCgD//2xvY2EAAAQQAAAADAAAAAwBDAEybWF4cAAABBwAAAAfAAAAIAESAGRuYW1lAAAEPAAAAUUAAAJtPlT+fXBvc3QAAAWEAAAAOgAAAEtF73WreJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gbCDgCWdwMTgx6/2IY/7EwMDSCWAr/FRi8AMwWCxd4nGNgZGBlYGBgZLBjYGGQQOJmUGBgzcHAxMDGwAQEDEwMDglmCuqQDC31zf//mxjYGdrTGLgYQIABJgZUwMKAE4MAAAzrCGsAAAB4nHWOuw7CMAxFbyEJBYnCwCKGDlk68F0ITOzcz/IYiA/yoiWZ6uHepLavsj0AHYiOWQngOoHSt9JouXMqCU+2GjzRnB1w7pjkJYSYeEqrYQ3Ug9nk+sNs1jTrGRnfSFXrsU2c18hI/7Zc/d/3Vqvj59I9v/QvZYQpTCAmTLGGmDHFOuINcRoUSgB4nGNgZGBgAOJPl+Ys4vltvjJwszCAwPWt1QYQNP8/C2MzcwOQy8HABBIFACvhCpoAeJxjYGRgYG7438AQw8LAwPD/PwsjA1AEBbABAHJCBG0EAAAABAD//wQAAAAAAQAAAAQAAACFAAB4nGNgZGBgYGYIZGBlAAEmIOYCQgaG/2A+AwAREgFxAHicZY9NTsMwEIVf+gekEqqoYIfkBWIBKP0Rq25YVGr3XXTfpk6bKokjx63UA3AejsAJOALcgDvwSCebNpbH37x5Y08A3OAHHo7fLfeRPVwyO3INF7gXrlN/EG6QX4SbaONVuEX9TdjHM6bCbXRheYPXuGL2hHdhDx18CNdwjU/hOvUv4Qb5W7iJO/wKt9Dx6sI+5l5XuI1HL/bHVi+cXqnlQcWhySKTOb+CmV7vkoWt0uqca1vEJlODoF9JU51pW91T7NdD5yIVWZOqCas6SYzKrdnq0AUb5/JRrxeJHoQm5Vhj/rbGAo5xBYUlDowxQhhkiMro6DtVZvSvsUPCXntWPc3ndFsU1P9zhQEC9M9cU7qy0nk6T4E9XxtSdXQrbsuelDSRXs1JErJCXta2VELqATZlV44RelzRiT8oZ0j/AAlabsgAAAB4nGNgYoAALgbsgJmRiZGZkYWRlZGNkZ2Rg4GluCAzryQ1L6OSKyWxIJWJIzWnJLSoJFfIJL8kNa+0lItpWWpRRWZZapGQQ5qXf0kJAECuFm0=') format('woff');
+    src: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAWsAAsAAAAACDgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAQwAAAFZW7lGRY21hcAAAAYgAAABVAAABhnr73YpnbHlmAAAB4AAAAdEAAAI0CfXwwmhlYWQAAAO0AAAALwAAADYkhhrxaGhlYQAAA+QAAAAcAAAAJAeKAzlobXR4AAAEAAAAAA4AAAAUCgD//2xvY2EAAAQQAAAADAAAAAwBDAEybWF4cAAABBwAAAAfAAAAIAESAGRuYW1lAAAEPAAAAUUAAAJtPlT+fXBvc3QAAAZsAAAASgAAAF6Lhop8eJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gbCDgCWdwMTgx6/2IY/7EwMDSCWAr/FRi8AMwWCxd4nGNgZGBlYGBgZLBjYGGQQOJmUGBgzcHAxMDGwAQEDEwMDglmCuqQDC31zf//mxjYGdrTGLgYQIABJgZUwMKAE4MAAAzrCGsAAAB4nHWOuw7CMAxFbyEJBYnCwCKGDlk68F0ITOzcz/IYiA/yoiWZ6uHepLavsj0AHYiOWQngOoHSt9JouXMqCU+2GjzRnB1w7pjkJYSYeEqrYQ3Ug9nk+sNs1jTrGRnfSFXrsU2c18hI/7Zc/d/3Vqvj59I9v/QvZYQpTCAmTLGGmDHFOuINcRoUSgB4nGNgZGBgAOJPl+Ys4vltvjJwszCAwPWt1QYQNP8/C2MzcwOQy8HABBIFACvhCpoAeJxjYGRgYG7438AQw8LAwPD/PwsjA1AEBbABAHJCBG0EAAAABAD//wQAAAAAAQAAAAQAAACFAAB4nGNgZGBgYGYIZGBlAAEmIOYCQgaG/2A+AwAREgFxAHicZY9NTsMwEIVf+gekEqqoYIfkBWIBKP0Rq25YVGr3XXTfpk6bKokjx63UA3AejsAJOALcgDvwSCebNpbH37x5Y08A3OAHHo7fLfeRPVwyO3INF7gXrlN/EG6QX4SbaONVuEX9TdjHM6bCbXRheYPXuGL2hHdhDx18CNdwjU/hOvUv4Qb5W7iJO/wKt9Dx6sI+5l5XuI1HL/bHVi+cXqnlQcWhySKTOb+CmV7vkoWt0uqca1vEJlODoF9JU51pW91T7NdD5yIVWZOqCas6SYzKrdnq0AUb5/JRrxeJHoQm5Vhj/rbGAo5xBYUlDowxQhhkiMro6DtVZvSvsUPCXntWPc3ndFsU1P9zhQEC9M9cU7qy0nk6T4E9XxtSdXQrbsuelDSRXs1JErJCXta2VELqATZlV44RelzRiT8oZ0j/AAlabsgAAAB4nGNgYoAALgbsgJmRiZGZkYWRlZGNkZ2Rg4GluCAzryQ1L6OSKyWxIJWJIzWnJLSoJFfIJL8kNa+0lItpWWpRRWZZapGQQ5qXf0kJAECuFm0=') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -1119,6 +1049,12 @@ footer {
     color: #38a169;
 }
 
+.lock-icon .icon-img {
+    width: 14px;
+    height: 14px;
+    filter: brightness(0) saturate(100%) invert(53%) sepia(62%) saturate(385%) hue-rotate(100deg) brightness(91%) contrast(91%);
+}
+
 .secure-notice {
     display: flex;
     align-items: center;
@@ -1126,4 +1062,69 @@ footer {
     font-size: 0.9rem;
     color: #4b5563;
     margin: 15px 0;
+}
+
+/* Icon image styling */
+.icon-img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    vertical-align: middle;
+}
+
+/* Vehicle types icons styling */
+.vehicle-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: rgba(66, 153, 225, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    border: 2px solid rgba(66, 153, 225, 0.2);
+}
+
+.vehicle-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+/* Color variations for vehicle icons */
+.delivery-icon {
+    background-color: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.truck-icon {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.car-icon {
+    background-color: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.special-icon {
+    background-color: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.delivery-icon .vehicle-img {
+    filter: brightness(0) saturate(100%) invert(43%) sepia(91%) saturate(1954%) hue-rotate(201deg) brightness(97%) contrast(94%);
+}
+
+.truck-icon .vehicle-img {
+    filter: brightness(0) saturate(100%) invert(32%) sepia(95%) saturate(7466%) hue-rotate(353deg) brightness(100%) contrast(88%);
+}
+
+.car-icon .vehicle-img {
+    filter: brightness(0) saturate(100%) invert(67%) sepia(58%) saturate(4656%) hue-rotate(131deg) brightness(94%) contrast(83%);
+}
+
+.special-icon .vehicle-img {
+    filter: brightness(0) saturate(100%) invert(68%) sepia(83%) saturate(1046%) hue-rotate(359deg) brightness(102%) contrast(101%);
 } 
