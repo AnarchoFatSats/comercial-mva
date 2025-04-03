@@ -30,14 +30,14 @@ html, body {
 }
 
 .header-phone-button {
-    background-color: var(--secondary-color);
+    background-color: #1d6e49; /* Darker green for better contrast */
     border: 2px solid white;
     font-weight: 700;
     letter-spacing: 0.5px;
 }
 
 .header-phone-button:hover {
-    background-color: #c01d2e;
+    background-color: #165c3c; /* Even darker green for hover state */
     transform: translateY(-2px);
 }
 
@@ -88,17 +88,53 @@ html, body {
 
 /* CTA Buttons */
 .call-now-button {
-    background-color: var(--secondary-color);
-    font-weight: 800;
+    background-color: #1d6e49; /* Darker green for better contrast */
+    color: white;
+    border: none;
+    padding: 16px 30px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(29, 110, 73, 0.4);
+    transition: all 0.3s ease;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .call-now-button:hover {
-    background-color: #c01d2e;
+    background-color: #165c3c; /* Even darker green for hover state */
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(29, 110, 73, 0.5);
+    text-decoration: none;
 }
 
 .cta-button {
-    background-color: var(--accent-color);
-    font-weight: 800;
+    background-color: #c8151d; /* Darker red for better contrast */
+    color: white;
+    border: none;
+    padding: 16px 30px;
+    font-size: 1.4rem !important;
+    font-weight: 700;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(200, 21, 29, 0.4);
+    width: 100%;
+}
+
+.cta-button:hover {
+    background-color: #a01217; /* Even darker red for hover state */
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(200, 21, 29, 0.5);
 }
 
 .countdown-call-button {
@@ -137,7 +173,7 @@ html, body {
 
 /* Trust Signals Banner Styling */
 .trust-signals-banner {
-    background-color: #1a56db;
+    background-color: #1a4db3; /* Darker blue for better contrast */
     padding: 20px 0;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -161,7 +197,7 @@ html, body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.3); /* Increased opacity for better contrast */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -182,34 +218,6 @@ html, body {
     font-size: 1.4rem;
 }
 
-/* Icon font */
-@font-face {
-    font-family: 'TrustIcons';
-    src: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAeQAAsAAAAACuQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAQwAAAFZW7lGOY21hcAAAAYgAAACDAAAB9GtRxFZnbHlmAAACDAAAA5EAAAQcmuAr1WhlYWQAAAWgAAAALgAAADYkhtJjaGhlYQAABdAAAAAdAAAAJAc8A59obXR4AAAF8AAAAB4AAAAkIAD//2xvY2EAAAYQAAAAFAAAABQDygQabWF4cAAABiQAAAAfAAAAIAEYAF9uYW1lAAAGRAAAATMAAAJS8kf5rXBvc3QAAAd4AAAAUQAAAGog4by+eJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gbCDgCWdwMTgx6/2IY/7EwMDSCWAr/FRi8AMwWCxd4nGNgZGBlYGBgZLBjYGGQQOJmUGBgzcHAxMDGwAQEDEwMDglmCuqQDC31zf//mxjYGdrTGLgYQIABJgZUwMKAE4MAAAzrCGsAAAB4nHWOuw7CMAxFbyEJBYnCwCKGDlk68F0ITOzcz/IYiA/yoiWZ6uHepLavsj0AHYiOWQngOoHSt9JouXMqCU+2GjzRnB1w7pjkJYSYeEqrYQ3Ug9nk+sNs1jTrGRnfSFXrsU2c18hI/7Zc/d/3Vqvj59I9v/QvZYQpTCAmTLGGmDHFOuINcRoUSgB4nGNgZGBgAOJND7PMYJ3vZ6YXGJhZXBuBcPmzKgmoOgSyuTgYmECiAB1iCM8AAAB4nGNgZGBgbvjfwBDDwsDAwPD/CwsjA1AEBbABAHJCBG0EAAAABAD//wQAAAAAAQAAAAQAAACFAAB4nGNgZGBgYGYIZGBlAAEmIOYCQgaG/2A+AwAREgFxAHicZY9NTsMwEIVf+gekEqqoYIfkBWIBKP0Rq25YVGr3XXTfpk6bKokjx63UA3AejsAJOALcgDvwSCebNpbH37x5Y08A3OAHHo7fLfeRPVwyO3INF7gXrlN/EG6QX4SbaONVuEX9TdjHM6bCbXRheYPXuGL2hHdhDx18CNdwjU/hOvUv4Qb5W7iJO/wKt9Dx6sI+5l5XuI1HL/bHVi+cXqnlQcWhySKTOb+CmV7vkoWt0uqca1vEJlODoF9JU51pW91T7NdD5yIVWZOqCas6SYzKrdnq0AUb5/JRrxeJHoQm5Vhj/rbGAo5xBYUlDowxQhhkiMro6DtVZvSvsUPCXntWPc3ndFsU1P9zhQEC9M9cU7qy0nk6T4E9XxtSdXQrbsuelDSRXs1JErJCXta2VELqATZlV44RelzRiT8oZ0j/AAlabsgAAAB4nGNgYoAALgbsgJmRiZGZkYWRlZGNkZ2Rg4GluCAzryQ1L6OSKyWxIJWJIzWnJLSoJFfIJL8kNa+0lItpWWpRRWZZapGQQ5qXf0kJAECuFm0=') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-.icon-star:before {
-    font-family: 'TrustIcons';
-    content: "\e800";
-}
-
-.icon-money:before {
-    font-family: 'TrustIcons';
-    content: "\e801";
-}
-
-.icon-scales:before {
-    font-family: 'TrustIcons';
-    content: "\e802";
-}
-
-.icon-trophy:before {
-    font-family: 'TrustIcons';
-    content: "\e803";
-}
-
 /* Trust signals styling adjustments */
 .trust-text {
     display: flex;
@@ -218,38 +226,38 @@ html, body {
 
 .trust-text strong {
     font-size: 1.3rem;
-    font-weight: 700;
+    font-weight: 800; /* Heavier weight for better contrast */
     line-height: 1.2;
     font-family: 'Arial', sans-serif;
     letter-spacing: 0.5px;
     color: white;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Darker shadow for better contrast */
 }
 
 .trust-text span {
     font-size: 0.9rem;
-    font-weight: 400;
+    font-weight: 500; /* Increased weight for better contrast */
     font-family: 'Arial', sans-serif;
     color: white;
-    opacity: 0.95;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    opacity: 1; /* Full opacity for better contrast */
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 /* Color variations for trust icons */
 .rating-icon {
-    background-color: rgba(251, 191, 36, 0.3);
+    background-color: rgba(251, 191, 36, 0.5); /* Increased opacity for better contrast */
 }
 
 .money-icon {
-    background-color: rgba(52, 211, 153, 0.3);
+    background-color: rgba(52, 211, 153, 0.5); /* Increased opacity for better contrast */
 }
 
 .experience-icon {
-    background-color: rgba(96, 165, 250, 0.3);
+    background-color: rgba(96, 165, 250, 0.5); /* Increased opacity for better contrast */
 }
 
 .guarantee-icon {
-    background-color: rgba(251, 146, 60, 0.3);
+    background-color: rgba(251, 146, 60, 0.5); /* Increased opacity for better contrast */
 }
 
 /* Mobile responsiveness for trust signals */
@@ -504,14 +512,14 @@ html, body {
 }
 
 .call-now-button {
-    background-color: #38a169;
+    background-color: #1d6e49; /* Darker green for better contrast */
     color: white;
     border: none;
     padding: 16px 30px;
     font-size: 1.4rem;
     font-weight: 700;
     border-radius: 50px;
-    box-shadow: 0 5px 15px rgba(56, 161, 105, 0.4);
+    box-shadow: 0 5px 15px rgba(29, 110, 73, 0.4);
     transition: all 0.3s ease;
     width: 100%;
     text-align: center;
@@ -525,22 +533,22 @@ html, body {
 }
 
 .call-now-button:hover {
-    background-color: #2f855a;
+    background-color: #165c3c; /* Even darker green for hover state */
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 20px rgba(56, 161, 105, 0.5);
+    box-shadow: 0 8px 20px rgba(29, 110, 73, 0.5);
     text-decoration: none;
 }
 
 /* Enhanced header phone button */
 .header-phone-button {
-    background-color: #38a169;
+    background-color: #1d6e49; /* Darker green for better contrast */
     border: 2px solid white;
     font-weight: 700;
     letter-spacing: 0.5px;
 }
 
 .header-phone-button:hover {
-    background-color: #2f855a;
+    background-color: #165c3c; /* Even darker green for hover state */
     transform: translateY(-2px);
 }
 

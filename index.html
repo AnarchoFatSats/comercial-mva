@@ -33,17 +33,30 @@
     <link rel="preload" href="js/form.js" as="script">
     <link rel="preload" href="assets/images/truck-accident-aerial.jpg" as="image" fetchpriority="high">
     
+    <!-- DNS Prefetch for Third-party Resources -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://certificates.trustedform.com">
+    
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="css/custom-overrides.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    
+    <!-- Google Analytics with async loading -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID" fetchpriority="low"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'GA_MEASUREMENT_ID');
+        gtag('config', 'GA_MEASUREMENT_ID', {
+            'send_page_view': false,  // Delayed page view for better performance
+            'transport_type': 'beacon' // Use beacon for analytics data
+        });
+        // Send pageview on window load for better performance
+        window.addEventListener('load', function() {
+            gtag('event', 'page_view');
+        });
     </script>
     <!-- Facebook Pixel -->
     <script>
@@ -485,13 +498,29 @@
             <!-- Testimonials -->
             <div class="testimonials" aria-label="Client testimonials">
                 <div class="testimonial">
-                    <img src="assets/images/testimonials/male-testimonial.jpg" alt="Photo of Michael R., a pedestrian client" loading="lazy" decoding="async" width="100" height="100">
+                    <img src="assets/images/testimonials/male-testimonial.jpg" 
+                         data-formats='{"jpg": "assets/images/testimonials/male-testimonial.jpg", "png": "assets/images/webp/testimonials/male-testimonial-optimized.png"}'
+                         alt="Photo of Michael R., a pedestrian client" 
+                         loading="lazy" 
+                         decoding="async" 
+                         width="100" 
+                         height="100"
+                         data-width="100"
+                         data-height="100">
                     <div class="rating" aria-label="5 out of 5 star rating">★★★★★</div>
                     <blockquote>"I was hit by a delivery truck while crossing the street. MyInjuryClaimNow connected me with an amazing attorney who secured a $750,000 settlement for my injuries and lost wages."</blockquote>
                     <cite>- Michael R., Pedestrian</cite>
                 </div>
                 <div class="testimonial">
-                    <img src="assets/images/testimonials/female-testimonial.jpg" alt="Photo of Sarah T., a rideshare driver client" loading="lazy" decoding="async" width="100" height="100">
+                    <img src="assets/images/testimonials/female-testimonial.jpg" 
+                         data-formats='{"jpg": "assets/images/testimonials/female-testimonial.jpg", "png": "assets/images/webp/testimonials/female-testimonial-optimized.png"}'
+                         alt="Photo of Sarah T., a rideshare driver client" 
+                         loading="lazy" 
+                         decoding="async" 
+                         width="100" 
+                         height="100"
+                         data-width="100"
+                         data-height="100">
                     <div class="rating" aria-label="5 out of 5 star rating">★★★★★</div>
                     <blockquote>"I was hit by a construction vehicle while driving for Uber. The team at MyInjuryClaimNow made the process so easy and got me a $487,000 settlement that covered all my medical bills and lost income."</blockquote>
                     <cite>- Sarah T., Rideshare Driver</cite>
@@ -710,7 +739,8 @@
     
     <!-- Non-critical scripts deferred -->
     <script src="js/tracking.js" defer></script>
-    <script src="js/lazy-loading.js" defer></script>
+    <script src="js/image-optimizer.js" defer></script>
+    <script src="js/minify.js" defer></script>
     <script src="js/faq.js" defer></script>
     
     <!-- Lead Processing System - load asynchronously -->
