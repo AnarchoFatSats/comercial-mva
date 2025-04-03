@@ -335,8 +335,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     // If unsure about the type of work vehicle, ask for confirmation
                     showStep(1); // Show step-1b
                 } else {
-                    // Otherwise, proceed to step 2
-                    showStep(2);
+                    // Show early lead capture
+                    showStep(2); // Show step-1c (early lead capture)
                 }
                 break;
                 
@@ -345,9 +345,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     // If not a work vehicle, disqualify
                     showDisqualification();
                 } else {
-                    // Otherwise, proceed to step 2
-                    showStep(2);
+                    // Show early lead capture
+                    showStep(2); // Show step-1c (early lead capture)
                 }
+                break;
+                
+            case 'step-1c':
+                // After collecting early lead info, proceed to fault question
+                showStep(3); // Show step-2 (fault question)
                 break;
                 
             case 'step-2':
@@ -356,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     showDisqualification();
                 } else {
                     // Otherwise, proceed to step 3
-                    showStep(3);
+                    showStep(4);
                 }
                 break;
                 
@@ -367,10 +372,10 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'step-4':
                 if (value === 'no') {
                     // If not on the clock, ask if other driver was in work vehicle
-                    showStep(5); // Show step-4b
+                    showStep(6); // Show step-4b
                 } else {
                     // Otherwise, proceed to step 5
-                    showStep(6);
+                    showStep(7);
                 }
                 break;
                 
@@ -381,20 +386,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else if (value === 'unsure') {
                     // If unsure, still proceed but note this in the form data
                     formData['vehicle_confirmation'] = 'unsure';
-                    showStep(6);
+                    showStep(7);
                 } else {
                     // Otherwise, proceed to step 5
-                    showStep(6);
+                    showStep(7);
                 }
                 break;
                 
             case 'step-5':
                 if (value === 'no') {
                     // If no medical attention within 7 days, ask if within 14 days
-                    showStep(7); // Show step-5b
+                    showStep(8); // Show step-5b
                 } else {
                     // Otherwise, proceed to step 6
-                    showStep(8);
+                    showStep(9);
                 }
                 break;
                 
@@ -404,23 +409,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     showDisqualification();
                 } else {
                     // Otherwise, proceed to step 6
-                    showStep(8);
+                    showStep(9);
                 }
                 break;
                 
             case 'step-6':
                 if (value === 'yes') {
                     // If police report was filed, ask if they have a copy
-                    showStep(9); // Show step-6b
+                    showStep(10); // Show step-6b
                 } else {
                     // Otherwise, proceed to final step
-                    showStep(10);
+                    showStep(11);
                 }
                 break;
                 
             case 'step-6b':
                 // Regardless of answer, proceed to final step
-                showStep(10);
+                showStep(11);
                 break;
                 
             default:
@@ -432,7 +437,35 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Validate current step and proceed
     function validateAndProceed() {
-        if (currentStep === 3) { // Date picker step
+        if (currentStep === 2) { // Early lead capture step
+            const earlyFirstName = document.getElementById('early-first-name').value;
+            const earlyEmail = document.getElementById('early-email').value;
+            
+            if (!earlyFirstName || !earlyEmail) {
+                // Show error if fields are empty
+                if (!earlyFirstName) document.getElementById('early-first-name').classList.add('error');
+                if (!earlyEmail) document.getElementById('early-email').classList.add('error');
+                return;
+            }
+            
+            // Validate email format
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(earlyEmail)) {
+                document.getElementById('early-email').classList.add('error');
+                return;
+            }
+            
+            // Store the early lead info
+            formData['early_first_name'] = earlyFirstName;
+            formData['early_email'] = earlyEmail;
+            formData['partial_lead'] = true;
+            
+            // Submit early lead data to database in the background
+            submitEarlyLead(formData);
+            
+            // Continue to next step
+            showStep(3);
+        } else if (currentStep === 4) { // Date picker step (adjusted for new flow)
             const datePicker = document.getElementById('accident-date');
             if (!datePicker.value) {
                 // Show error if date is not selected
@@ -459,7 +492,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formData['step-3_question'] = questionText;
             formData['step-3_answer'] = datePicker.value;
             
-            showStep(4);
+            showStep(5);
         }
     }
     
@@ -1016,4 +1049,108 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.search.includes('debug=true')) {
         setupClickDebugger();
     }
+    
+    // Submit early lead data to the backend
+    async function submitEarlyLead(data) {
+        try {
+            // Create a copy of the data with just the essential fields
+            const earlyLeadData = {
+                lead_id: generateLeadId(data.early_first_name, '', data.early_email),
+                first_name: data.early_first_name,
+                email: data.early_email,
+                lead_type: 'work_vehicle_accident_partial',
+                source: 'commercial-mva',
+                utm_source: data.utm_source,
+                utm_medium: data.utm_medium,
+                utm_campaign: data.utm_campaign,
+                landing_page: data.landing_page,
+                timestamp: new Date().toISOString(),
+                user_agent: data.user_agent,
+                vehicle_type: data[`step-1`] || '',
+                is_work_vehicle: data[`step-1b`] || ''
+            };
+            
+            // Log the early lead data (for development purposes)
+            console.log('Submitting early lead data:', earlyLeadData);
+            
+            // In production, you would send this to your API
+            // Example commented out to avoid actual API calls during development
+            /*
+            const response = await fetch('https://qqvw1jnwx3.execute-api.us-east-1.amazonaws.com/prod/early-leads', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'dHKgV9XLco5zYlq1EOft48ZcAEcJBMaO3MuZVLl9'
+                },
+                body: JSON.stringify(earlyLeadData)
+            });
+            
+            if (!response.ok) {
+                throw new Error(`API responded with status: ${response.status}`);
+            }
+            
+            const responseData = await response.json();
+            console.log('Early lead submission response:', responseData);
+            */
+            
+        } catch (error) {
+            console.error('Error submitting early lead data:', error);
+            // Continue with the form regardless of the error
+        }
+    }
+    
+    // Initialize countdown timer
+    function initCountdownTimer() {
+        // Set the countdown to a random time between 2-3 hours from now
+        const hours = Math.floor(Math.random() * (3 - 2 + 1) + 2);
+        const minutes = Math.floor(Math.random() * 59);
+        const seconds = Math.floor(Math.random() * 59);
+        
+        let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+        
+        const hoursElement = document.getElementById('hours');
+        const minutesElement = document.getElementById('minutes');
+        const secondsElement = document.getElementById('seconds');
+        
+        if (!hoursElement || !minutesElement || !secondsElement) {
+            console.warn('Countdown timer elements not found');
+            return;
+        }
+        
+        // Update the initial display
+        updateCountdownDisplay(hoursElement, minutesElement, secondsElement, totalSeconds);
+        
+        // Update the timer every second
+        const countdownInterval = setInterval(() => {
+            totalSeconds--;
+            
+            if (totalSeconds <= 0) {
+                clearInterval(countdownInterval);
+                // Reset the timer to a new random time when it reaches zero
+                initCountdownTimer();
+                return;
+            }
+            
+            updateCountdownDisplay(hoursElement, minutesElement, secondsElement, totalSeconds);
+        }, 1000);
+    }
+    
+    // Update the countdown display
+    function updateCountdownDisplay(hoursElement, minutesElement, secondsElement, totalSeconds) {
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        
+        hoursElement.textContent = formatTimeValue(hours);
+        minutesElement.textContent = formatTimeValue(minutes);
+        secondsElement.textContent = formatTimeValue(seconds);
+    }
+    
+    // Format time values with leading zeros
+    function formatTimeValue(value) {
+        return value < 10 ? `0${value}` : value;
+    }
+    
+    // Initialize the countdown timer when the document is loaded
+    initCountdownTimer();
 }); 

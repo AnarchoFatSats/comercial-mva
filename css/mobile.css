@@ -4,6 +4,7 @@
     .hero {
         height: 90vh;
         min-height: 500px;
+        margin-top: 80px;
     }
     
     .hero h1 {
@@ -160,6 +161,134 @@
         flex-direction: column;
         gap: 10px;
     }
+    
+    /* Sticky Header Mobile */
+    .sticky-header {
+        padding: 8px 0;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .logo {
+        font-size: 1.2rem;
+    }
+    
+    .urgent-call {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .urgent-call p {
+        font-size: 0.8rem;
+    }
+    
+    .header-phone-button {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    
+    /* Trust Signals on mobile */
+    .trust-signals-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .trust-signal {
+        justify-content: center;
+    }
+    
+    /* Countdown Timer on mobile */
+    .countdown-label {
+        font-size: 0.9rem;
+    }
+    
+    .timer-value span:first-child {
+        font-size: 1.4rem;
+        min-width: 40px;
+        padding: 5px;
+    }
+    
+    .timer-separator {
+        font-size: 1.4rem;
+    }
+    
+    .timer-label {
+        font-size: 0.6rem;
+    }
+    
+    /* Vehicle Types Section on mobile */
+    .vehicle-types-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .vehicle-type-item {
+        padding: 15px;
+    }
+    
+    .vehicle-icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+    
+    .vehicle-type-item h4 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    
+    .vehicle-type-item li {
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+    
+    .liability-note {
+        padding: 15px;
+        font-size: 0.95rem;
+        margin: 0 15px;
+    }
+    
+    .vehicle-types-section h3 {
+        font-size: 1.5rem;
+    }
+    
+    /* Comparison Table on mobile */
+    .comparison-section h3 {
+        font-size: 1.5rem;
+    }
+    
+    .comparison-section > p {
+        font-size: 1rem;
+        margin: 0 15px 20px;
+    }
+    
+    .comparison-table th, 
+    .comparison-table td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .comparison-cta p {
+        font-size: 1rem;
+        padding: 0 15px;
+    }
+    
+    .comparison-button {
+        padding: 12px 25px;
+        font-size: 0.95rem;
+    }
+    
+    /* Make the table responsive on small screens */
+    .comparison-table {
+        min-width: 650px;
+    }
+    
+    .comparison-table-container {
+        margin: 0 15px 20px;
+    }
 }
 
 /* Small Mobile Devices */
@@ -246,6 +375,10 @@
     .submit-button, .return-home {
         padding: 12px 20px;
         font-size: 16px;
+    }
+    
+    .hero {
+        margin-top: 100px;
     }
 }
 
