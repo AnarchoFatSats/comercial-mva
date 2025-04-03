@@ -65,14 +65,7 @@
       }
       
       .hero-background img {
-        /* Styles moved to JS-triggered class */
-        opacity: 0; /* Start hidden */
-        transition: opacity 0.5s ease-in-out; /* Fade-in effect */
-      }
-      
-      .hero-background img.loaded {
-        /* Styles to apply once image is loaded */
-        opacity: 1;
+        /* Revert to original styles */
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -479,15 +472,15 @@
     <!-- Hero Section - Moved higher in DOM for priority -->
     <section class="hero">
         <div class="hero-background" aria-hidden="true">
-            <img data-src="assets/images/webp/truck-accident-aerial-optimized.jpg" 
+            <img src="assets/images/webp/truck-accident-aerial-optimized.jpg" 
                  data-formats='{"jpg": "assets/images/webp/truck-accident-aerial-optimized.jpg", "png": "assets/images/webp/truck-accident-aerial-optimized.png"}'
                  alt=""
                  width="1600" height="900"
-                 fetchpriority="high" /* Still hint priority, but JS controls load */
-                 decoding="async" /* Can be async now */
-                 loading="eager" /* Eager decode once loaded */
-                 aria-hidden="true"
-                 class="hero-bg-image"> <!-- Add class for JS targeting -->
+                 fetchpriority="high"
+                 decoding="sync" /* Revert to sync decode for critical image */
+                 loading="eager"
+                 aria-hidden="true">
+                 <!-- Removed hero-bg-image class -->
         </div>
         <div class="hero-content">
             <div class="hero-main-message">
