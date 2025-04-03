@@ -135,17 +135,19 @@ html, body {
     100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
 }
 
-/* Trust Signals */
+/* Trust Signals Banner Styling */
 .trust-signals-banner {
-    background-color: var(--primary-color);
-    padding: 15px 0;
+    background-color: #1a56db;
+    padding: 20px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .trust-signals-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
+    gap: 20px;
 }
 
 .trust-signal {
@@ -156,24 +158,111 @@ html, body {
 }
 
 .trust-icon {
-    font-size: 1.8rem;
-    margin-right: 10px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
 }
 
+.trust-icon i {
+    color: white;
+    font-size: 1.4rem;
+}
+
+/* Icon font */
+@font-face {
+    font-family: 'TrustIcons';
+    src: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAeQAAsAAAAACuQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAQwAAAFZW7lGOY21hcAAAAYgAAACDAAAB9GtRxFZnbHlmAAACDAAAA5EAAAQcmuAr1WhlYWQAAAWgAAAALgAAADYkhtJjaGhlYQAABdAAAAAdAAAAJAc8A59obXR4AAAF8AAAAB4AAAAkIAD//2xvY2EAAAYQAAAAFAAAABQDygQabWF4cAAABiQAAAAfAAAAIAEYAF9uYW1lAAAGRAAAATMAAAJS8kf5rXBvc3QAAAd4AAAAUQAAAGog4by+eJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gbCDgCWRwMTgzeQCmi+BTIdADN5gDIAQB4nGNgZGBgZWBgYGRgBmIGBgcXFoYEkmUMDcxDBCwMYAAAOwsBnAB4nGNgZGBgYGdgZABiRiYgJgAEIAACQAB4nGNgZGBgYGZgAWNgZIAEEDO4MgAiiAKuAHicY2BmYmCcwMDKwMDUxRTBwMDgA6CLQQgGJVQgiOeYzxzEz8DA8JcBlLsLKMUAwqgBFWYAABQ+C+EAeJytk81OGlEUx/+X4aOMIIKIYBHBT0SdISrFYtuFiVjdia3tJs3UrcmmuzYm7ozP0Adg17foulv7CH2EPkSXZ+YOUGJsk+nMnHvud/7nfhwMgBU8IYHq6gjPZ1cIcTT7gBoOPNYxx6XHNdR5w+M67vHW4wZaPPe4iTu89XgN73jv8TpSXOdXCDY5Gk4E9PQJKTIkqCFCG9fMMcYAJk7wjrNSZJCcIQw48rPUOStCnz1lxfyZJuXs4wotVlTc0azkFjbZAzXZnxCZJGUcxrZFD1scg1n5PWmSWp1hHy3+N7hHn1TE8/cyj+QnqJB6SzOQH0mec1TyTSVPLDPWkd2yU5q+ZXtKXSCHcn1rJmjwxNacbOG3+S2z5WfBJ+xZ3RYmkrdmN5vZxMqcS9/aRvK/ZcuaQ8eOVabHqR3U1IwsbdmxzHbtrJiw1A4lR8k8tnLilC23NsrsuCg8s8PKH5TbkR9LHefWuqPSFlGPK7+/YseVfStZn9vMypZZdueSI6+IU8dzueWPZYrYvnFF7HVtLdv2V4zJOfpHN6ZIqyLeQFbEcDpVZ5a10+lqnVo5LhqjGc8O7KUOxYWjWZdLURZZvzJZYW/2h8PFWO2eVWfmSb+IutOZVeqf8gejB4YTeJxjYGYAg/9+DOUMmIARACqqAZEAeJxjYGRgYOAEYjEgZmJgBMJ3QMwC5jEAAA3YAR0AAHicY2BmYPj/mYGVgYHRhzGNgYHBgYGBgQEB3BEIDAwMDd5MDR5MDY5MDIxgfICDwoH//2IZvzEwKEwI0FOgwKBgZGBmaKAwIKFgYAQAWKIKHAAAAA==') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.icon-star:before {
+    font-family: 'TrustIcons';
+    content: "\e800";
+}
+
+.icon-money:before {
+    font-family: 'TrustIcons';
+    content: "\e801";
+}
+
+.icon-scales:before {
+    font-family: 'TrustIcons';
+    content: "\e802";
+}
+
+.icon-trophy:before {
+    font-family: 'TrustIcons';
+    content: "\e803";
+}
+
+/* Trust signals styling adjustments */
 .trust-text {
     display: flex;
     flex-direction: column;
 }
 
 .trust-text strong {
-    font-size: 1.2rem;
-    font-weight: 800;
+    font-size: 1.3rem;
+    font-weight: 700;
     line-height: 1.2;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.5px;
 }
 
 .trust-text span {
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 400;
+    opacity: 0.9;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Color variations for trust icons */
+.rating-icon {
+    background-color: rgba(251, 191, 36, 0.3);
+}
+
+.money-icon {
+    background-color: rgba(52, 211, 153, 0.3);
+}
+
+.experience-icon {
+    background-color: rgba(96, 165, 250, 0.3);
+}
+
+.guarantee-icon {
+    background-color: rgba(251, 146, 60, 0.3);
+}
+
+/* Mobile responsiveness for trust signals */
+@media (max-width: 768px) {
+    .trust-signals-content {
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .trust-signal {
+        width: 45%;
+        padding: 8px;
+    }
+    
+    .trust-icon {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .trust-text strong {
+        font-size: 1.1rem;
+    }
+    
+    .trust-text span {
+        font-size: 0.8rem;
+    }
 }
 
 /* Urgency Countdown */
@@ -815,4 +904,226 @@ footer {
     text-decoration: none;
     color: white;
     box-shadow: 0 6px 12px rgba(224, 45, 60, 0.5);
+}
+
+/* Vehicle types icons styling */
+.vehicle-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: rgba(66, 153, 225, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    border: 2px solid rgba(66, 153, 225, 0.2);
+}
+
+.vehicle-icon i {
+    color: #2b6cb0;
+    font-size: 1.8rem;
+}
+
+/* Vehicle icons */
+@font-face {
+    font-family: 'VehicleIcons';
+    src: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAasAAsAAAAACTgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAQwAAAFZW7lHiY21hcAAAAYgAAABnAAABnM+nbN5nbHlmAAAB8AAAAqIAAAMcyGT2b2hlYWQAAASUAAAALwAAADYkhtZFaGhlYQAABMQAAAAdAAAAJAc8A59obXR4AAAE5AAAAB4AAAAgIAD//2xvY2EAAAUEAAAAEgAAABIClgIYbWF4cAAABRgAAAAfAAAAIAEUAF9uYW1lAAAFOAAAATMAAAJS8kf5rXBvc3QAAAZsAAAASgAAAF6Lhop8eJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gbCDgCWRwMTgzeQCmi+BTIdADPBgG4AHicY2BkYWCcwMDKwMHUyXSGgYGhH0IzvmYwYuRgYGBiYGVmwAoC0lxTGByeCT0TYm7438AQw9zA0AAUZgTJAQDhzgwZeJztkLENgDAMBM+QEEKMAQUDUFKxRtqswTjBgylgAt66yH5ZLh7YgCgOJUE4CUx1qRryI5vyCyfzAzvQqLPu9X6ez6auptdJSSN4ZvlX+dXmvh/TNa6Df3NOF/uujyDoAWEYGE8AeJxtjz1rwkAYx5/nkhAvEXOJYpLTw9rYa9TEqBUV26hVUCiCbQVdHFxKwUHoauJHcHGvS7+C4OBUdCn0Wzh08HL9BFq48n/Pc/8fPDw8IEHgJk9kQIAQmUG0EKPt7uLhAjbSGvBOJe/X6B72n0UHNtLYUx6T9LVhiAMVZvbBl59S+0DgXX4uX+Uj+ST35RM+UFQEE+LLDhGEmRlS+QbZdM3xQTWOq5hzVRyTNifwSFI+x4f8kDwCgjgS6JG2g1iSu/YLYEuXH909oIi+3U1/BzTRNt3NYQTsjLeSL1/5nxV5eS4gStqA6U3KzROYGkbK1BKphCmTOmZM9VGHqGOrV9HmqG0VlIRpKGEzISm1yDiQ6mKhG7ZWtDJ6UT4rWJpuFA2XDX2yGdOmKKLJnJrdV/YX/k8x0AB4nGNgZGBgAOJPl+Ys4vltvjJwszCAwPWt1QYQNP8/C2MzcwOQy8HABBIFACvhCpoAeJxjYGRgYG7438AQw8LAwPD/PwsjA1AEBbABAHJCBG0EAAAABAD//wQAAAAAAQAAAAQAAACFAAB4nGNgZGBgYGYIZGBlAAEmIOYCQgaG/2A+AwAREgFxAHicZY9NTsMwEIVf+gekEqqoYIfkBWIBKP0Rq25YVGr3XXTfpk6bKokjx63UA3AejsAJOALcgDvwSCebNpbH37x5Y08A3OAHHo7fLfeRPVwyO3INF7gXrlN/EG6QX4SbaONVuEX9TdjHM6bCbXRheYPXuGL2hHdhDx18CNdwjU/hOvUv4Qb5W7iJO/wKt9Dx6sI+5l5XuI1HL/bHVi+cXqnlQcWhySKTOb+CmV7vkoWt0uqca1vEJlODoF9JU51pW91T7NdD5yIVWZOqCas6SYzKrdnq0AUb5/JRrxeJHoQm5Vhj/rbGAo5xBYUlDowxQhhkiMro6DtVZvSvsUPCXntWPc3ndFsU1P9zhQEC9M9cU7qy0nk6T4E9XxtSdXQrbsuelDSRXs1JErJCXta2VELqATZlV44RelzRiT8oZ0j/AAlabsgAAAB4nGNgYoAALgbsgJmRiZGZkYWRlZGNkZ2Rg4GluCAzryQ1L6OSKyWxIJWJIzWnJLSoJFfIJL8kNa+0lItpWWpRRWZZapGQQ5qXf0kJAECuFm0=') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.icon-delivery:before {
+    font-family: 'VehicleIcons';
+    content: "\e800";
+}
+
+.icon-truck:before {
+    font-family: 'VehicleIcons';
+    content: "\e801";
+}
+
+.icon-car:before {
+    font-family: 'VehicleIcons';
+    content: "\e802";
+}
+
+.icon-construction:before {
+    font-family: 'VehicleIcons';
+    content: "\e803";
+}
+
+/* Color variations for vehicle icons */
+.delivery-icon {
+    background-color: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.truck-icon {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.car-icon {
+    background-color: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.special-icon {
+    background-color: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.delivery-icon i {
+    color: #3b82f6;
+}
+
+.truck-icon i {
+    color: #ef4444;
+}
+
+.car-icon i {
+    color: #10b981;
+}
+
+.special-icon i {
+    color: #f59e0b;
+}
+
+/* Styling for vehicle types section */
+.vehicle-types-section {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: #f8fafc;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.vehicle-types-section h3 {
+    text-align: center;
+    color: #1a56db;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+}
+
+.vehicle-types-section > p {
+    text-align: center;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.vehicle-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.vehicle-type-item {
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.vehicle-type-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-type-item h4 {
+    color: #1a56db;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.vehicle-type-item ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+    margin-top: 15px;
+}
+
+.vehicle-type-item li {
+    padding: 5px 0;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #4b5563;
+}
+
+.vehicle-type-item li:last-child {
+    border-bottom: none;
+}
+
+/* Phone icon styling */
+@font-face {
+    font-family: 'PhoneIcon';
+    src: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAWQAAsAAAAABgAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAQwAAAFZW7kgwY21hcAAAAYgAAABLAAABcOEoo6pnbHlmAAAB1AAAAYMAAAGsG2YQg2hlYWQAAANYAAAALwAAADYkhhrxaGhlYQAAA+QAAAAcAAAAJAeKAzlobXR4AAAEAAAAAA4AAAAUCgD//2xvY2EAAAQQAAAADAAAAAwBDAEybWF4cAAABBwAAAAfAAAAIAESAGRuYW1lAAAD3AAAASIAAAIKpqI8GnBvc3QAAAUAAAAAMwAAAERLJGCNeJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gbCDgCWdwMTgx6/2IY/7EwMDSCWAr/FRi8AMwWCxd4nGNgZGBlYGBgZLBjYGGQQOJmUGBgzcHAxMDGwAQEDEwMDglmCuqQDC31zf//mxjYGdrTGLgYQIABJgZUwMKAE4MAAAzrCGsAAAB4nHWOuw7CMAxFbyEJBYnCwCKGDlk68F0ITOzcz/IYiA/yoiWZ6uHepLavsj0AHYiOWQngOoHSt9JouXMqCU+2GjzRnB1w7pjkJYSYeEqrYQ3Ug9nk+sNs1jTrGRnfSFXrsU2c18hI/7Zc/d/3Vqvj59I9v/QvZYQpTCAmTLGGmDHFOuINcRoUSgB4nGNgZGBgAOJND7PMYJ3vZ6YXGJhZXBuBcPmzKgmoOgSyuTgYmECiAB1iCM8AAAB4nGNgZGBgbvjfwBDDwsDAwPD/CwsjA1AEBbABAHJCBG0EAAAABAD//wQAAAAAAQAAAAQAAACFAAB4nGNgZGBgYGYIZGBlAAEmIOYCQgaG/2A+AwAREgFxAHicZY9NTsMwEIVf+gekEqqoYIfkBWIBKP0Rq25YVGr3XXTfpk6bKokjx63UA3AejsAJOALcgDvwSCebNpbH37x5Y08A3OAHHo7fLfeRPVwyO3INF7gXrlN/EG6QX4SbaONVuEX9TdjHM6bCbXRheYPXuGL2hHdhDx18CNdwjU/hOvUv4Qb5W7iJO/wKt9Dx6sI+5l5XuI1HL/bHVi+cXqnlQcWhySKTOb+CmV7vkoWt0uqca1vEJlODoF9JU51pW91T7NdD5yIVWZOqCas6SYzKrdnq0AUb5/JRrxeJHoQm5Vhj/rbGAo5xBYUlDowxQhhkiMro6DtVZvSvsUPCXntWPc3ndFsU1P9zhQEC9M9cU7qy0nk6T4E9XxtSdXQrbsuelDSRXs1JErJCXta2VELqATZlV44RelzRiT8oZ0j/AAlabsgAAAB4nGNgYoAALgbsgJmRiZGZkYWRlZGNkZ2Rg4GluCAzryQ1L6OSKyWxIJWJIzWnJLSoJFfIJL8kNa+0lItpWWpRRWZZapGQQ5qXf0kJAECuFm0=') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.icon-phone:before {
+    font-family: 'PhoneIcon';
+    content: "\e800";
+}
+
+.phone-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+}
+
+.phone-icon i {
+    font-size: 1.1em;
+}
+
+/* Button styles with icon adjustments */
+.header-phone-button, 
+.call-now-button,
+.consultation-button,
+.special-call-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Lock icon styling */
+@font-face {
+    font-family: 'LockIcon';
+    src: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAWsAAsAAAAACDgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAQwAAAFZW7lGRY21hcAAAAYgAAABVAAABhnr73YpnbHlmAAAB4AAAAdEAAAI0CfXwwmhlYWQAAAO0AAAALwAAADYkhhrxaGhlYQAAA+QAAAAcAAAAJAeKAzlobXR4AAAEAAAAAA4AAAAUCgD//2xvY2EAAAQQAAAADAAAAAwBDAEybWF4cAAABBwAAAAfAAAAIAESAGRuYW1lAAAEPAAAAUUAAAJtPlT+fXBvc3QAAAWEAAAAOgAAAEtF73WreJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gbCDgCWdwMTgx6/2IY/7EwMDSCWAr/FRi8AMwWCxd4nGNgZGBlYGBgZLBjYGGQQOJmUGBgzcHAxMDGwAQEDEwMDglmCuqQDC31zf//mxjYGdrTGLgYQIABJgZUwMKAE4MAAAzrCGsAAAB4nHWOuw7CMAxFbyEJBYnCwCKGDlk68F0ITOzcz/IYiA/yoiWZ6uHepLavsj0AHYiOWQngOoHSt9JouXMqCU+2GjzRnB1w7pjkJYSYeEqrYQ3Ug9nk+sNs1jTrGRnfSFXrsU2c18hI/7Zc/d/3Vqvj59I9v/QvZYQpTCAmTLGGmDHFOuINcRoUSgB4nGNgZGBgAOJPl+Ys4vltvjJwszCAwPWt1QYQNP8/C2MzcwOQy8HABBIFACvhCpoAeJxjYGRgYG7438AQw8LAwPD/PwsjA1AEBbABAHJCBG0EAAAABAD//wQAAAAAAQAAAAQAAACFAAB4nGNgZGBgYGYIZGBlAAEmIOYCQgaG/2A+AwAREgFxAHicZY9NTsMwEIVf+gekEqqoYIfkBWIBKP0Rq25YVGr3XXTfpk6bKokjx63UA3AejsAJOALcgDvwSCebNpbH37x5Y08A3OAHHo7fLfeRPVwyO3INF7gXrlN/EG6QX4SbaONVuEX9TdjHM6bCbXRheYPXuGL2hHdhDx18CNdwjU/hOvUv4Qb5W7iJO/wKt9Dx6sI+5l5XuI1HL/bHVi+cXqnlQcWhySKTOb+CmV7vkoWt0uqca1vEJlODoF9JU51pW91T7NdD5yIVWZOqCas6SYzKrdnq0AUb5/JRrxeJHoQm5Vhj/rbGAo5xBYUlDowxQhhkiMro6DtVZvSvsUPCXntWPc3ndFsU1P9zhQEC9M9cU7qy0nk6T4E9XxtSdXQrbsuelDSRXs1JErJCXta2VELqATZlV44RelzRiT8oZ0j/AAlabsgAAAB4nGNgYoAALgbsgJmRiZGZkYWRlZGNkZ2Rg4GluCAzryQ1L6OSKyWxIJWJIzWnJLSoJFfIJL8kNa+0lItpWWpRRWZZapGQQ5qXf0kJAECuFm0=') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.icon-lock:before {
+    font-family: 'LockIcon';
+    content: "\e800";
+}
+
+.lock-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    background-color: rgba(56, 161, 105, 0.1);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: #38a169;
+}
+
+.secure-notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: #4b5563;
+    margin: 15px 0;
 } 
