@@ -1933,4 +1933,202 @@ footer {
 
 .timer-value span:first-child {
     animation: pulse-countdown 2s infinite;
+}
+
+/* Vehicle Types Section */
+.vehicle-types-section {
+    background-color: #f8fafc;
+    padding: 40px 0;
+    margin: 30px 0;
+    border-top: 1px solid #edf2f7;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.vehicle-types-section h3 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+}
+
+.vehicle-types-section > p {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 30px;
+    color: #4a5568;
+}
+
+.vehicle-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.vehicle-type-item {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    padding: 25px;
+    border: 1px solid #edf2f7;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vehicle-type-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.vehicle-type-item h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.vehicle-type-item ul {
+    margin: 0;
+    padding: 0 0 0 20px;
+    color: #4a5568;
+}
+
+.vehicle-type-item li {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.liability-note {
+    background-color: rgba(44, 82, 130, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #2d3748;
+}
+
+.check-eligibility-link {
+    color: var(--secondary-color);
+    font-weight: 600;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.check-eligibility-link:hover {
+    color: #c53030;
+}
+
+/* Comparison Section */
+.comparison-section {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.comparison-section h3 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.comparison-section > p {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    color: #4a5568;
+    font-size: 1.1rem;
+}
+
+.comparison-table-container {
+    overflow-x: auto;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: white;
+    margin: 0 auto;
+}
+
+.comparison-table th {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 20px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.comparison-table th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.comparison-table th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.comparison-table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #edf2f7;
+    color: #4a5568;
+}
+
+.comparison-table tbody tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+.comparison-table tbody tr:hover {
+    background-color: #ebf4ff;
+}
+
+.comparison-table td:first-child {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.comparison-table td:last-child {
+    color: var(--secondary-color);
+}
+
+.comparison-cta {
+    max-width: 600px;
+    margin: 30px auto 0;
+    text-align: center;
+}
+
+.comparison-cta p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: #2d3748;
+    font-weight: 500;
+}
+
+.comparison-button {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 10px rgba(229, 62, 62, 0.3);
+}
+
+.comparison-button:hover {
+    background-color: #c53030;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(229, 62, 62, 0.4);
+    text-decoration: none;
+    color: white;
 } 
