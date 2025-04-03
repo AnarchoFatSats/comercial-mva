@@ -5,6 +5,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commercial Vehicle Accident? | Get a FREE Case Review | $0 Upfront</title>
+    
+    <!-- Critical inline CSS -->
+    <style>
+      /* Critical CSS for LCP rendering */
+      :root {
+        --primary-color: #1a56db;
+        --secondary-color: #e02d3c;
+        --accent-color: #38a169;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      .hero {
+        position: relative;
+        min-height: 550px;
+        overflow: hidden;
+        color: white;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-color: #1f2937; /* Fallback before image loads */
+      }
+      .hero-background img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.6);
+      }
+      .hero-content {
+        padding: 40px 20px;
+        z-index: 2;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .hero h1 {
+        font-size: 3.2rem;
+        font-weight: 900;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        margin-bottom: 0;
+      }
+      .hero h2 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #e02d3c;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        margin-bottom: 5px;
+      }
+      .subheading {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+      .hero-cta-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .call-now-button {
+        background-color: #1d6e49;
+        color: white;
+        border: none;
+        padding: 16px 30px;
+        font-size: 1.4rem;
+        font-weight: 700;
+        border-radius: 50px;
+        box-shadow: 0 5px 15px rgba(29, 110, 73, 0.4);
+        transition: all 0.3s ease;
+        width: 100%;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .cta-button {
+        background-color: #c8151d;
+        color: white;
+        border: none;
+        padding: 16px 30px;
+        font-size: 1.4rem !important;
+        font-weight: 700;
+        border-radius: 50px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(200, 21, 29, 0.4);
+        width: 100%;
+      }
+      /* Container styles */
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .hero h2 {
+          font-size: 1.8rem;
+        }
+        .subheading {
+          font-size: 1.2rem;
+        }
+        .call-now-button, .cta-button {
+          width: 100%;
+          padding: 15px 20px;
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+    
     <meta name="description" content="Injured by a commercial work vehicle? You may qualify for significant compensation. FREE case evaluation in 30 seconds. No recovery, no fee guarantee.">
     
     <!-- Enhanced SEO Meta Tags -->
@@ -28,19 +163,20 @@
     <meta name="twitter:image" content="https://myinjuryclaimnow.com/assets/images/twitter-image.jpg">
     
     <!-- Preload Critical Resources -->
-    <link rel="preload" href="css/styles.css" as="style">
-    <link rel="preload" href="css/mobile.css" as="style">
-    <link rel="preload" href="js/form.js" as="script">
-    <link rel="preload" href="assets/images/truck-accident-aerial.jpg" as="image" fetchpriority="high">
+    <link rel="preload" href="assets/images/webp/truck-accident-aerial-optimized.jpg" as="image" fetchpriority="high" type="image/jpeg">
+    <link rel="preload" href="assets/images/icons/phone-icon.svg" as="image" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <!-- DNS Prefetch for Third-party Resources -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     <link rel="dns-prefetch" href="https://certificates.trustedform.com">
     
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/mobile.css">
-    <link rel="stylesheet" href="css/custom-overrides.css">
+    <!-- Non-critical CSS loaded with media query tricks to avoid blocking -->
+    <link rel="stylesheet" href="css/styles.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/mobile.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/custom-overrides.css" media="print" onload="this.media='all'">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     
     <!-- Google Analytics with async loading -->
@@ -223,7 +359,14 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-background" aria-hidden="true">
-            <!-- Commercial vehicle accident background -->
+            <img src="assets/images/webp/truck-accident-aerial-optimized.jpg" 
+                 data-formats='{"jpg": "assets/images/webp/truck-accident-aerial-optimized.jpg", "png": "assets/images/webp/truck-accident-aerial-optimized.png"}'
+                 alt="" 
+                 width="1600" height="900" 
+                 fetchpriority="high"
+                 decoding="sync"
+                 loading="eager"
+                 aria-hidden="true">
         </div>
         <div class="hero-content">
             <div class="hero-main-message">
@@ -733,60 +876,96 @@
         </a>
     </div>
 
-    <!-- Critical scripts loaded with priority -->
-    <script src="js/form.js"></script>
-    <script src="js/accessibility.js"></script>
-    
-    <!-- Non-critical scripts deferred -->
-    <script src="js/tracking.js" defer></script>
-    <script src="js/image-optimizer.js" defer></script>
-    <script src="js/minify.js" defer></script>
-    <script src="js/faq.js" defer></script>
-    
-    <!-- Lead Processing System - load asynchronously -->
-    <script src="js/lead-system/lead-schema.js" defer></script>
-    <script src="js/lead-system/trusted-forms.js" defer></script>
-    <script src="js/lead-system/myinjuryclaimnow-integration.js" defer></script>
-    <script src="commercial-mva-lambda/config.js" type="module" defer></script>
-    <script src="commercial-mva-lambda/site-integration.js" type="module" defer></script>
-    <script src="js/form-api.js" type="module" defer></script>
-    
-    <!-- Fix for auto-scrolling issue -->
+    <!-- Inline critical JavaScript -->
     <script>
-        // Force scroll to top on page load
-        window.onload = function() {
-            window.scrollTo(0, 0);
-            
-            // This helps prevent any auto-scrolling that might happen after initial load
-            setTimeout(function() {
-                window.scrollTo(0, 0);
-            }, 100);
-            
-            // Add lazy loading to all images
-            document.querySelectorAll('img').forEach(img => {
-                if (!img.hasAttribute('loading') && !img.hasAttribute('fetchpriority')) {
-                    img.setAttribute('loading', 'lazy');
-                }
-                
-                // Add decoding async for better rendering performance
-                if (!img.hasAttribute('decoding')) {
-                    img.setAttribute('decoding', 'async');
-                }
-            });
-        };
+      // Critical JS for initial page load performance
+      document.addEventListener('DOMContentLoaded', function() {
+        // Ensure proper hero sizing
+        function adjustHeroHeight() {
+          const windowHeight = window.innerHeight;
+          const minHeight = Math.min(windowHeight * 0.7, 550);
+          document.querySelector('.hero').style.minHeight = minHeight + 'px';
+        }
+        
+        // Initialize hero sizing
+        adjustHeroHeight();
+        window.addEventListener('resize', adjustHeroHeight);
+        
+        // Handle hero CTA button click
+        document.getElementById('hero-cta')?.addEventListener('click', function() {
+          document.getElementById('form-section').scrollIntoView({behavior: 'smooth'});
+        });
+        
+        // Eager-load critical images
+        const criticalImg = document.querySelector('.hero-background img');
+        if (criticalImg && criticalImg.dataset.formats) {
+          try {
+            const formats = JSON.parse(criticalImg.dataset.formats);
+            if (formats.jpg) {
+              const img = new Image();
+              img.onload = function() {
+                criticalImg.src = img.src;
+              };
+              img.src = formats.jpg;
+            }
+          } catch (e) {
+            console.error('Error loading optimized image format', e);
+          }
+        }
+      });
+    </script>
+
+    <!-- Critical scripts loaded with module type to improve parsing -->
+    <script type="module">
+      // Import performance-critical functions directly
+      import { setupFormHandlers } from './js/form.js';
+      
+      // Initialize immediately
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          setupFormHandlers();
+        });
+      } else {
+        setupFormHandlers();
+      }
     </script>
     
-    <!-- Enhanced TrustedForm with Consent Tags -->
+    <!-- Critical path management for efficient resource loading -->
+    <script src="js/critical-paths.js" defer></script>
+    
+    <!-- Force scroll to top on page load -->
     <script>
-    (function() {
-        var tf = document.createElement('script');
-        tf.type = 'text/javascript';
-        tf.async = true;
-        tf.src = ('https:' == document.location.protocol ? 'https://': 'http://') + 
+      window.addEventListener('load', function() {
+        window.scrollTo(0, 0);
+        
+        // Apply lazy loading to non-critical images
+        document.querySelectorAll('img').forEach(img => {
+          if (!img.hasAttribute('loading') && !img.hasAttribute('fetchpriority')) {
+            img.setAttribute('loading', 'lazy');
+          }
+          
+          // Add decoding async for better rendering performance
+          if (!img.hasAttribute('decoding')) {
+            img.setAttribute('decoding', 'async');
+          }
+        });
+      });
+    </script>
+    
+    <!-- Enhanced TrustedForm with Consent Tags - loaded after page is interactive -->
+    <script>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var tf = document.createElement('script');
+          tf.type = 'text/javascript';
+          tf.async = true;
+          tf.src = ('https:' == document.location.protocol ? 'https://': 'http://') + 
             'api.trustedform.com/trustedform.js?field=trustedFormCertUrl&use_tagged_consent=true&l=' + 
             new Date().getTime() + Math.random();
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(tf, s);
-    })();
+          var s = document.getElementsByTagName('script')[0]; 
+          s.parentNode.insertBefore(tf, s);
+        }, 1000); // Delay by 1 second after page is fully loaded
+      });
     </script>
     <noscript><img src="https://api.trustedform.com/ns.gif" alt="TrustedForm pixel" /></noscript>
 </body>

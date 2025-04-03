@@ -1098,4 +1098,34 @@ document.addEventListener('DOMContentLoaded', function() {
             // Continue with the form regardless of the error
         }
     }
+});
+
+// Form handling module
+const formData = {};
+let currentStep = 0;
+let formSteps = [];
+let progressBar;
+let form;
+let heroCta;
+
+// Setup form handlers - exported for module loading
+export function setupFormHandlers() {
+    // Initialize form references
+    form = document.getElementById('claim-form');
+    heroCta = document.getElementById('hero-cta');
+    progressBar = document.querySelector('.progress-bar');
+    formSteps = document.querySelectorAll('.form-step');
+    
+    if (!form) {
+        console.error('Form element not found!');
+        return;
+    }
+    
+    // Initialize the form
+    initForm();
+}
+
+// Initialize form with standard DOM listener for non-module usage
+document.addEventListener('DOMContentLoaded', function() {
+    setupFormHandlers();
 }); 
