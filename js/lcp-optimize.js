@@ -8,8 +8,8 @@
 
   // Configuration
   const config = {
-    // The main LCP element selector
-    lcpSelector: '.hero h1',
+    // The main LCP element selector - NOW TARGETING H2
+    lcpSelector: '.hero h2',
     // Any blocking resources to avoid
     blockingSelectors: '.non-critical-css, .non-critical-script',
     // Whether to apply hardware acceleration 

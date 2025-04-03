@@ -94,13 +94,20 @@
         -webkit-font-smoothing: subpixel-antialiased; /* Better performance than antialiased */
       }
       
+      /* HIGHEST PRIORITY - LCP ELEMENT (H2) */
       .hero h2 {
         font-size: 2.2rem;
         font-weight: 800;
         color: #e02d3c;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
         margin-bottom: 5px;
         font-family: Arial, sans-serif !important; /* System font */
+        contain: layout style;
+        will-change: opacity;
+        text-rendering: optimizeSpeed;
+        visibility: visible !important;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-font-smoothing: subpixel-antialiased;
       }
       
       .subheading {
@@ -248,8 +255,8 @@
     <!-- Inline LCP optimization script to reduce render delay -->
     <script>
     (function() {
-      // Config
-      var lcpSelector = '.hero h1';
+      // Config - Target h2
+      var lcpSelector = '.hero h2';
       var useHardwareAcceleration = true;
 
       // Priority optimization function
@@ -258,7 +265,7 @@
         if (!lcpElement) return;
 
         // Set render priority styles
-        lcpElement.style.fontFamily = 'Arial, sans-serif';
+        lcpElement.style.fontFamily = 'Arial, sans-serif'; // Force system font
         lcpElement.style.visibility = 'visible';
         lcpElement.style.opacity = '1';
         

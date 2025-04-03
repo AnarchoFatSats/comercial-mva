@@ -19,18 +19,18 @@ const resources = [
   // High priority - load after first paint
   {
     type: 'script',
-    src: 'js/lcp-optimize.js',
-    priority: PRIORITY.HIGH,
-    attributes: { async: true }
-  },
-  {
-    type: 'script',
     src: 'js/accessibility.js',
     priority: PRIORITY.HIGH,
     attributes: { defer: true }
   },
   
   // Medium priority - load after first contentful paint
+  {
+    type: 'script',
+    src: 'js/lcp-optimize.js',
+    priority: PRIORITY.MEDIUM,
+    attributes: { async: true }
+  },
   {
     type: 'script',
     src: 'js/image-optimizer.js',
