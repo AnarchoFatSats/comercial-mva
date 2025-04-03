@@ -1,72 +1,91 @@
 /**
- * FAQ Section Functionality
- * Handles the toggling of FAQ questions and answers with accessibility support
+ * FAQ Accordion with Accessibility Improvements
+ * Handles show/hide functionality and keyboard interactions for the FAQ section
  */
-document.addEventListener('DOMContentLoaded', function() {
-    // Get all FAQ question elements
-    const faqQuestions = document.querySelectorAll('.faq-question');
+
+(function() {
+    'use strict';
     
-    // Add click event listener to each question
-    faqQuestions.forEach(question => {
-        // Handle click events
-        question.addEventListener('click', function() {
-            toggleFAQ(this);
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        const faqButtons = document.querySelectorAll('.faq-question');
         
-        // Handle keyboard events for accessibility
-        question.addEventListener('keydown', function(e) {
-            // Toggle on Enter or Space key
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                toggleFAQ(this);
-            }
-        });
-    });
-    
-    /**
-     * Toggle FAQ item state and update ARIA attributes
-     * @param {HTMLElement} questionElement - The FAQ question element
-     */
-    function toggleFAQ(questionElement) {
-        // Get the parent faq-item
-        const faqItem = questionElement.parentElement;
+        if (!faqButtons.length) return;
         
-        // Get the answer element
-        const answerId = questionElement.getAttribute('aria-controls');
-        const answerElement = document.getElementById(answerId);
-        
-        // Check if this item is currently active
-        const isExpanded = questionElement.getAttribute('aria-expanded') === 'true';
-        
-        // Close all other FAQ items
-        document.querySelectorAll('.faq-item').forEach(item => {
-            if (item !== faqItem) {
-                const itemQuestion = item.querySelector('.faq-question');
-                const itemAnswerId = itemQuestion.getAttribute('aria-controls');
-                const itemAnswer = document.getElementById(itemAnswerId);
+        faqButtons.forEach(button => {
+            // Set up click handler
+            button.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                const answerId = this.getAttribute('aria-controls');
+                const answerEl = document.getElementById(answerId);
                 
-                item.classList.remove('active');
-                itemQuestion.setAttribute('aria-expanded', 'false');
-                itemAnswer.setAttribute('aria-hidden', 'true');
-            }
+                if (!answerEl) return;
+                
+                // Toggle expanded state
+                this.setAttribute('aria-expanded', !isExpanded);
+                
+                // Toggle visibility
+                if (isExpanded) {
+                    answerEl.hidden = true;
+                } else {
+                    answerEl.hidden = false;
+                    
+                    // Announce to screen readers
+                    const announcer = document.getElementById('sr-announce');
+                    if (announcer) {
+                        announcer.textContent = 'FAQ answer expanded.';
+                    }
+                }
+            });
+            
+            // Add keyboard support
+            button.addEventListener('keydown', function(e) {
+                if (e.key === 'Space' || e.key === 'Enter') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
         });
         
-        // Toggle the current FAQ item
-        faqItem.classList.toggle('active');
-        
-        // Update ARIA attributes
-        if (isExpanded) {
-            questionElement.setAttribute('aria-expanded', 'false');
-            answerElement.setAttribute('aria-hidden', 'true');
-        } else {
-            questionElement.setAttribute('aria-expanded', 'true');
-            answerElement.setAttribute('aria-hidden', 'false');
+        // Setup keyboard navigation between questions
+        const faqSection = document.querySelector('.faq-section');
+        if (faqSection) {
+            faqSection.addEventListener('keydown', function(e) {
+                if (e.target.classList.contains('faq-question')) {
+                    const currentButton = e.target;
+                    const allButtons = Array.from(faqButtons);
+                    const currentIndex = allButtons.indexOf(currentButton);
+                    
+                    let nextButton;
+                    
+                    switch (e.key) {
+                        case 'ArrowDown':
+                            // Move to next question
+                            nextButton = allButtons[currentIndex + 1] || allButtons[0];
+                            e.preventDefault();
+                            nextButton.focus();
+                            break;
+                            
+                        case 'ArrowUp':
+                            // Move to previous question
+                            nextButton = allButtons[currentIndex - 1] || allButtons[allButtons.length - 1];
+                            e.preventDefault();
+                            nextButton.focus();
+                            break;
+                            
+                        case 'Home':
+                            // Move to first question
+                            e.preventDefault();
+                            allButtons[0].focus();
+                            break;
+                            
+                        case 'End':
+                            // Move to last question
+                            e.preventDefault();
+                            allButtons[allButtons.length - 1].focus();
+                            break;
+                    }
+                }
+            });
         }
-        
-        // Announce to screen readers (optional)
-        const srAnnounce = document.getElementById('sr-announce');
-        if (srAnnounce) {
-            srAnnounce.textContent = isExpanded ? 'FAQ collapsed' : 'FAQ expanded';
-        }
-    }
-}); 
+    });
+})(); 

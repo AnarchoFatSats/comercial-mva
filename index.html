@@ -31,7 +31,7 @@
     <link rel="preload" href="css/styles.css" as="style">
     <link rel="preload" href="css/mobile.css" as="style">
     <link rel="preload" href="js/form.js" as="script">
-    <link rel="preload" href="assets/images/truck-accident-aerial.jpg" as="image">
+    <link rel="preload" href="assets/images/truck-accident-aerial.jpg" as="image" fetchpriority="high">
     
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/mobile.css">
@@ -193,14 +193,14 @@
     <a href="#form-section" class="skip-to-content">Skip to form</a>
     
     <!-- Sticky Header with Call Option -->
-    <header class="sticky-header">
+    <header class="sticky-header" role="banner">
         <div class="container">
             <div class="header-content">
                 <div class="logo">MyInjuryClaimNow</div>
                 <div class="urgent-call">
                     <p><strong>FREE Case Evaluation</strong> Available Now</p>
-                    <a href="tel:+18339986932" class="header-phone-button pulse-animation">
-                        <span class="phone-icon"><img src="assets/images/icons/phone-icon.svg" alt="Phone icon" class="icon-img"></span> (833) 998-6932
+                    <a href="tel:+18339986932" class="header-phone-button pulse-animation" aria-label="Call (833) 998-6932 for a free case evaluation">
+                        <span class="phone-icon"><img src="assets/images/icons/phone-icon.svg" alt="" aria-hidden="true" class="icon-img"></span> (833) 998-6932
                     </a>
                 </div>
             </div>
@@ -208,7 +208,7 @@
     </header>
     
     <!-- Hero Section -->
-    <section class="hero" role="banner">
+    <section class="hero">
         <div class="hero-background" aria-hidden="true">
             <!-- Commercial vehicle accident background -->
         </div>
@@ -219,23 +219,23 @@
                 <p class="subheading">FREE Case Evaluation | NO Fee Unless You Win</p>
             </div>
             <div class="hero-cta-container">
-                <a href="tel:+18339986932" class="call-now-button pulse-animation">
-                    <span class="phone-icon"><img src="assets/images/icons/phone-icon.svg" alt="Phone icon" class="icon-img"></span> CALL (833) 998-6932
+                <a href="tel:+18339986932" class="call-now-button pulse-animation" aria-label="Call (833) 998-6932 now">
+                    <span class="phone-icon"><img src="assets/images/icons/phone-icon.svg" alt="" aria-hidden="true" class="icon-img"></span> CALL (833) 998-6932
                 </a>
-                <p class="or-separator">- OR -</p>
+                <p class="or-separator" aria-hidden="true">- OR -</p>
                 <button class="cta-button" id="hero-cta" aria-label="Start my free case review">START FREE CASE REVIEW</button>
-                <p class="compensation-note">*Average compensation $350,000 to $750,000+</p>
+                <p class="compensation-note" aria-label="Average compensation ranges from 350,000 to 750,000 dollars or more">*Average compensation $350,000 to $750,000+</p>
             </div>
         </div>
     </section>
 
     <!-- Trust Signals Banner -->
-    <section class="trust-signals-banner">
+    <section class="trust-signals-banner" aria-label="Trust Signals">
         <div class="container">
             <div class="trust-signals-content">
                 <div class="trust-signal">
                     <div class="trust-icon rating-icon">
-                        <img src="assets/images/icons/star-icon.svg" alt="Star icon" class="trust-img">
+                        <img src="assets/images/icons/star-icon.svg" alt="" aria-hidden="true" class="trust-img">
                     </div>
                     <div class="trust-text">
                         <strong>4.9/5.0</strong>
@@ -244,7 +244,7 @@
                 </div>
                 <div class="trust-signal">
                     <div class="trust-icon money-icon">
-                        <img src="assets/images/icons/money-icon.svg" alt="Money icon" class="trust-img">
+                        <img src="assets/images/icons/money-icon.svg" alt="" aria-hidden="true" class="trust-img">
                     </div>
                     <div class="trust-text">
                         <strong>$750M+</strong>
@@ -253,7 +253,7 @@
                 </div>
                 <div class="trust-signal">
                     <div class="trust-icon experience-icon">
-                        <img src="assets/images/icons/scales-icon.svg" alt="Scales of justice icon" class="trust-img">
+                        <img src="assets/images/icons/scales-icon.svg" alt="" aria-hidden="true" class="trust-img">
                     </div>
                     <div class="trust-text">
                         <strong>30+ Years</strong>
@@ -262,7 +262,7 @@
                 </div>
                 <div class="trust-signal">
                     <div class="trust-icon guarantee-icon">
-                        <img src="assets/images/icons/trophy-icon.svg" alt="Trophy icon" class="trust-img">
+                        <img src="assets/images/icons/trophy-icon.svg" alt="" aria-hidden="true" class="trust-img">
                     </div>
                     <div class="trust-text">
                         <strong>No Win</strong>
@@ -274,7 +274,7 @@
     </section>
 
     <!-- Dynamic Form Section -->
-    <section id="form-section" class="form-section" role="main">
+    <main id="form-section" class="form-section">
         <div class="container">
             <h2>Free Case Evaluation</h2>
             
@@ -284,8 +284,8 @@
                 <p class="notice-content">It's vital to submit your claim as soon as possible to ensure you're being protected. Delays can significantly impact your ability to recover compensation due to statute of limitations and evidence preservation concerns.</p>
                 <div class="free-consultation">
                     <p>Contact us today for your FREE case consultation:</p>
-                    <a href="tel:+18339986932" class="consultation-button">
-                        <span class="phone-icon"><img src="assets/images/icons/phone-icon.svg" alt="Phone icon" class="icon-img"></span> (833) 998-6932
+                    <a href="tel:+18339986932" class="consultation-button" aria-label="Call (833) 998-6932 for consultation">
+                        <span class="phone-icon"><img src="assets/images/icons/phone-icon.svg" alt="" aria-hidden="true" class="icon-img"></span> (833) 998-6932
                     </a>
                 </div>
             </div>
@@ -294,7 +294,7 @@
                 <div class="progress-bar"></div>
             </div>
             
-            <form id="claim-form" role="form" aria-label="Work Vehicle Accident Claim Qualification Form" novalidate>
+            <form id="claim-form" aria-label="Work Vehicle Accident Claim Qualification Form" novalidate>
                 <!-- Step 1: Type of Work Vehicle -->
                 <div id="step-1" class="form-step">
                     <h3 id="step1-question">What type of work vehicle were you hit by?</h3>
@@ -309,12 +309,12 @@
                 </div>
                 
                 <!-- Step 1b: Confirm Work Vehicle (conditional) -->
-                <div id="step-1b" class="form-step">
+                <div id="step-1b" class="form-step" aria-hidden="true">
                     <h3 id="step1b-question">Was the vehicle being used for work purposes?</h3>
                     <div class="option-buttons" role="radiogroup" aria-labelledby="step1b-question">
-                        <button type="button" class="option-button" data-value="yes" role="radio" aria-checked="false" tabindex="0">Yes, it was a work vehicle</button>
-                        <button type="button" class="option-button" data-value="no" role="radio" aria-checked="false" tabindex="0">No, it was not for work</button>
-                        <button type="button" class="option-button" data-value="unsure" role="radio" aria-checked="false" tabindex="0">Not sure</button>
+                        <button type="button" class="option-button" data-value="yes" role="radio" aria-checked="false" tabindex="-1">Yes, it was a work vehicle</button>
+                        <button type="button" class="option-button" data-value="no" role="radio" aria-checked="false" tabindex="-1">No, it was not for work</button>
+                        <button type="button" class="option-button" data-value="unsure" role="radio" aria-checked="false" tabindex="-1">Not sure</button>
                     </div>
                 </div>
                 
@@ -475,15 +475,15 @@
                 </div>
             </form>
         </div>
-    </section>
+    </main>
 
     <!-- Trust Building Section -->
-    <section class="trust-section" role="complementary" aria-labelledby="trust-section-heading">
+    <section class="trust-section" aria-labelledby="trust-section-heading">
         <div class="container">
             <h2 id="trust-section-heading">Why Choose Us</h2>
             
             <!-- Testimonials -->
-            <div class="testimonials" role="region" aria-label="Client testimonials">
+            <div class="testimonials" aria-label="Client testimonials">
                 <div class="testimonial">
                     <img src="assets/images/testimonials/male-testimonial.jpg" alt="Photo of Michael R., a pedestrian client" loading="lazy" decoding="async" width="100" height="100">
                     <div class="rating" aria-label="5 out of 5 star rating">★★★★★</div>
@@ -499,13 +499,13 @@
             </div>
             
             <!-- Commercial Vehicle Types Section -->
-            <section class="vehicle-types-section">
-                <h3>Types of Commercial Vehicles in Accident Claims</h3>
+            <section class="vehicle-types-section" aria-labelledby="vehicle-types-heading">
+                <h3 id="vehicle-types-heading">Types of Commercial Vehicles in Accident Claims</h3>
                 <p>Our attorneys have extensive experience handling cases involving all types of work and commercial vehicles:</p>
                 <div class="vehicle-types-grid">
                     <div class="vehicle-type-item">
                         <div class="vehicle-icon delivery-icon">
-                            <img src="assets/images/icons/delivery-icon.svg" alt="Delivery icon" class="vehicle-img">
+                            <img src="assets/images/icons/delivery-icon.svg" alt="" aria-hidden="true" class="vehicle-img">
                         </div>
                         <h4>Delivery Vehicles</h4>
                         <ul>
@@ -517,7 +517,7 @@
                     </div>
                     <div class="vehicle-type-item">
                         <div class="vehicle-icon truck-icon">
-                            <img src="assets/images/icons/truck-icon.svg" alt="Truck icon" class="vehicle-img">
+                            <img src="assets/images/icons/truck-icon.svg" alt="" aria-hidden="true" class="vehicle-img">
                         </div>
                         <h4>Heavy Commercial Trucks</h4>
                         <ul>
@@ -529,7 +529,7 @@
                     </div>
                     <div class="vehicle-type-item">
                         <div class="vehicle-icon car-icon">
-                            <img src="assets/images/icons/car-icon.svg" alt="Car icon" class="vehicle-img">
+                            <img src="assets/images/icons/car-icon.svg" alt="" aria-hidden="true" class="vehicle-img">
                         </div>
                         <h4>Company Vehicles</h4>
                         <ul>
@@ -541,7 +541,7 @@
                     </div>
                     <div class="vehicle-type-item">
                         <div class="vehicle-icon special-icon">
-                            <img src="assets/images/icons/construction-icon.svg" alt="Construction icon" class="vehicle-img">
+                            <img src="assets/images/icons/construction-icon.svg" alt="" aria-hidden="true" class="vehicle-img">
                         </div>
                         <h4>Specialized Vehicles</h4>
                         <ul>
@@ -606,46 +606,78 @@
             </section>
             
             <!-- FAQ Section -->
-            <div class="faq-section" role="region" aria-labelledby="faq-heading">
+            <div class="faq-section" aria-labelledby="faq-heading">
                 <h3 id="faq-heading">Frequently Asked Questions</h3>
                 <div class="faq-item">
-                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-1" tabindex="0">Am I eligible if I was hit by a commercial vehicle?</div>
-                    <div id="faq-answer-1" class="faq-answer" aria-hidden="true">Yes, if you were injured in an accident where a commercial or work vehicle hit you, you may be eligible for significant compensation. This includes accidents involving delivery trucks, service vans, company cars, construction vehicles, 18-wheelers, and even rideshare vehicles being used for work purposes.</div>
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1" id="faq-question-1">
+                        Am I eligible if I was hit by a commercial vehicle?
+                    </button>
+                    <div id="faq-answer-1" class="faq-answer" aria-labelledby="faq-question-1" hidden>
+                        Yes, if you were injured in an accident where a commercial or work vehicle hit you, you may be eligible for significant compensation. This includes accidents involving delivery trucks, service vans, company cars, construction vehicles, 18-wheelers, and even rideshare vehicles being used for work purposes.
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-2" tabindex="0">How much compensation could I qualify for?</div>
-                    <div id="faq-answer-2" class="faq-answer" aria-hidden="true">Compensation varies based on factors like injury severity, medical expenses, lost wages, and liability. Commercial vehicle accidents often qualify for higher settlements due to commercial insurance policies and potential employer liability. Many of our clients have received settlements ranging from $350,000 to over $1,500,000.</div>
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2" id="faq-question-2">
+                        How much compensation could I qualify for?
+                    </button>
+                    <div id="faq-answer-2" class="faq-answer" aria-labelledby="faq-question-2" hidden>
+                        Compensation varies based on factors like injury severity, medical expenses, lost wages, and liability. Commercial vehicle accidents often qualify for higher settlements due to commercial insurance policies and potential employer liability. Many of our clients have received settlements ranging from $350,000 to over $1,500,000.
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-3" tabindex="0">Do I need to pay anything upfront?</div>
-                    <div id="faq-answer-3" class="faq-answer" aria-hidden="true">No. Our partner attorneys work on a No Win, No Fee basis, meaning you pay nothing unless they win your case. There are no upfront costs, consultation fees, or hidden charges. You only pay a percentage of your settlement after you receive compensation.</div>
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3" id="faq-question-3">
+                        Do I need to pay anything upfront?
+                    </button>
+                    <div id="faq-answer-3" class="faq-answer" aria-labelledby="faq-question-3" hidden>
+                        No. Our partner attorneys work on a No Win, No Fee basis, meaning you pay nothing unless they win your case. There are no upfront costs, consultation fees, or hidden charges. You only pay a percentage of your settlement after you receive compensation.
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-4" tabindex="0">What if the accident was partially my fault?</div>
-                    <div id="faq-answer-4" class="faq-answer" aria-hidden="true">Depending on your state's laws, you may still be eligible for compensation even if you were partially at fault. This is known as comparative negligence. For example, if you were 20% at fault, you might still recover 80% of your damages. Our attorneys can evaluate your specific situation.</div>
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4" id="faq-question-4">
+                        What if the accident was partially my fault?
+                    </button>
+                    <div id="faq-answer-4" class="faq-answer" aria-labelledby="faq-question-4" hidden>
+                        Depending on your state's laws, you may still be eligible for compensation even if you were partially at fault. This is known as comparative negligence. For example, if you were 20% at fault, you might still recover 80% of your damages. Our attorneys can evaluate your specific situation.
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-5" tabindex="0">How long does a commercial vehicle accident claim take?</div>
-                    <div id="faq-answer-5" class="faq-answer" aria-hidden="true">Most commercial vehicle accident claims are resolved within 6-18 months, depending on the complexity of the case and the parties involved. Simple cases may settle faster, while complex cases involving multiple parties or severe injuries might take longer.</div>
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5" id="faq-question-5">
+                        How long does a commercial vehicle accident claim take?
+                    </button>
+                    <div id="faq-answer-5" class="faq-answer" aria-labelledby="faq-question-5" hidden>
+                        Most commercial vehicle accident claims are resolved within 6-18 months, depending on the complexity of the case and the parties involved. Simple cases may settle faster, while complex cases involving multiple parties or severe injuries might take longer.
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-6" tabindex="0">Why are commercial vehicle accidents different from regular accidents?</div>
-                    <div id="faq-answer-6" class="faq-answer" aria-hidden="true">Commercial vehicle accidents typically involve higher insurance policy limits, potential employer liability, and are subject to additional federal and state regulations. This often means more potential compensation for victims. Additionally, companies have significant resources to investigate accidents quickly, making it important for you to seek legal help promptly.</div>
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6" id="faq-question-6">
+                        Why are commercial vehicle accidents different from regular accidents?
+                    </button>
+                    <div id="faq-answer-6" class="faq-answer" aria-labelledby="faq-question-6" hidden>
+                        Commercial vehicle accidents typically involve higher insurance policy limits, potential employer liability, and are subject to additional federal and state regulations. This often means more potential compensation for victims. Additionally, companies have significant resources to investigate accidents quickly, making it important for you to seek legal help promptly.
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-7" tabindex="0">What if I was a pedestrian or cyclist hit by a work vehicle?</div>
-                    <div id="faq-answer-7" class="faq-answer" aria-hidden="true">Pedestrians and cyclists hit by work vehicles often have strong claims for compensation. These cases may involve significant injuries and clear liability against the commercial driver and their employer. Our network of attorneys has extensive experience representing pedestrians and cyclists in these situations.</div>
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7" id="faq-question-7">
+                        What if I was a pedestrian or cyclist hit by a work vehicle?
+                    </button>
+                    <div id="faq-answer-7" class="faq-answer" aria-labelledby="faq-question-7" hidden>
+                        Pedestrians and cyclists hit by work vehicles often have strong claims for compensation. These cases may involve significant injuries and clear liability against the commercial driver and their employer. Our network of attorneys has extensive experience representing pedestrians and cyclists in these situations.
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" role="button" aria-expanded="false" aria-controls="faq-answer-8" tabindex="0">What types of damages can I recover?</div>
-                    <div id="faq-answer-8" class="faq-answer" aria-hidden="true">You may be eligible to recover medical expenses (past and future), lost wages, loss of earning capacity, pain and suffering, emotional distress, property damage, and in some cases, punitive damages. Our attorneys work to maximize all available compensation sources.</div>
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8" id="faq-question-8">
+                        What types of damages can I recover?
+                    </button>
+                    <div id="faq-answer-8" class="faq-answer" aria-labelledby="faq-question-8" hidden>
+                        You may be eligible to recover medical expenses (past and future), lost wages, loss of earning capacity, pain and suffering, emotional distress, property damage, and in some cases, punitive damages. Our attorneys work to maximize all available compensation sources.
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer role="contentinfo">
+    <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">MyInjuryClaimNow</div>
@@ -655,25 +687,26 @@
                 <div class="footer-copyright">
                     <p>&copy; 2025 MyInjuryClaimNow. All rights reserved.</p>
                 </div>
-                <div class="footer-links">
+                <nav class="footer-links" aria-label="Footer navigation">
                     <a href="privacy-policy.html">Privacy Policy</a>
                     <a href="terms-of-service.html">Terms of Service</a>
                     <a href="contact-us.html">Contact Us</a>
-                </div>
+                </nav>
             </div>
         </div>
     </footer>
 
     <!-- Floating Call Button for Mobile -->
     <div class="floating-call-button">
-        <a href="tel:+18339986932">
-            <span class="floating-phone-icon">📞</span>
+        <a href="tel:+18339986932" aria-label="Free case review, call now">
+            <span class="floating-phone-icon"><img src="assets/images/icons/phone-icon.svg" alt="" aria-hidden="true" class="icon-img"></span>
             <span class="floating-call-text">FREE CASE REVIEW | CALL NOW</span>
         </a>
     </div>
 
     <!-- Critical scripts loaded with priority -->
     <script src="js/form.js"></script>
+    <script src="js/accessibility.js"></script>
     
     <!-- Non-critical scripts deferred -->
     <script src="js/tracking.js" defer></script>
@@ -701,7 +734,7 @@
             
             // Add lazy loading to all images
             document.querySelectorAll('img').forEach(img => {
-                if (!img.hasAttribute('loading')) {
+                if (!img.hasAttribute('loading') && !img.hasAttribute('fetchpriority')) {
                     img.setAttribute('loading', 'lazy');
                 }
                 
@@ -725,6 +758,6 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(tf, s);
     })();
     </script>
-    <noscript><img src="https://api.trustedform.com/ns.gif" /></noscript>
+    <noscript><img src="https://api.trustedform.com/ns.gif" alt="TrustedForm pixel" /></noscript>
 </body>
 </html> 
