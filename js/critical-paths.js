@@ -157,11 +157,55 @@ window.addEventListener('load', () => {
   if ('requestIdleCallback' in window) {
     requestIdleCallback(() => {
       loadResourcesByPriority(PRIORITY.IDLE);
+      loadHeroBackgroundImage(); // Load hero bg during idle time
     }, { timeout: 5000 });
   } else {
     // Fallback for browsers without requestIdleCallback
     setTimeout(() => {
       loadResourcesByPriority(PRIORITY.IDLE);
+      loadHeroBackgroundImage(); // Load hero bg after a delay
     }, 3000);
   }
-}); 
+});
+
+/**
+ * Load the hero background image progressively
+ */
+function loadHeroBackgroundImage() {
+  const imgElement = document.querySelector('.hero-bg-image');
+  if (!imgElement || imgElement.classList.contains('loaded')) {
+    return; // Already loaded or not found
+  }
+
+  const dataSource = imgElement.dataset.src;
+  const dataFormats = imgElement.dataset.formats ? JSON.parse(imgElement.dataset.formats) : {};
+
+  // Determine the best format (simple check, could be enhanced)
+  let imageUrl = dataSource; // Default to data-src
+  if (dataFormats.jpg) {
+    imageUrl = dataFormats.jpg; // Prefer JPG if available
+  }
+
+  if (imageUrl) {
+    const tempImage = new Image();
+    tempImage.onload = () => {
+      imgElement.src = imageUrl;
+      imgElement.classList.add('loaded');
+      log('Hero background image loaded progressively');
+    };
+    tempImage.onerror = () => {
+      log('Error loading hero background image progressively');
+      // Optionally try another format or just leave the background color
+    };
+    tempImage.src = imageUrl;
+  } else {
+    log('No source found for hero background image');
+  }
+}
+
+// Log function (add if not already present)
+function log(message, data) {
+  if (console) { // Basic check for console availability
+    console.log(`[Resource Loader] ${message}`, data || '');
+  }
+} 
