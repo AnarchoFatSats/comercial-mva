@@ -25,4 +25,332 @@ html, body {
     width: 0;
     transition: width 0.6s ease-in-out;
     box-shadow: 0 1px 3px rgba(76, 175, 80, 0.3);
+}
+
+/* Custom overrides for the commercial vehicle accident landing page */
+
+/* More vibrant countdown timer */
+#hours, #minutes, #seconds {
+    color: #e53e3e;
+    font-weight: 700;
+}
+
+/* Increase visibility of call to action elements */
+.cta-button {
+    font-size: 1.4rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Make sure buttons work on touch devices */
+.option-button, .cta-button, .next-button, .submit-button {
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+    touch-action: manipulation;
+}
+
+/* Hero CTA container and call-now-button */
+.hero-cta-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.call-now-button {
+    background-color: #38a169;
+    color: white;
+    border: none;
+    padding: 16px 30px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(56, 161, 105, 0.4);
+    transition: all 0.3s ease;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.call-now-button:hover {
+    background-color: #2f855a;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(56, 161, 105, 0.5);
+    text-decoration: none;
+}
+
+/* Enhanced header phone button */
+.header-phone-button {
+    background-color: #38a169;
+    border: 2px solid white;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.header-phone-button:hover {
+    background-color: #2f855a;
+    transform: translateY(-2px);
+}
+
+/* More urgent styling for the countdown */
+.urgency-countdown {
+    border: 2px solid #e53e3e;
+    background-color: rgba(229, 62, 62, 0.05);
+}
+
+.countdown-label {
+    font-weight: 700;
+    color: #e53e3e;
+}
+
+/* Countdown CTA styling */
+.countdown-cta {
+    margin-top: 15px;
+    text-align: center;
+    border-top: 1px dashed #e53e3e;
+    padding-top: 15px;
+}
+
+.countdown-cta p {
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.countdown-call-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #38a169;
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(56, 161, 105, 0.4);
+}
+
+.countdown-call-button:hover {
+    background-color: #2f855a;
+    transform: translateY(-2px);
+    text-decoration: none;
+    color: white;
+    box-shadow: 0 6px 12px rgba(56, 161, 105, 0.5);
+}
+
+/* Enhanced mobile experience */
+@media (max-width: 768px) {
+    .hero-cta-container {
+        padding: 0 15px;
+    }
+    
+    .call-now-button,
+    .cta-button {
+        width: 100%;
+        padding: 15px 20px;
+        font-size: 1.2rem;
+    }
+    
+    .header-phone-button {
+        font-size: 1.1rem;
+    }
+    
+    .countdown-call-button {
+        padding: 10px 20px;
+        font-size: 1.1rem;
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Enhanced special call button */
+.special-call-button {
+    background-color: #e53e3e;
+    padding: 18px 30px;
+    font-size: 1.4rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 800;
+    box-shadow: 0 5px 15px rgba(229, 62, 62, 0.4);
+    animation: pulse-special 2s infinite;
+}
+
+.special-call-button:hover {
+    background-color: #c53030;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(229, 62, 62, 0.5);
+}
+
+@keyframes pulse-special {
+    0% { transform: scale(1); box-shadow: 0 5px 15px rgba(229, 62, 62, 0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 8px 25px rgba(229, 62, 62, 0.6); }
+    100% { transform: scale(1); box-shadow: 0 5px 15px rgba(229, 62, 62, 0.4); }
+}
+
+.special-phone-link {
+    color: #e53e3e;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-decoration: underline;
+}
+
+.disqualification-reasons ul li {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+/* Floating call button for mobile */
+.floating-call-button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #e53e3e;
+    padding: 10px 0;
+    z-index: 1000;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+.floating-call-button a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    padding: 5px 0;
+    font-weight: 700;
+    gap: 10px;
+}
+
+.floating-phone-icon {
+    font-size: 1.5rem;
+}
+
+.floating-call-text {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .floating-call-button {
+        display: block;
+    }
+    
+    body {
+        padding-bottom: 55px; /* Add padding to prevent content from being hidden behind the floating button */
+    }
+    
+    footer {
+        margin-bottom: 35px;
+    }
+}
+
+/* Enhanced contact page styling */
+.contact-intro {
+    font-size: 1.3rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.priority-contact {
+    background-color: #f9f9f9;
+    border: 2px solid #e53e3e;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+}
+
+.phone-method {
+    margin-bottom: 30px;
+}
+
+.phone-method h3 {
+    color: #e53e3e;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.urgent-phone {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.urgent-phone a {
+    color: #2c5282;
+    text-decoration: none;
+}
+
+.urgent-phone a:hover {
+    text-decoration: underline;
+}
+
+.contact-call-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #e53e3e;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 20px auto 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.contact-call-button:hover {
+    background-color: #c53030;
+    transform: translateY(-3px);
+    text-decoration: none;
+    color: white;
+}
+
+.form-note {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    border-left: 4px solid #e53e3e;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .contact-call-button {
+        width: 100%;
+        font-size: 1.1rem;
+        padding: 12px 20px;
+    }
+    
+    .urgent-phone {
+        font-size: 1.5rem;
+    }
+    
+    .contact-container {
+        flex-direction: column;
+    }
+    
+    .contact-form-container, 
+    .contact-info {
+        width: 100%;
+    }
 } 
