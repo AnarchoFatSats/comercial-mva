@@ -755,4 +755,64 @@ footer {
         flex-direction: column;
         gap: 10px;
     }
+}
+
+/* Important Notice styling (replacing urgency countdown) */
+.important-notice {
+    border: 2px solid var(--primary-color);
+    background-color: rgba(26, 86, 219, 0.05);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.notice-heading {
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.notice-content {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.free-consultation {
+    text-align: center;
+    padding-top: 10px;
+    border-top: 1px solid rgba(26, 86, 219, 0.2);
+}
+
+.free-consultation p {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.consultation-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(224, 45, 60, 0.4);
+}
+
+.consultation-button:hover {
+    background-color: #c01d2e;
+    transform: translateY(-2px);
+    text-decoration: none;
+    color: white;
+    box-shadow: 0 6px 12px rgba(224, 45, 60, 0.5);
 } 
