@@ -4,6 +4,7 @@
     .hero {
         height: 90vh;
         min-height: 500px;
+        margin-top: 80px;
     }
     
     .hero h1 {
@@ -160,6 +161,64 @@
         flex-direction: column;
         gap: 10px;
     }
+    
+    /* Sticky Header Mobile */
+    .sticky-header {
+        padding: 8px 0;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .logo {
+        font-size: 1.2rem;
+    }
+    
+    .urgent-call {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .urgent-call p {
+        font-size: 0.8rem;
+    }
+    
+    .header-phone-button {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    
+    /* Trust Signals on mobile */
+    .trust-signals-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .trust-signal {
+        justify-content: center;
+    }
+    
+    /* Countdown Timer on mobile */
+    .countdown-label {
+        font-size: 0.9rem;
+    }
+    
+    .timer-value span:first-child {
+        font-size: 1.4rem;
+        min-width: 40px;
+        padding: 5px;
+    }
+    
+    .timer-separator {
+        font-size: 1.4rem;
+    }
+    
+    .timer-label {
+        font-size: 0.6rem;
+    }
 }
 
 /* Small Mobile Devices */
@@ -246,6 +305,10 @@
     .submit-button, .return-home {
         padding: 12px 20px;
         font-size: 16px;
+    }
+    
+    .hero {
+        margin-top: 100px;
     }
 }
 

@@ -48,6 +48,21 @@
     <!-- Skip to content link for accessibility -->
     <a href="#form-section" class="skip-to-content">Skip to form</a>
     
+    <!-- Sticky Header with Call Option -->
+    <header class="sticky-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Claim Connectors</div>
+                <div class="urgent-call">
+                    <p>Statute of limitations may expire soon! Call now:</p>
+                    <a href="tel:+18339986932" class="header-phone-button">
+                        <span class="phone-icon">📞</span> (833) 998-6932
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
     <!-- Hero Section -->
     <section class="hero" role="banner">
         <div class="hero-background" aria-hidden="true">
@@ -60,10 +75,68 @@
         </div>
     </section>
 
+    <!-- Trust Signals Banner -->
+    <section class="trust-signals-banner">
+        <div class="container">
+            <div class="trust-signals-content">
+                <div class="trust-signal">
+                    <span class="trust-icon">⭐</span>
+                    <div class="trust-text">
+                        <strong>5.0 Rating</strong>
+                        <span>Google Reviews</span>
+                    </div>
+                </div>
+                <div class="trust-signal">
+                    <span class="trust-icon">💼</span>
+                    <div class="trust-text">
+                        <strong>$157M+</strong>
+                        <span>Recovered for Clients</span>
+                    </div>
+                </div>
+                <div class="trust-signal">
+                    <span class="trust-icon">⚖️</span>
+                    <div class="trust-text">
+                        <strong>25+ Years</strong>
+                        <span>Legal Experience</span>
+                    </div>
+                </div>
+                <div class="trust-signal">
+                    <span class="trust-icon">🏆</span>
+                    <div class="trust-text">
+                        <strong>No Fee</strong>
+                        <span>Unless We Win</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Dynamic Form Section -->
     <section id="form-section" class="form-section" role="main">
         <div class="container">
             <h2>Free Case Evaluation</h2>
+            
+            <!-- Urgency Countdown -->
+            <div class="urgency-countdown">
+                <div class="countdown-label">Limited Time Offer - Consultation Spots Remaining Today:</div>
+                <div class="countdown-timer">
+                    <div class="timer-value">
+                        <span id="hours">02</span>
+                        <span class="timer-label">Hours</span>
+                    </div>
+                    <div class="timer-separator">:</div>
+                    <div class="timer-value">
+                        <span id="minutes">38</span>
+                        <span class="timer-label">Minutes</span>
+                    </div>
+                    <div class="timer-separator">:</div>
+                    <div class="timer-value">
+                        <span id="seconds">54</span>
+                        <span class="timer-label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+            
             <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Form completion progress">
                 <div class="progress-bar"></div>
             </div>
@@ -90,6 +163,28 @@
                         <button type="button" class="option-button" data-value="no" role="radio" aria-checked="false" tabindex="0">No, it was not for work</button>
                         <button type="button" class="option-button" data-value="unsure" role="radio" aria-checked="false" tabindex="0">Not sure</button>
                     </div>
+                </div>
+                
+                <!-- Step 1c: Early Lead Capture -->
+                <div id="step-1c" class="form-step">
+                    <h3 id="step1c-heading">Great! Let's check if you qualify.</h3>
+                    <p>Enter your information to secure your spot while we check your eligibility.</p>
+                    
+                    <div class="input-group">
+                        <label for="early-first-name">First Name</label>
+                        <input type="text" id="early-first-name" name="early-first-name" required aria-required="true">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="early-email">Email Address</label>
+                        <input type="email" id="early-email" name="early-email" required aria-required="true">
+                    </div>
+                    
+                    <div class="secure-notice">
+                        <span class="lock-icon">🔒</span> Your information is secure & confidential
+                    </div>
+                    
+                    <button type="button" class="next-button" aria-label="Continue to next step">Continue to Qualification</button>
                 </div>
                 
                 <!-- Step 2: Fault -->
@@ -209,18 +304,21 @@
                 
                 <!-- Disqualification Message -->
                 <div id="disqualification" class="form-step disqualification" role="alert" aria-live="assertive">
-                    <h3 id="disqualification-heading">We're Sorry</h3>
-                    <p>Based on your answers, your case may not qualify for our work vehicle accident claim program at this time.</p>
+                    <h3 id="disqualification-heading">Your Case Requires Special Attention</h3>
+                    <p>Based on your answers, your situation requires specialized consultation with one of our senior attorneys.</p>
                     <div class="disqualification-reasons">
-                        <p>Common reasons include:</p>
+                        <p>This could be because:</p>
                         <ul>
-                            <li>The accident occurred more than 2 years ago</li>
-                            <li>The accident did not involve a work/commercial vehicle</li>
-                            <li>You were determined to be at fault for the accident</li>
-                            <li>Medical attention was not sought within 14 days</li>
+                            <li>Your accident involves complex liability issues</li>
+                            <li>Your case may involve specific legal considerations</li>
+                            <li>Your situation requires a more personalized approach</li>
+                            <li>Time-sensitive factors may affect your case</li>
                         </ul>
                     </div>
-                    <p>If you believe there's been an error or you have additional information about your case, please call us directly at <a href="tel:+18339986932" aria-label="Call 8 3 3 9 9 8 6 9 3 2">(833) 998-6932</a>.</p>
+                    <p>For a confidential review of your specific situation, please call us directly at <a href="tel:+18339986932" class="special-phone-link" aria-label="Call 8 3 3 9 9 8 6 9 3 2">(833) 998-6932</a>.</p>
+                    <a href="tel:+18339986932" class="special-call-button" aria-label="Call for specialized consultation">
+                        <span class="phone-icon">📞</span> Call For Specialized Consultation
+                    </a>
                 </div>
             </form>
         </div>
