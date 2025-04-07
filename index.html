@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commercial Vehicle Accident? | Get a FREE Case Review | $0 Upfront</title>
+    <title>Claim Connectors | Free Accident Case Evaluation | Get Maximum Compensation</title>
     
     <!-- Critical inline CSS -->
     <style>
@@ -25,21 +25,18 @@
       body {
         margin: 0;
         padding: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        line-height: 1.5;
-        -webkit-font-smoothing: antialiased;
+        font-family: Arial, sans-serif;
       }
       
       /* Critical Hero Content - High Priority */
       .hero {
         position: relative;
-        min-height: 550px;
-        overflow: hidden;
-        color: white;
-        text-align: center;
+        min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
+        text-align: center;
+        color: white;
       }
       
       .hero-background {
@@ -49,19 +46,16 @@
         width: 100%;
         height: 100%;
         z-index: -1;
-        background-color: #1f2937; /* Fallback background color */
-        /* Image will be loaded via JS */
       }
       
-      .hero-background::before {
+      .hero-background:after {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5); /* Dark overlay */
-        z-index: 1;
+        background: rgba(0, 0, 0, 0.5);
       }
       
       .hero-background img {
@@ -77,42 +71,25 @@
       }
       
       .hero-content {
-        padding: 40px 20px;
-        z-index: 2;
-        max-width: 1200px;
-        margin: 0 auto;
+        max-width: 900px;
+        padding: 30px;
+        z-index: 1;
       }
       
       /* HIGHEST PRIORITY - LCP ELEMENT (H1 - Although H2 is current LCP, keep optimizing both) */
       .hero h1 {
-        font-size: 3.2rem;
-        font-weight: 900;
-        color: white;
-        margin-bottom: 0;
-        font-family: Arial, sans-serif !important; /* Ensure system font to avoid FOIT */
-        contain: layout style; /* Contain layout/style changes to avoid repainting */
-        will-change: opacity; /* Hint to browser for hardware acceleration */
-        text-rendering: optimizeSpeed; /* Prioritize rendering speed over aesthetics */
-        visibility: visible !important; /* Force visibility */
-        transform: translateZ(0); /* Hardware acceleration */
-        backface-visibility: hidden; /* Reduce paint complexity */
-        -webkit-font-smoothing: subpixel-antialiased; /* Better performance than antialiased */
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
       }
       
       /* HIGHEST PRIORITY - LCP ELEMENT (H2) */
       .hero h2 {
         font-size: 2.2rem;
-        font-weight: 800;
-        color: #e02d3c;
-        margin-bottom: 5px;
-        font-family: Arial, sans-serif !important; /* System font */
-        contain: layout style;
-        will-change: opacity;
-        text-rendering: optimizeSpeed;
-        visibility: visible !important;
-        transform: translateZ(0);
-        backface-visibility: hidden;
-        -webkit-font-smoothing: subpixel-antialiased;
+        margin-bottom: 20px;
+        color: #c93636;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
       }
       
       .subheading {
@@ -130,40 +107,39 @@
         max-width: 500px;
         margin: 0 auto;
       }
-      .call-now-button {
-        background-color: #1d6e49;
-        color: white;
-        border: none;
-        padding: 16px 30px;
-        font-size: 1.4rem;
+      .call-now-button, .cta-button {
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 1.2rem;
         font-weight: 700;
-        border-radius: 50px;
-        box-shadow: 0 5px 15px rgba(29, 110, 73, 0.4);
-        transition: all 0.3s ease;
-        width: 100%;
-        text-align: center;
+        border-radius: 5px;
         text-decoration: none;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        display: flex;
-        align-items: center;
+        margin: 10px 0;
+        transition: all 0.3s ease;
+      }
+      .call-now-button {
+        background-color: #c93636;
+        color: white;
         justify-content: center;
+        align-items: center;
         gap: 10px;
       }
       .cta-button {
-        background-color: #c8151d;
+        background-color: #0f4c81;
         color: white;
-        border: none;
-        padding: 16px 30px;
-        font-size: 1.4rem !important;
-        font-weight: 700;
-        border-radius: 50px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(200, 21, 29, 0.4);
-        width: 100%;
+      }
+      .or-separator {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin: 5px 0;
+        color: #f0f4f8;
+      }
+      .compensation-note {
+        font-size: 0.9rem;
+        margin-top: 15px;
+        font-style: italic;
+        color: #f0f4f8;
+        opacity: 0.9;
       }
       /* Container styles */
       .container {
@@ -469,6 +445,21 @@
     <!-- Skip to content link for accessibility -->
     <a href="#form-section" class="skip-to-content">Skip to form</a>
     
+    <!-- Header -->
+    <header class="sticky-header" role="banner">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Claim Connectors</div>
+                <div class="urgent-call">
+                    <p><strong>FREE Case Evaluation</strong> Available Now</p>
+                    <a href="tel:+18339986932" class="header-phone-button pulse-animation" aria-label="Call (833) 998-6932 for a free case evaluation">
+                        <span class="phone-icon"><img src="assets/images/icons/phone-icon.svg" alt="" aria-hidden="true" class="icon-img"></span> (833) 998-6932
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <!-- Hero Section - Moved higher in DOM for priority -->
     <section class="hero">
         <div class="hero-background" aria-hidden="true">
@@ -484,7 +475,7 @@
         </div>
         <div class="hero-content">
             <div class="hero-main-message">
-                <h1>COMMERCIAL VEHICLE ACCIDENT?</h1>
+                <h1>INJURED IN AN ACCIDENT?</h1>
                 <h2>You Could Be Entitled To SIGNIFICANT Compensation!</h2>
                 <p class="subheading">FREE Case Evaluation | NO Fee Unless You Win</p>
             </div>
@@ -499,21 +490,6 @@
         </div>
     </section>
     
-    <!-- Sticky Header with Call Option -->
-    <header class="sticky-header" role="banner">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">MyInjuryClaimNow</div>
-                <div class="urgent-call">
-                    <p><strong>FREE Case Evaluation</strong> Available Now</p>
-                    <a href="tel:+18339986932" class="header-phone-button pulse-animation" aria-label="Call (833) 998-6932 for a free case evaluation">
-                        <span class="phone-icon"><img src="assets/images/icons/phone-icon.svg" alt="" aria-hidden="true" class="icon-img"></span> (833) 998-6932
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
-
     <!-- Trust Signals Banner -->
     <section class="trust-signals-banner" aria-label="Trust Signals">
         <div class="container">
@@ -799,109 +775,116 @@
                 </div>
             </div>
             
-            <!-- Commercial Vehicle Types Section -->
-            <section class="vehicle-types-section" aria-labelledby="vehicle-types-heading">
-                <h3 id="vehicle-types-heading">Types of Commercial Vehicles in Accident Claims</h3>
-                <p>Our attorneys have extensive experience handling cases involving all types of work and commercial vehicles:</p>
+            <!-- Types of Accidents We Handle Section -->
+            <section class="vehicle-types-section" aria-labelledby="accident-types-heading">
+                <h3 id="accident-types-heading">Types of Accidents We Handle</h3>
+                <p>Our network of experienced attorneys can help with all types of accident claims, including:</p>
                 <div class="vehicle-types-grid">
                     <div class="vehicle-type-item">
                         <div class="vehicle-icon delivery-icon">
                             <img src="assets/images/icons/delivery-icon.svg" alt="" aria-hidden="true" class="vehicle-img">
                         </div>
-                        <h4>Delivery Vehicles</h4>
+                        <h4>Vehicle Accidents</h4>
                         <ul>
-                            <li>Delivery Vans</li>
-                            <li>Box Trucks</li>
-                            <li>Courier Vehicles</li>
-                            <li>Mail/Package Trucks</li>
+                            <li>Car Accidents</li>
+                            <li>Truck Accidents</li>
+                            <li>Motorcycle Accidents</li>
+                            <li>Rideshare Accidents</li>
                         </ul>
                     </div>
                     <div class="vehicle-type-item">
                         <div class="vehicle-icon truck-icon">
                             <img src="assets/images/icons/truck-icon.svg" alt="" aria-hidden="true" class="vehicle-img">
                         </div>
-                        <h4>Heavy Commercial Trucks</h4>
+                        <h4>Commercial Accidents</h4>
                         <ul>
-                            <li>18-Wheelers/Semi-Trucks</li>
-                            <li>Tractor-Trailers</li>
-                            <li>Tanker Trucks</li>
-                            <li>Flatbed Trucks</li>
+                            <li>Delivery Truck Accidents</li>
+                            <li>18-Wheeler Accidents</li>
+                            <li>Company Vehicle Accidents</li>
+                            <li>Construction Vehicle Accidents</li>
                         </ul>
                     </div>
                     <div class="vehicle-type-item">
                         <div class="vehicle-icon car-icon">
                             <img src="assets/images/icons/car-icon.svg" alt="" aria-hidden="true" class="vehicle-img">
                         </div>
-                        <h4>Company Vehicles</h4>
+                        <h4>Personal Injury</h4>
                         <ul>
-                            <li>Fleet Cars</li>
-                            <li>Company SUVs</li>
-                            <li>Sales Vehicles</li>
-                            <li>Service Cars</li>
+                            <li>Slip and Fall Accidents</li>
+                            <li>Workplace Injuries</li>
+                            <li>Medical Malpractice</li>
+                            <li>Dog Bites & Animal Attacks</li>
                         </ul>
                     </div>
                     <div class="vehicle-type-item">
                         <div class="vehicle-icon special-icon">
                             <img src="assets/images/icons/construction-icon.svg" alt="" aria-hidden="true" class="vehicle-img">
                         </div>
-                        <h4>Specialized Vehicles</h4>
+                        <h4>Specialized Claims</h4>
                         <ul>
-                            <li>Construction Vehicles</li>
-                            <li>Utility Trucks</li>
-                            <li>Cement Mixers</li>
-                            <li>Dump Trucks</li>
+                            <li>Wrongful Death Claims</li>
+                            <li>Catastrophic Injuries</li>
+                            <li>Premises Liability</li>
+                            <li>Product Liability</li>
                         </ul>
                     </div>
                 </div>
-                <p class="liability-note">When a work vehicle causes an accident, both the driver and the company may be liable for damages. This often results in higher potential compensation due to commercial insurance policies. <a href="#form-section" class="check-eligibility-link">Check your eligibility now</a>.</p>
+                <div class="liability-note">
+                    <p><strong>Don't see your accident type listed?</strong> We handle many more types of injury claims. Our experienced attorneys can evaluate your case and determine your eligibility for compensation. <a href="#form-section" class="check-eligibility-link">Check your eligibility now</a>.</p>
+                </div>
             </section>
             
             <!-- Comparison Table Section -->
             <section class="comparison-section">
-                <h3>Why Commercial Vehicle Accidents Are Different</h3>
-                <p>Commercial vehicle accident claims typically result in higher settlements compared to regular passenger vehicle accidents. Here's why:</p>
+                <h3>Why Professional Legal Representation Matters</h3>
+                <p>Having experienced legal representation can significantly increase your chances of receiving fair compensation. Here's why working with our network of attorneys makes a difference:</p>
                 
                 <div class="comparison-table-container">
                     <table class="comparison-table">
                         <thead>
                             <tr>
                                 <th>Factor</th>
-                                <th>Regular Car Accidents</th>
-                                <th>Commercial Vehicle Accidents</th>
+                                <th>Handling Claim Yourself</th>
+                                <th>With Claim Connectors</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Insurance Limits</td>
-                                <td>Generally lower personal policy limits (typically $15K-$50K)</td>
-                                <td><strong>Higher commercial policy limits (often $1M+)</strong></td>
+                                <td>Settlement Size</td>
+                                <td>Often significantly lower</td>
+                                <td><strong>3-4x higher average settlements</strong></td>
                             </tr>
                             <tr>
-                                <td>Liable Parties</td>
-                                <td>Typically just the individual driver</td>
-                                <td><strong>Multiple potential liable parties (driver, employer, maintenance company)</strong></td>
+                                <td>Insurance Tactics</td>
+                                <td>Vulnerable to pressure and tactics</td>
+                                <td><strong>Protected by experienced negotiators</strong></td>
                             </tr>
                             <tr>
-                                <td>Regulations</td>
-                                <td>Standard traffic laws</td>
-                                <td><strong>Additional federal and state regulations for commercial vehicles</strong></td>
+                                <td>Case Evaluation</td>
+                                <td>Uncertain of true claim value</td>
+                                <td><strong>Accurate valuation based on experience</strong></td>
                             </tr>
                             <tr>
-                                <td>Evidence Available</td>
-                                <td>Limited (police report, witnesses)</td>
-                                <td><strong>More extensive (driver logs, maintenance records, black box data)</strong></td>
+                                <td>Evidence Collection</td>
+                                <td>Limited access to resources</td>
+                                <td><strong>Professional investigation team</strong></td>
                             </tr>
                             <tr>
-                                <td>Typical Settlement Range</td>
-                                <td>$10,000 - $100,000</td>
-                                <td><strong>$50,000 - $500,000+</strong></td>
+                                <td>Stress Level</td>
+                                <td>High stress dealing with insurance</td>
+                                <td><strong>Focus on recovery while we handle everything</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Cost</td>
+                                <td>No attorney fees (but lower payouts)</td>
+                                <td><strong>No fee unless you win</strong></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 
                 <div class="comparison-cta">
-                    <p>Don't settle for less than you deserve. Commercial vehicle accidents require specialized legal expertise.</p>
+                    <p>Don't settle for less than you deserve. Our attorneys have the expertise to maximize your compensation.</p>
                     <a href="#form-section" class="comparison-button">Check If You Qualify Now</a>
                 </div>
             </section>
@@ -911,10 +894,10 @@
                 <h3 id="faq-heading">Frequently Asked Questions</h3>
                 <div class="faq-item">
                     <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1" id="faq-question-1">
-                        Am I eligible if I was hit by a commercial vehicle?
+                        What types of accident claims do you handle?
                     </button>
                     <div id="faq-answer-1" class="faq-answer" aria-labelledby="faq-question-1" hidden>
-                        Yes, if you were injured in an accident where a commercial or work vehicle hit you, you may be eligible for significant compensation. This includes accidents involving delivery trucks, service vans, company cars, construction vehicles, 18-wheelers, and even rideshare vehicles being used for work purposes.
+                        We handle a wide variety of accident and injury claims including car accidents, truck accidents, motorcycle accidents, slip and falls, workplace injuries, medical malpractice, product liability, wrongful death, and many more. If you've been injured due to someone else's negligence, we can help determine if you have a valid claim.
                     </div>
                 </div>
                 <div class="faq-item">
@@ -922,7 +905,7 @@
                         How much compensation could I qualify for?
                     </button>
                     <div id="faq-answer-2" class="faq-answer" aria-labelledby="faq-question-2" hidden>
-                        Compensation varies based on factors like injury severity, medical expenses, lost wages, and liability. Commercial vehicle accidents often qualify for higher settlements due to commercial insurance policies and potential employer liability. Many of our clients have received settlements ranging from $350,000 to over $1,500,000.
+                        Compensation varies based on factors like injury severity, medical expenses, lost wages, and liability. Our attorneys work to maximize your settlement by carefully evaluating all aspects of your case including current and future medical needs, lost income, pain and suffering, and more. Many of our clients have received settlements ranging from $350,000 to over $1,500,000.
                     </div>
                 </div>
                 <div class="faq-item">
@@ -938,39 +921,15 @@
                         What if the accident was partially my fault?
                     </button>
                     <div id="faq-answer-4" class="faq-answer" aria-labelledby="faq-question-4" hidden>
-                        Depending on your state's laws, you may still be eligible for compensation even if you were partially at fault. This is known as comparative negligence. For example, if you were 20% at fault, you might still recover 80% of your damages. Our attorneys can evaluate your specific situation.
+                        Depending on your state's laws, you may still be eligible for compensation even if you were partially at fault. This is known as comparative negligence. For example, if you were 20% at fault, you might still recover 80% of your damages. Our attorneys can evaluate your specific situation and advise you on your options.
                     </div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5" id="faq-question-5">
-                        How long does a commercial vehicle accident claim take?
+                        How long do I have to file a claim?
                     </button>
                     <div id="faq-answer-5" class="faq-answer" aria-labelledby="faq-question-5" hidden>
-                        Most commercial vehicle accident claims are resolved within 6-18 months, depending on the complexity of the case and the parties involved. Simple cases may settle faster, while complex cases involving multiple parties or severe injuries might take longer.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6" id="faq-question-6">
-                        Why are commercial vehicle accidents different from regular accidents?
-                    </button>
-                    <div id="faq-answer-6" class="faq-answer" aria-labelledby="faq-question-6" hidden>
-                        Commercial vehicle accidents typically involve higher insurance policy limits, potential employer liability, and are subject to additional federal and state regulations. This often means more potential compensation for victims. Additionally, companies have significant resources to investigate accidents quickly, making it important for you to seek legal help promptly.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7" id="faq-question-7">
-                        What if I was a pedestrian or cyclist hit by a work vehicle?
-                    </button>
-                    <div id="faq-answer-7" class="faq-answer" aria-labelledby="faq-question-7" hidden>
-                        Pedestrians and cyclists hit by work vehicles often have strong claims for compensation. These cases may involve significant injuries and clear liability against the commercial driver and their employer. Our network of attorneys has extensive experience representing pedestrians and cyclists in these situations.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8" id="faq-question-8">
-                        What types of damages can I recover?
-                    </button>
-                    <div id="faq-answer-8" class="faq-answer" aria-labelledby="faq-question-8" hidden>
-                        You may be eligible to recover medical expenses (past and future), lost wages, loss of earning capacity, pain and suffering, emotional distress, property damage, and in some cases, punitive damages. Our attorneys work to maximize all available compensation sources.
+                        The statute of limitations (deadline to file) varies by state and type of claim, typically ranging from 1-3 years after the accident. However, it's crucial to begin the process as soon as possible to preserve evidence and strengthen your case. Contact us immediately for a free consultation to ensure you don't miss any important deadlines.
                     </div>
                 </div>
             </div>

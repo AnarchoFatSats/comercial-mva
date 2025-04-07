@@ -6,45 +6,56 @@ html, body {
     overflow-anchor: none;
 }
 
-/* Professional Legal Services Color Palette */
+/* Claim Connectors - Professional Legal Services Colors */
 :root {
-    --primary-color: #2c5282; /* Deep navy blue - trustworthy, professional */
-    --secondary-color: #3c6382; /* Slate blue - calming, reliable */
-    --accent-color: #4b7b8a; /* Teal blue-green - compassionate, supportive */
-    --call-action-color: #537a5a; /* Softer green - warm, approachable, reassuring */
-    --text-color: #2d3748; /* Dark gray - professional, readable */
+    --primary-color: #0f4c81; /* Strong navy blue - authority and trust */
+    --secondary-color: #c93636; /* Bold red - urgency and importance */
+    --accent-color: #2e8b57; /* Emerald green - success and positivity */
+    --call-action-color: #c93636; /* Bold red for call buttons */
+    --text-color: #333333; /* Dark gray for better readability */
     --light-text: #fff;
-    --background-color: #f7fafc; /* Light gray blue - clean, calm */
-    --border-color: #e2e8f0; /* Light gray - subtle, refined */
-    --focus-color: #4a69bd; /* Medium blue - accessible, noticeable */
-    --error-color: #95574b; /* Muted brown-red - urgent without being alarming */
-    --success-color: #537a5a; /* Muted green - positive without being flashy */
-    --trust-banner-color: #2c4a7e; /* Dark navy - authoritative, trustworthy */
-    --form-button-color: #6e8b9e; /* Muted blue-gray - professional but less prominent */
+    --background-color: #f7f9fc; /* Light blue-white - clean, professional */
+    --border-color: #e2e8f0;
+    --focus-color: #0f4c81; /* Strong navy for focus states */
+    --error-color: #c93636; /* Bold red for errors */
+    --success-color: #2e8b57; /* Emerald green for success */
+    --trust-banner-color: #134e87; /* Slightly darker navy - authoritative */
+    --form-button-color: #556b83; /* Muted blue-gray for form buttons */
+    --section-bg-color: #eef2f7; /* Light blue-gray for section backgrounds */
+    --card-bg-color: #ffffff; /* White for card backgrounds */
+    --highlight-color: #f8d7da; /* Light red for highlighting important info */
 }
 
 /* Logo styling */
 .logo {
     font-weight: 800;
     color: var(--primary-color);
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* Header styling */
 .sticky-header {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    background-color: white;
+    border-bottom: 3px solid var(--primary-color);
 }
 
 .header-phone-button {
     background-color: var(--call-action-color);
-    border: 2px solid white;
+    border: none;
     font-weight: 700;
     letter-spacing: 0.5px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(201, 54, 54, 0.3);
 }
 
 .header-phone-button:hover {
-    background-color: #466952; /* Slightly darker version of call-action-color */
+    background-color: #b52e2e; /* Darker red */
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(201, 54, 54, 0.4);
 }
 
 /* Hero section styling */
@@ -53,6 +64,11 @@ html, body {
     flex-direction: column;
     gap: 15px;
     margin-bottom: 30px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    border-left: 5px solid var(--secondary-color);
 }
 
 .hero h1 {
@@ -66,7 +82,7 @@ html, body {
 .hero h2 {
     font-size: 2.2rem;
     font-weight: 800;
-    color: #a3b9cc; /* Soft blue-gray - calming but visible on dark background */
+    color: var(--secondary-color);
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
     margin-bottom: 5px;
 }
@@ -92,7 +108,7 @@ html, body {
     opacity: 0.9;
 }
 
-/* CTA Buttons */
+/* Call Button Styling - Bold and attention-grabbing */
 .call-now-button {
     background-color: var(--call-action-color);
     color: white;
@@ -100,9 +116,9 @@ html, body {
     padding: 16px 30px;
     font-size: 1.4rem;
     font-weight: 700;
-    border-radius: 50px;
-    box-shadow: 0 5px 15px rgba(83, 122, 90, 0.25);
-    transition: all 0.4s ease;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(201, 54, 54, 0.3);
+    transition: all 0.3s ease;
     width: 100%;
     text-align: center;
     text-decoration: none;
@@ -114,42 +130,41 @@ html, body {
     gap: 10px;
     position: relative;
     overflow: hidden;
-    /* Subtle glow effect */
-    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .call-now-button:hover {
-    background-color: #466952; /* Slightly darker version of call-action-color */
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 8px 20px rgba(83, 122, 90, 0.35);
+    background-color: #b52e2e; /* Darker red */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(201, 54, 54, 0.4);
     text-decoration: none;
 }
 
 .call-now-button:active {
     transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(83, 122, 90, 0.25);
+    box-shadow: 0 4px 8px rgba(201, 54, 54, 0.3);
 }
 
+/* Form Button Styling */
 .cta-button {
-    background-color: var(--form-button-color);
+    background-color: var(--primary-color);
     color: white;
     border: none;
     padding: 16px 30px;
     font-size: 1.4rem !important;
     font-weight: 700;
-    border-radius: 50px;
+    border-radius: 5px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(110, 139, 158, 0.25);
+    box-shadow: 0 5px 15px rgba(15, 76, 129, 0.3);
     width: 100%;
 }
 
 .cta-button:hover {
-    background-color: #5d7989; /* Darker version of form-button-color */
+    background-color: #0a3e6c; /* Darker blue */
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(110, 139, 158, 0.3);
+    box-shadow: 0 6px 15px rgba(15, 76, 129, 0.4);
 }
 
 .countdown-call-button {
@@ -207,7 +222,7 @@ html, body {
 .trust-signals-banner {
     background-color: var(--trust-banner-color);
     padding: 20px 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .trust-signals-content {
@@ -225,15 +240,17 @@ html, body {
     padding: 5px 10px;
 }
 
+/* Trust icon styling */
 .trust-icon {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    border: 3px solid rgba(255, 255, 255, 0.2);
 }
 
 .trust-img {
@@ -245,20 +262,12 @@ html, body {
     font-size: 1.4rem;
 }
 
-/* Trust signals styling adjustments */
-.trust-text {
-    display: flex;
-    flex-direction: column;
-}
-
+/* Trust signals text styling */
 .trust-text strong {
-    font-size: 1.3rem;
-    font-weight: 800; /* Heavier weight for better contrast */
-    line-height: 1.2;
-    font-family: 'Arial', sans-serif;
-    letter-spacing: 0.5px;
+    font-size: 1.5rem;
+    font-weight: 800;
     color: white;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Darker shadow for better contrast */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .trust-text span {
@@ -270,25 +279,21 @@ html, body {
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-/* Color variations for trust icons */
+/* Updated colored circles for trust icons */
 .rating-icon {
-    background-color: rgba(125, 110, 85, 0.25); /* Warm gold/bronze */
-    border: 2px solid rgba(125, 110, 85, 0.4);
+    background-color: #e6b142; /* Gold */
 }
 
 .money-icon {
-    background-color: rgba(74, 124, 148, 0.25); /* Deep cerulean */
-    border: 2px solid rgba(74, 124, 148, 0.4);
+    background-color: #2e8b57; /* Green */
 }
 
 .experience-icon {
-    background-color: rgba(93, 74, 110, 0.25); /* Muted amethyst */
-    border: 2px solid rgba(93, 74, 110, 0.4);
+    background-color: #4682b4; /* Steel Blue */
 }
 
 .guarantee-icon {
-    background-color: rgba(138, 117, 65, 0.25); /* Antique gold */
-    border: 2px solid rgba(138, 117, 65, 0.4);
+    background-color: #d9534f; /* Red */
 }
 
 /* Mobile responsiveness for trust signals */
@@ -927,32 +932,108 @@ footer {
 
 /* Vehicle types section styling */
 .vehicle-types-section {
-    background-color: rgba(44, 82, 130, 0.03); /* Very subtle blue tint */
+    background-color: var(--section-bg-color);
+    padding: 50px 0;
+    margin: 40px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+}
+
+.vehicle-types-section:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+}
+
+.vehicle-types-section h3 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.vehicle-types-section > p {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 30px;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.vehicle-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
 }
 
 .vehicle-type-item {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    text-align: center;
 }
 
 .vehicle-type-item:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    border-color: var(--primary-color);
 }
 
 .vehicle-type-item h4 {
     color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.vehicle-type-item ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.vehicle-type-item li {
+    margin-bottom: 12px;
+    padding-left: 25px;
+    position: relative;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text-color);
+}
+
+.vehicle-type-item li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--primary-color);
+    font-weight: 700;
 }
 
 .liability-note {
-    background-color: rgba(44, 82, 130, 0.05);
-    border-left: 4px solid var(--primary-color);
-}
-
-.check-eligibility-link {
-    color: var(--secondary-color);
-}
-
-.check-eligibility-link:hover {
-    color: #2a536f; /* Darker version of secondary-color */
+    background-color: var(--highlight-color);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 5px solid var(--secondary-color);
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-color);
 }
 
 /* Vehicle types icons styling */
@@ -964,32 +1045,29 @@ footer {
     align-items: center;
     justify-content: center;
     margin: 0 auto 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border: 3px solid rgba(255, 255, 255, 0.3);
 }
 
 .vehicle-img {
     display: none; /* Hide the SVG images */
 }
 
-/* Color variations for vehicle icons */
+/* Color variations for vehicle icons with stronger colors */
 .delivery-icon {
-    background-color: rgba(77, 106, 131, 0.2); /* Slate blue from our palette */
-    border: 2px solid rgba(77, 106, 131, 0.4);
+    background-color: #1e88e5; /* Bright blue */
 }
 
 .truck-icon {
-    background-color: rgba(78, 119, 118, 0.2); /* Teal from our palette */
-    border: 2px solid rgba(78, 119, 118, 0.4);
+    background-color: #d32f2f; /* Bright red */
 }
 
 .car-icon {
-    background-color: rgba(83, 110, 90, 0.2); /* Forest green from our palette */
-    border: 2px solid rgba(83, 110, 90, 0.4);
+    background-color: #388e3c; /* Bright green */
 }
 
 .special-icon {
-    background-color: rgba(94, 97, 122, 0.2); /* Slate purple from our palette */
-    border: 2px solid rgba(94, 97, 122, 0.4);
+    background-color: #7b1fa2; /* Purple */
 }
 
 /* Accessibility improvements */
