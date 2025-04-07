@@ -11,7 +11,7 @@ html, body {
     --primary-color: #2c5282; /* Deep navy blue - trustworthy, professional */
     --secondary-color: #3c6382; /* Slate blue - calming, reliable */
     --accent-color: #4b7b8a; /* Teal blue-green - compassionate, supportive */
-    --call-action-color: #486b59; /* Subdued green - stability, growth */
+    --call-action-color: #537a5a; /* Softer green - warm, approachable, reassuring */
     --text-color: #2d3748; /* Dark gray - professional, readable */
     --light-text: #fff;
     --background-color: #f7fafc; /* Light gray blue - clean, calm */
@@ -20,6 +20,7 @@ html, body {
     --error-color: #95574b; /* Muted brown-red - urgent without being alarming */
     --success-color: #537a5a; /* Muted green - positive without being flashy */
     --trust-banner-color: #2c4a7e; /* Dark navy - authoritative, trustworthy */
+    --form-button-color: #6e8b9e; /* Muted blue-gray - professional but less prominent */
 }
 
 /* Logo styling */
@@ -42,7 +43,7 @@ html, body {
 }
 
 .header-phone-button:hover {
-    background-color: #3a5949; /* Darker version of call-action-color */
+    background-color: #466952; /* Slightly darker version of call-action-color */
     transform: translateY(-2px);
 }
 
@@ -100,8 +101,8 @@ html, body {
     font-size: 1.4rem;
     font-weight: 700;
     border-radius: 50px;
-    box-shadow: 0 5px 15px rgba(72, 107, 89, 0.4);
-    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(83, 122, 90, 0.25);
+    transition: all 0.4s ease;
     width: 100%;
     text-align: center;
     text-decoration: none;
@@ -111,17 +112,26 @@ html, body {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    position: relative;
+    overflow: hidden;
+    /* Subtle glow effect */
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .call-now-button:hover {
-    background-color: #3a5949; /* Darker version of call-action-color */
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 20px rgba(72, 107, 89, 0.5);
+    background-color: #466952; /* Slightly darker version of call-action-color */
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(83, 122, 90, 0.35);
     text-decoration: none;
 }
 
+.call-now-button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(83, 122, 90, 0.25);
+}
+
 .cta-button {
-    background-color: var(--secondary-color);
+    background-color: var(--form-button-color);
     color: white;
     border: none;
     padding: 16px 30px;
@@ -132,22 +142,39 @@ html, body {
     letter-spacing: 0.5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(60, 99, 130, 0.4);
+    box-shadow: 0 5px 15px rgba(110, 139, 158, 0.25);
     width: 100%;
 }
 
 .cta-button:hover {
-    background-color: #2a536f; /* Darker version of secondary-color */
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 20px rgba(60, 99, 130, 0.5);
+    background-color: #5d7989; /* Darker version of form-button-color */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(110, 139, 158, 0.3);
 }
 
 .countdown-call-button {
-    background-color: var(--secondary-color);
+    background-color: var(--call-action-color);
+    color: white;
+    border: none;
+    font-weight: 700;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(83, 122, 90, 0.25);
+    transition: all 0.4s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    /* Subtle glow effect */
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .countdown-call-button:hover {
-    background-color: #2a536f; /* Darker version of secondary-color */
+    background-color: #466952; /* Slightly darker version of call-action-color */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(83, 122, 90, 0.35);
+    text-decoration: none;
+    color: white;
 }
 
 /* Pulse animation */
@@ -163,15 +190,15 @@ html, body {
     left: 50%;
     width: 120%;
     height: 120%;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     transform: translate(-50%, -50%) scale(0);
-    animation: pulse-white 2s infinite;
+    animation: pulse-gentle 3s infinite;
     z-index: -1;
 }
 
-@keyframes pulse-white {
-    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+@keyframes pulse-gentle {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0.8; }
     70% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
     100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
 }
@@ -350,26 +377,22 @@ html, body {
 
 /* Enhanced special call button */
 .special-call-button {
-    background-color: var(--accent-color);
+    background-color: var(--call-action-color);
     padding: 18px 30px;
-    font-size: 1.4rem;
-    border-radius: 50px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 800;
-    box-shadow: 0 5px 15px rgba(75, 123, 138, 0.4);
+    font-size: 1.3rem;
+    font-weight: 700;
+    box-shadow: 0 5px 15px rgba(83, 122, 90, 0.3);
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+    /* Remove aggressive animation in favor of more subtle pulse */
+    animation: gentle-pulse 3s infinite;
 }
 
-.special-call-button:hover {
-    background-color: #3a6271; /* Darker version of accent-color */
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 20px rgba(75, 123, 138, 0.5);
+@keyframes gentle-pulse {
+    0% { transform: scale(1); box-shadow: 0 5px 15px rgba(83, 122, 90, 0.3); }
+    50% { transform: scale(1.02); box-shadow: 0 6px 18px rgba(83, 122, 90, 0.4); }
+    100% { transform: scale(1); box-shadow: 0 5px 15px rgba(83, 122, 90, 0.3); }
 }
 
 .special-phone-link {
@@ -392,9 +415,10 @@ html, body {
     left: 0;
     width: 100%;
     background-color: var(--call-action-color);
-    padding: 12px 0;
+    padding: 10px 0;
     z-index: 1000;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -2px 10px rgba(83, 122, 90, 0.25);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: none;
 }
 
@@ -405,7 +429,7 @@ html, body {
     color: white;
     text-decoration: none;
     padding: 5px 0;
-    font-weight: 800;
+    font-weight: 700;
     gap: 10px;
 }
 
@@ -425,11 +449,11 @@ html, body {
     }
     
     body {
-        padding-bottom: 60px;
+        padding-bottom: 55px; /* Add padding to prevent content from being hidden behind the floating button */
     }
     
     footer {
-        margin-bottom: 40px;
+        margin-bottom: 35px;
     }
     
     .hero h1 {
@@ -624,89 +648,36 @@ html, body {
     }
 }
 
-/* Enhanced special call button */
-.special-call-button {
-    background-color: #e53e3e;
-    padding: 18px 30px;
-    font-size: 1.4rem;
-    border-radius: 50px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 800;
-    box-shadow: 0 5px 15px rgba(229, 62, 62, 0.4);
-    animation: pulse-special 2s infinite;
-}
-
-.special-call-button:hover {
-    background-color: #c53030;
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 20px rgba(229, 62, 62, 0.5);
-}
-
-@keyframes pulse-special {
-    0% { transform: scale(1); box-shadow: 0 5px 15px rgba(229, 62, 62, 0.4); }
-    50% { transform: scale(1.05); box-shadow: 0 8px 25px rgba(229, 62, 62, 0.6); }
-    100% { transform: scale(1); box-shadow: 0 5px 15px rgba(229, 62, 62, 0.4); }
-}
-
-.special-phone-link {
-    color: #e53e3e;
-    font-weight: 700;
-    font-size: 1.2rem;
-    text-decoration: underline;
-}
-
-.disqualification-reasons ul li {
-    margin-bottom: 12px;
-    font-size: 1.1rem;
-}
-
-/* Floating call button for mobile */
-.floating-call-button {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #e53e3e;
-    padding: 10px 0;
-    z-index: 1000;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
-    display: none;
-}
-
-.floating-call-button a {
+/* Phone icon styling */
+.phone-icon {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: rgba(255, 255, 255, 0.15); 
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    margin-right: 3px;
+}
+
+/* Form Submit and Next buttons - professional but less prominent */
+.next-button, .submit-button {
+    background: var(--form-button-color);
     color: white;
-    text-decoration: none;
-    padding: 5px 0;
-    font-weight: 700;
-    gap: 10px;
-}
-
-.floating-phone-icon {
-    font-size: 1.5rem;
-}
-
-.floating-call-text {
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    border: none;
+    padding: 14px 25px;
     font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(110, 139, 158, 0.2);
 }
 
-@media (max-width: 768px) {
-    .floating-call-button {
-        display: block;
-    }
-    
-    body {
-        padding-bottom: 55px; /* Add padding to prevent content from being hidden behind the floating button */
-    }
-    
-    footer {
-        margin-bottom: 35px;
-    }
+.next-button:hover, .submit-button:hover {
+    background: #5d7989; /* Darker version of form-button-color */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(110, 139, 158, 0.25);
 }
 
 /* Enhanced contact page styling */
@@ -910,13 +881,13 @@ footer {
     font-weight: 700;
     text-decoration: none;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(72, 107, 89, 0.3);
+    box-shadow: 0 4px 8px rgba(83, 122, 90, 0.3);
 }
 
 .consultation-button:hover {
-    background-color: #3a5949; /* Darker version of call-action-color */
+    background-color: #466952; /* Slightly darker version of call-action-color */
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(72, 107, 89, 0.4);
+    box-shadow: 0 6px 12px rgba(83, 122, 90, 0.4);
     text-decoration: none;
     color: white;
 }
