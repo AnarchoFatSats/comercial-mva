@@ -1083,58 +1083,28 @@ footer {
 
 /* Vehicle types icons styling */
 .vehicle-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: rgba(66, 153, 225, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 15px;
-    border: 2px solid rgba(66, 153, 225, 0.2);
+    margin-bottom: 20px;
 }
 
 .vehicle-img {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
+    max-width: 50px;
+    height: auto;
 }
 
 /* Color variations for vehicle icons */
 .delivery-icon {
-    background-color: rgba(59, 130, 246, 0.1);
-    border-color: rgba(59, 130, 246, 0.3);
 }
 
 .truck-icon {
-    background-color: rgba(239, 68, 68, 0.1);
-    border-color: rgba(239, 68, 68, 0.3);
 }
 
 .car-icon {
-    background-color: rgba(16, 185, 129, 0.1);
-    border-color: rgba(16, 185, 129, 0.3);
 }
 
 .special-icon {
-    background-color: rgba(245, 158, 11, 0.1);
-    border-color: rgba(245, 158, 11, 0.3);
-}
-
-.delivery-icon .vehicle-img {
-    filter: brightness(0) saturate(100%) invert(43%) sepia(91%) saturate(1954%) hue-rotate(201deg) brightness(97%) contrast(94%);
-}
-
-.truck-icon .vehicle-img {
-    filter: brightness(0) saturate(100%) invert(32%) sepia(95%) saturate(7466%) hue-rotate(353deg) brightness(100%) contrast(88%);
-}
-
-.car-icon .vehicle-img {
-    filter: brightness(0) saturate(100%) invert(67%) sepia(58%) saturate(4656%) hue-rotate(131deg) brightness(94%) contrast(83%);
-}
-
-.special-icon .vehicle-img {
-    filter: brightness(0) saturate(100%) invert(68%) sepia(83%) saturate(1046%) hue-rotate(359deg) brightness(102%) contrast(101%);
 }
 
 /* Accessibility improvements */
