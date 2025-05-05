@@ -1,3 +1,4 @@
+# Allow all web crawlers
 User-agent: *
 Allow: /
 
@@ -5,4 +6,4 @@ Allow: /
 Disallow:
 
 # Location of the sitemap file
-Sitemap: https://myinjuryclaimnow.com/sitemap.xml 
+Sitemap: https://myinjuryclaimnow.com/sitemap.xml
